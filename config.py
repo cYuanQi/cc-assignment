@@ -1,7 +1,7 @@
-customhost = "database-1.cizar3lczvxa.us-east-1.rds.amazonaws.com"
+customhost = "clouddb.cp0ylxbeyow9.us-east-1.rds.amazonaws.com"
 customuser = "aws_user"
-custompass = "Bait3273"
-customdb = "employee"
-custombucket = "chongyq-"
+custompass = "Bait3273!"
+customdb = "cloudDB"
+custombucket = "janetsohjiaer-bucket"
 customregion = "us-east-1"
 
