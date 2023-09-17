@@ -20,6 +20,10 @@ db_conn = connections.Connection(
 output = {}
 table = 'admin'
 
+@app.route("/", methods=['GET'])
+def home():
+    return render_template('admin.html')
+
 @app.route("/StudentApplyJobs", methods=['GET'])
 def student_apply_jobs():
     return render_template('StudentApplyJobs.html')
@@ -35,8 +39,11 @@ def assign_supervisor():
     sup_name = request.form['sup_name']
     sup_id = request.form['sup_id']
 
-    insert_sql = "INSERT INTO admin VALUES (%s, %s, %s, %s)"
     cursor = db_conn.cursor()
+    insert_sql = "INSERT INTO admin VALUES (%s, %s, %s, %s)"
+    cursor.execute(insert_sql, (stud_name, stud_id, sup_name, sup_id))
+    db_conn.commit()
+    cursor.close()
 
 
     return render_template('assign_supervisor_Output.html')
@@ -44,6 +51,7 @@ def assign_supervisor():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
+
 
 
 
