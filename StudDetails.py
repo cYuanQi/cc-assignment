@@ -8,6 +8,9 @@ from config import *
 app = Flask(__name__)
 # app.secret_key = 'your_secret_key'  # Replace with a secret key for flash messages
 
+bucket = custombucket
+region = customregion
+
 # MySQL database connection setup
 db_conn = connections.Connection(
     host=customhost,
