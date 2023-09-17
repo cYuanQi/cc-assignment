@@ -1,10 +1,10 @@
 # cc-assignment
 Cloud Computing Assignment
 
-sudo su
-dnf install git -y
-git clone https://github.com/cYuanQi/cc-assignment.git
-cd cc-assignment
-dnf install python-pip -y
-pip3 install flask pymysql boto3
-python3 StudDetails.py
+sudo su</br>
+dnf install git -y</br>
+git clone https://github.com/cYuanQi/cc-assignment.git</br>
+cd cc-assignment</br>
+dnf install python-pip -y</br>
+pip3 install flask pymysql boto3</br>
+python3 StudDetails.py</br>
