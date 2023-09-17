@@ -73,7 +73,7 @@
               </li>
               <li><a href="blog.html">Blog</a></li>
               <li><a href="contact.html">Contact</a></li>
-              <li class="d-lg-none"><a href="post-job.html"><span class="mr-2">+</span> Post a Job</a></li>
+              <li class="d-lg-none"><a href="student-details.html"><span class="mr-2">+</span> Submit Report</a></li>
               <li class="d-lg-none"><a href="no_login.html">Log Out</a></li>
             </ul>
           </nav>
@@ -111,7 +111,7 @@
         <div class="row">
           <div class="col-lg-6 offset-lg-3">
             <h2 class="mb-4">Student Details</h2>
-            <form action="#" class="p-4 border rounded">
+            <form action="/submit_student" method="POST" class="p-4 border rounded">
 
               <div class="row form-group">
                 <div class="col-md-12 mb-3 mb-md-0">
@@ -139,11 +139,9 @@
               </div>
 
 
-
               <div class="form-group">
-                <label for="company-website-tw d-block">Resume</label> <br>
-                <label class="btn btn-primary btn-md btn-file">
-                  Browse File<input type="file" hidden>
+                <label for="resume_file" class="btn btn-primary btn-md btn-file">
+                  Browse File<input type="file" name="resume_file" id="resume_file" hidden>
                 </label>
               </div>
 
