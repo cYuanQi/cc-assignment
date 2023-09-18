@@ -34,14 +34,25 @@ def AddEmp():
     user_password = request.form['user_password']
     user_repassword = request.form['user_repassword']
 
-    insert_sql = "INSERT INTO login VALUES (%s, %s, %s)"
+    # Check the email domain to determine the role and redirect accordingly
+    if user_email.endswith('@company.com'):
+        return "Please sign up in another form!"
+    else: 
+        if user_email.endswith('@student.com'):
+            user_role = "student"
+        elif user_email.endswith('@admin.com'):
+            user_role = "admin"
+        elif user_email.endswith('@lecturer.com'):
+            user_role = "lecturer"
+
+    insert_sql = "INSERT INTO login VALUES (%s, %s, %s, %s)"
     cursor = db_conn.cursor()
 
     if user_password != user_repassword:
         return "Please check your password!"
 
     try:
-        cursor.execute(insert_sql, (user_name, user_email, user_password))
+        cursor.execute(insert_sql, (user_role, user_name, user_email, user_password))
         db_conn.commit()
 
     except Exception as e:
@@ -60,8 +71,9 @@ def AddEmp():
     company_email = request.form['company_email']
     company_password = request.form['company_password']
     company_repassword = request.form['company_repassword']
+    user_role = "lecturer"
 
-    insert_sql = "INSERT INTO login VALUES (%s, %s, %s)"
+    cursor.execute(insert_sql, (user_role, company_name, company_email, company_password))
     cursor = db_conn.cursor()
 
     if user_password != user_repassword:
