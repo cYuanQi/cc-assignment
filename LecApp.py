@@ -13,6 +13,9 @@ db_conn = connections.Connection(
     db=customdb
 )
 
+output = {}
+table = 'lecturer'
+
 @app.route("/", methods=['GET', 'POST'])
 def home():
     return render_template('lecturer.html')
