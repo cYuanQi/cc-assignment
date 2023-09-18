@@ -28,7 +28,7 @@ def home():
 
 # USer Sign up - stud, lecturer
 @app.route("/adduser", methods=['POST'])
-def AddEmp():
+def AddUser():
     user_name = request.form['user_name']
     user_email = request.form['user_email']
     user_password = request.form['user_password']
@@ -66,7 +66,7 @@ def AddEmp():
 
 # Register Company
 @app.route("/addCompany", methods=['POST'])
-def AddEmp():
+def AddCompany():
     company_name = request.form['company_name']
     company_email = request.form['company_email']
     company_password = request.form['company_password']
@@ -94,7 +94,7 @@ def AddEmp():
 
 # Login
 @app.route("/userlogin", methods=['POST'])
-def AddEmp():
+def UserLogin():
     user_email = request.form['user_email']
     user_password = request.form['user_password']
 
