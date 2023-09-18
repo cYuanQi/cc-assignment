@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
 import mariadb
 import os
+import boto3
+from config import *
 
 app = Flask(__name__)
 
