@@ -20,7 +20,7 @@ db_conn = connections.Connection(
 output = {}
 table = 'admin'
 
-@app.route("/", methods=['GET'])
+@app.route("/", methods=['POST','GET'])
 def home():
     return render_template('admin.html')
 
