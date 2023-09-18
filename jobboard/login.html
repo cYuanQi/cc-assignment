@@ -109,7 +109,14 @@
         <div class="row">
           <div class="col-lg-6 mb-5">
             <h2 class="mb-4">Sign Up To JobBoard</h2>
-            <form action="#" class="p-4 border rounded">
+            <form action="/adduser" method="POST" class="p-4 border rounded">
+
+              <div class="row form-group">
+                <div class="col-md-12 mb-3 mb-md-0">
+                  <label class="text-black" for="name">Name</label>
+                  <input type="text" id="name" class="form-control" placeholder="Name">
+                </div>
+              </div>
 
               <div class="row form-group">
                 <div class="col-md-12 mb-3 mb-md-0">
@@ -140,7 +147,7 @@
           </div>
           <div class="col-lg-6">
             <h2 class="mb-4">Log In To JobBoard</h2>
-            <form id="loginForm" class="p-4 border rounded">
+            <form id="loginForm" action="/userlogin" method="POST" class="p-4 border rounded">
               <div class="row form-group">
                 <div class="col-md-12 mb-3 mb-md-0">
                   <label class="text-black" for="loginEmail">Email</label>
@@ -156,7 +163,8 @@
           
               <div class="row form-group">
                 <div class="col-md-12">
-                  <button id="loginButton" class="btn px-4 btn-primary text-white">Log In</button>
+                  <!-- <button id="loginButton" class="btn px-4 btn-primary text-white">Log In</button> -->
+                  <input type="submit" value="Log In" class="btn px-4 btn-primary text-white">
                 </div>
               </div>
             </form>
@@ -171,7 +179,7 @@
         <div class="row">
           <div class="col-lg-6 offset-lg-3">
             <h2 class="mb-4">Register Your Company</h2>
-            <form action="#" class="p-4 border rounded">
+            <form action="/addCompany" method="POST" class="p-4 border rounded">
 
               <div class="row form-group">
                 <div class="col-md-12 mb-3 mb-md-0">
@@ -200,7 +208,8 @@
 
               <div class="row form-group">
                 <div class="col-md-12">
-                  <input type="submit" value="Register Company" class="btn px-4 btn-primary text-white" onclick="displayConfirmationMessage()">
+                  <!-- <input type="submit" value="Register Company" class="btn px-4 btn-primary text-white" onclick="displayConfirmationMessage()"> -->
+                  <input type="submit" value="Register Company" class="btn px-4 btn-primary text-white">
                 </div>
               </div>
 
@@ -289,12 +298,28 @@
     <script src="js/bootstrap-select.min.js"></script>
     
     <script src="js/custom.js"></script>
-
-    <script>
+    
+    <!-- <script>
       function displayConfirmationMessage() {
         alert("Your registration was successful. Please wait for admin approval.");
       }
-    </script>
+    </script> -->
+
+    {% if show_msg %}
+      <script>
+        alert('{{ show_msg }}');
+        // Clear the show_msg to avoid displaying it on page reload
+        {% set show_msg = None %}
+      </script>
+    {% endif %}
+    
+    <!-- <script>
+      var show_msg = "{{ show_msg }}";
+      if (show_msg) {
+        alert(show_msg);
+        show_msg = null;  // Clear the show_msg to avoid displaying it on page reload
+      }
+    </script> -->
    
    <script src="js/login.js"></script>
 
