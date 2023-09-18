@@ -3,6 +3,7 @@ from pymysql import connections
 import os
 import boto3
 from config import *
+import mariadb
 
 app = Flask(__name__)
 
