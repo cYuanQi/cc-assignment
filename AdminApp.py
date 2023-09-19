@@ -26,20 +26,27 @@ def home():
 
 @app.route("/AddAdmin", methods=['POST'])
 def addAdmin():
+    return render_template('AddAdmin.html')
+
+@app.route("/AddAdminProcess", methods=['GET', 'POST'])
+def addAdminProcess():
     adm_id = request.form['adm_id']
-    adm_first_name = request.form['adm_first_name']
-    adm_last_name = request.form['adm_last_name']
-    adm_location = request.form['adm_location']
+    adm_name = request.form['adm_name']
+    adm_gender = request.form['adm_gender']
+    adm_dob = request.form['adm_dob']
+    adm_address = request.form['adm_adddress']
+    adm_email = request.form['adm_email']
+    adm_phone = request.form['adm_phone']
     adm_img = request.files['adm_img']
 
     cursor = db_conn.cursor()
-    insert_sql = "INSERT INTO admin_profile(adm_id, adm_first_name, adm_last_name, adm_location) VALUES (%s, %s, %s, %s)"
+    insert_sql = "INSERT INTO admin_profile(adm_id, adm_name, adm_gender, adm_dob, adm_address, adm_email, adm_phone) VALUES (%s, %s, %s, %s, %s, %s, %s)"
 
     if adm_img == "":
         return "Please select a image"
 
     try:
-        cursor.execute(insert_sql, (adm_id, adm_first_name, adm_last_name, adm_location))
+        cursor.execute(insert_sql, (adm_id, adm_name, adm_gender, adm_dob, adm_address, adm_email, adm_phone))
         db_conn.commit()
 
         # Uplaod image file in S3 #
@@ -76,14 +83,6 @@ def addAdmin():
 
     return render_template('admin_profile.html', rows=rows)
 
-@app.route("/StudentApplyJobs", methods=['GET'])
-def student_apply_jobs():
-    cursor = db_conn.cursor()
-
-    cursor.execute('SELECT * FROM student')
-    rows = cursor.fetchall()
-    cursor.close()
-    return render_template('StudentApplyJobs.html', rows=rows)
 
 @app.route("/companylistadm", methods=['GET'])
 def company_list():
@@ -94,8 +93,13 @@ def company_list():
     cursor.close()
     return render_template('company_list_adm.html', rows=row)
 
-@app.route("/assignsupervisor", methods=['POST'])
+
+@app.route("/assignsupervisorProcess", methods=['GET', 'POST'])
 def assign_supervisor():
+    return render_template('assign-supervisor.html')
+
+@app.route("/assignsupervisorProcess", methods=['POST'])
+def assign_supervisorProcess():
     stud_name = request.form['stud_name']
     stud_id = request.form['stud_id']
     sup_name = request.form['sup_name']
