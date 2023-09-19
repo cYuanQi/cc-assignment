@@ -29,10 +29,10 @@ def home():
 # USer Sign up - stud, lecturer
 @app.route("/adduser", methods=['POST'])
 def AddUser():
-    user_name = request.form['user_name']
-    user_email = request.form['user_email']
-    user_password = request.form['user_password']
-    user_repassword = request.form['user_repassword']
+    user_name = request.form['name']
+    user_email = request.form['email']
+    user_password = request.form['password']
+    user_repassword = request.form['retypePassword']
 
     # Check the email domain to determine the role and redirect accordingly
     if user_email.endswith('@student.com'):
@@ -65,8 +65,8 @@ def AddUser():
 # Login
 @app.route("/userlogin", methods=['POST'])
 def UserLogin():
-    user_email = request.form['user_email']
-    user_password = request.form['user_password']
+    user_email = request.form['loginEmail']
+    user_password = request.form['loginPassword']
 
     cursor.execute("SELECT * FROM login WHERE email=%s", (user_email,))
     user = cursor.fetchone()
@@ -198,6 +198,6 @@ def userpage():
 def admin():
     return render_template('admin.html')
 
-    
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
