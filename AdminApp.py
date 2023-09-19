@@ -20,16 +20,16 @@ db_conn = connections.Connection(
 output = {}
 table = 'admin'
 
-@app.route("/admin", methods=['GET'])
+@app.route("/admin")
 def home():
     return render_template('admin.html')
 
-@app.route("/AddAdmin", methods=['POST'])
+@app.route("/AddAdmin")
 def addAdmin():
     return render_template('AddAdmin.html')
 
 
-@app.route("/companylistadm", methods=['GET'])
+@app.route("/companylistadm")
 def company_list():
     cursor = db_conn.cursor()
 
@@ -39,7 +39,7 @@ def company_list():
     return render_template('company_list_adm.html', rows=row)
 
 
-@app.route("/assignsupervisor", methods=['GET', 'POST'])
+@app.route("/assignsupervisor")
 def assign_supervisor():
     return render_template('assign-supervisor.html')
 
