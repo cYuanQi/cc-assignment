@@ -77,7 +77,7 @@
             <div class="custom-breadcrumbs">
               <a href="#">Home</a> <span class="mx-2 slash">/</span>
               <a href="#">Admin</a> <span class="mx-2 slash">/</span>
-              <span class="text-white"><strong>Assign Supervisor</strong></span>
+              <span class="text-white"><strong>Adminitrator Profile</strong></span>
             </div>
           </div>
         </div>
@@ -85,41 +85,43 @@
     </section>
 
     <!-- PAGE CONTENT -->
-    <section class="site-section">
-      <div class="container">
-        <div class="row align-items-center mb-5">
-          <div class="col-lg-8 mb-4 mb-lg-0">
-            <div class="d-flex align-items-center">
-              <div>
-                <h2>Assign Supervisors to Students</h2>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row mb-5">
-          <div class="col-lg-12">
-            <form class="p-4 p-md-5 border rounded" method="post">
-              <h3 class="text-black mb-5 border-bottom pb-2">Student and Supervisor Details</h3>
-              
-              <div class="form-group">
-                <label for="student-name">Student Name</label>
-                <input type="text" class="form-control" id="student-name" placeholder="John Doe">
-              </div>
-
-              <div class="form-group">
-                <label for="student-id">Student ID</label>
-                <input type="text" class="form-control" id="student-id" placeholder="123456">
-              </div>
-
-              <div class="form-group">
-                <label for="supervisor-name">Supervisor Name</label>
-                <input type="text" class="form-control" id="supervisor-name" placeholder="Jane Smith">
-              </div>
-
-              <div class="form-group">
-                <label for="supervisor-id">Supervisor ID</label>
-                <input type="text" class="form-control" id="supervisor-id" placeholder="789012">
-              </div>
+    <section class="s-pagecontent pagecontent" style="margin-left: 20%; margin-right: 20%;">
+		<h3 class="u-add-bottom">Add New Employee</h3>
+		<form action="/addEmpProcess" method = "POST" enctype="multipart/form-data">
+			<div>
+				<label for="employee_id">Employee ID</label>
+				<input class="u-fullwidth" type="text" id="employee_id" name="employee_id">
+			</div>
+			<div>
+				<label for="name">Name</label>
+				<input class="u-fullwidth" type="text" id="name" name="name">
+			</div>
+			<div>
+				<label for="gender">Gender</label>
+				<div class="ss-custom-select">
+					<select class="u-fullwidth" id="gender" name="gender">
+						<option value="Male">Male</option>
+						<option value="Female">Female</option>
+						<option value="Other">Other</option>
+					</select>
+				</div>
+			</div>
+			<div>
+				<label for="dob">Date of Birth</label>
+				<input class="u-fullwidth" type="date" id="dob" name="dob">
+			</div>
+			<div>
+				<label for="address">Address</label>
+				<textarea class="u-fullwidth" id="address" name="address"></textarea>
+			</div>
+			<div>
+				<label for="email">Email</label>
+				<input class="u-fullwidth" type="email" id="email" name="email">
+			</div>
+			<div>
+				<label for="phone">Phone Number</label>
+				<input class="u-fullwidth" type="tel" id="phone" name="phone">
+			</div>
 
             </form>
           </div>
@@ -209,3 +211,5 @@
     <script src="static/js/custom.js"></script>
   </body>
 </html>
+
+
