@@ -18,8 +18,6 @@ python3 LecApp.py</br>
 -- paste if "path exists problem"</br>
 rm -rf cc-assignment</br>
 
-===================================</br>
-
 ## HeidiSQL connect
 Hostname / IP: databaseitp.cp0ylxbeyow9.us-east-1.rds.amazonaws.com</br>
 User: aws_user</br>
