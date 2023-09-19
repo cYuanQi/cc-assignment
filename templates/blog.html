@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="static/css/quill.snow.css">
     
 
-    <!-- MAIN static/css -->
+    <!-- MAIN CSS -->
     <link rel="stylesheet" href="static/css/style.css">    
   </head>
   <body id="top">
@@ -35,7 +35,7 @@
     <div class="site-mobile-menu site-navbar-target">
       <div class="site-mobile-menu-header">
         <div class="site-mobile-menu-close mt-3">
-          <span class="icon-close2 static/static/js-menu-toggle"></span>
+          <span class="icon-close2 js-menu-toggle"></span>
         </div>
       </div>
       <div class="site-mobile-menu-body"></div>
@@ -46,27 +46,26 @@
     <header class="site-navbar mt-3">
       <div class="container-fluid">
         <div class="row align-items-center">
-          <div class="site-logo col-6"><a href="{{url_for('index')}}">JobBoard</a></div>
+          <div class="site-logo col-6"><a href="{{url_for('nologin')}}">JobBoard</a></div>
 
           <nav class="mx-auto site-navigation">
-            <ul class="site-menu static/static/js-clone-nav d-none d-xl-block ml-0 pl-0">
-              <li><a href="{{url_for('index')}}" class="nav-link">Home</a></li>
+            <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
+              <li><a href="{{url_for('nologin')}}" class="nav-link">Home</a></li>
               <li><a href="{{url_for('about')}}">About</a></li>
               <li class="has-children">
-                <a href="{{url_for('job-listings')}}">Job Listings</a>
+                <a href="{{url_for('joblistings')}}">Job Listings</a>
                 <ul class="dropdown">
-                  <li><a href="{{url_for('job-single')}}">Job Single</a></li>
-                  <li><a href="{{url_for('post-job')}}">Post a Job</a></li>
+                  <li><a href="{{url_for('jobsingle')}}">Job Single</a></li>
                 </ul>
               </li>
               <li class="has-children">
                 <a href="{{url_for('services')}}">Pages</a>
                 <ul class="dropdown">
                   <li><a href="{{url_for('services')}}">Services</a></li>
-                  <li><a href="{{url_for('service-single')}}">Service Single</a></li>
-                  <li><a href="{{url_for('blog-single')}}">Blog Single</a></li>
+                  <li><a href="{{url_for('servicesingle')}}">Service Single</a></li>
+                  <li><a href="{{url_for('blogsingle')}}">Blog Single</a></li>
                   <li><a href="{{url_for('portfolio')}}">Portfolio</a></li>
-                  <li><a href="{{url_for('portfolio-single')}}">Portfolio Single</a></li>
+                  <li><a href="{{url_for('portfoliosingle')}}">Portfolio Single</a></li>
                   <li><a href="{{url_for('testimonials')}}">Testimonials</a></li>
                   <li><a href="{{url_for('faq')}}">Frequently Ask Questions</a></li>
                   <li><a href="{{url_for('gallery')}}">Gallery</a></li>
@@ -74,17 +73,15 @@
               </li>
               <li><a href="{{url_for('blog')}}" class="active">Blog</a></li>
               <li><a href="{{url_for('contact')}}">Contact</a></li>
-              <li class="d-lg-none"><a href="{{url_for('post-job')}}"><span class="mr-2">+</span> Post a Job</a></li>
               <li class="d-lg-none"><a href="{{url_for('login')}}">Log In</a></li>
             </ul>
           </nav>
           
           <div class="right-cta-menu text-right d-flex aligin-items-center col-6">
             <div class="ml-auto">
-              <a href="{{url_for('post-job')}}" class="btn btn-outline-white border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-add"></span>Post a Job</a>
               <a href="{{url_for('login')}}" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-lock_outline"></span>Log In</a>
             </div>
-            <a href="#" class="site-menu-toggle static/static/js-menu-toggle d-inline-block d-xl-none mt-lg-2 ml-3"><span class="icon-menu h3 m-0 p-0 mt-2"></span></a>
+            <a href="#" class="site-menu-toggle js-menu-toggle d-inline-block d-xl-none mt-lg-2 ml-3"><span class="icon-menu h3 m-0 p-0 mt-2"></span></a>
           </div>
 
         </div>
@@ -110,33 +107,33 @@
       <div class="container">
         <div class="row mb-5">
           <div class="col-md-6 col-lg-4 mb-5">
-            <a href="{{url_for('blog-single')}}"><img src="static/images/sq_img_1.jpg" alt="Image" class="img-fluid rounded mb-4"></a>
-            <h3><a href="{{url_for('blog-single')}}" class="text-black">7 Factors for Choosing Between Two Jobs</a></h3>
+            <a href="{{url_for('blogsingle')}}"><img src="static/images/sq_img_1.jpg" alt="Image" class="img-fluid rounded mb-4"></a>
+            <h3><a href="{{url_for('blogsingle')}}" class="text-black">7 Factors for Choosing Between Two Jobs</a></h3>
             <div>April 15, 2019 <span class="mx-2">|</span> <a href="#">2 Comments</a></div>
           </div>
           <div class="col-md-6 col-lg-4 mb-5">
-            <a href="{{url_for('blog-single')}}"><img src="static/images/sq_img_2.jpg" alt="Image" class="img-fluid rounded mb-4"></a>
-            <h3><a href="{{url_for('blog-single')}}" class="text-black">How to Write a Creative Cover Letter</a></h3>
+            <a href="{{url_for('blogsingle')}}"><img src="static/images/sq_img_2.jpg" alt="Image" class="img-fluid rounded mb-4"></a>
+            <h3><a href="{{url_for('blogsingle')}}" class="text-black">How to Write a Creative Cover Letter</a></h3>
             <div>April 15, 2019 <span class="mx-2">|</span> <a href="#">2 Comments</a></div>
           </div>
           <div class="col-md-6 col-lg-4 mb-5">
-            <a href="{{url_for('blog-single')}}"><img src="static/images/sq_img_4.jpg" alt="Image" class="img-fluid rounded mb-4"></a>
-            <h3><a href="{{url_for('blog-single')}}" class="text-black">The Right Way to Quit a Job You Started</a></h3>
+            <a href="{{url_for('blogsingle')}}"><img src="static/images/sq_img_4.jpg" alt="Image" class="img-fluid rounded mb-4"></a>
+            <h3><a href="{{url_for('blogsingle')}}" class="text-black">The Right Way to Quit a Job You Started</a></h3>
             <div>April 15, 2019 <span class="mx-2">|</span> <a href="#">2 Comments</a></div>
           </div>
           <div class="col-md-6 col-lg-4 mb-5">
-            <a href="{{url_for('blog-single')}}"><img src="static/images/sq_img_7.jpg" alt="Image" class="img-fluid rounded mb-4"></a>
-            <h3><a href="{{url_for('blog-single')}}" class="text-black">7 Factors for Choosing Between Two Jobs</a></h3>
+            <a href="{{url_for('blogsingle')}}"><img src="static/images/sq_img_7.jpg" alt="Image" class="img-fluid rounded mb-4"></a>
+            <h3><a href="{{url_for('blogsingle')}}" class="text-black">7 Factors for Choosing Between Two Jobs</a></h3>
             <div>April 15, 2019 <span class="mx-2">|</span> <a href="#">2 Comments</a></div>
           </div>
           <div class="col-md-6 col-lg-4 mb-5">
-            <a href="{{url_for('blog-single')}}"><img src="static/images/sq_img_5.jpg" alt="Image" class="img-fluid rounded mb-4"></a>
-            <h3><a href="{{url_for('blog-single')}}" class="text-black">How to Write a Creative Cover Letter</a></h3>
+            <a href="{{url_for('blogsingle')}}"><img src="static/images/sq_img_5.jpg" alt="Image" class="img-fluid rounded mb-4"></a>
+            <h3><a href="{{url_for('blogsingle')}}" class="text-black">How to Write a Creative Cover Letter</a></h3>
             <div>April 15, 2019 <span class="mx-2">|</span> <a href="#">2 Comments</a></div>
           </div>
           <div class="col-md-6 col-lg-4 mb-5">
-            <a href="{{url_for('blog-single')}}"><img src="static/images/sq_img_6.jpg" alt="Image" class="img-fluid rounded mb-4"></a>
-            <h3><a href="{{url_for('blog-single')}}" class="text-black">The Right Way to Quit a Job You Started</a></h3>
+            <a href="{{url_for('blogsingle')}}"><img src="static/images/sq_img_6.jpg" alt="Image" class="img-fluid rounded mb-4"></a>
+            <h3><a href="{{url_for('blogsingle')}}" class="text-black">The Right Way to Quit a Job You Started</a></h3>
             <div>April 15, 2019 <span class="mx-2">|</span> <a href="#">2 Comments</a></div>
           </div>
         </div>
@@ -175,7 +172,7 @@
               <li><a href="#">Web Developers</a></li>
               <li><a href="#">Python</a></li>
               <li><a href="#">HTML5</a></li>
-              <li><a href="#">static/css3</a></li>
+              <li><a href="#">CSS3</a></li>
             </ul>
           </div>
           <div class="col-6 col-md-3 mb-4 mb-md-0">
