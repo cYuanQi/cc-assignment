@@ -7,18 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
     
-    <link rel="stylesheet" href="css/custom-bs.css">
-    <link rel="stylesheet" href="css/jquery.fancybox.min.css">
-    <link rel="stylesheet" href="css/bootstrap-select.min.css">
-    <link rel="stylesheet" href="fonts/icomoon/style.css">
-    <link rel="stylesheet" href="fonts/line-icons/style.css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/animate.min.css">
-    <link rel="stylesheet" href="css/quill.snow.css">
+    <link rel="stylesheet" href="static/css/custom-bs.css">
+    <link rel="stylesheet" href="static/css/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="static/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="static/fonts/icomoon/style.css">
+    <link rel="stylesheet" href="static/fonts/line-icons/style.css">
+    <link rel="stylesheet" href="static/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="static/css/animate.min.css">
+    <link rel="stylesheet" href="static/css/quill.snow.css">
     
 
     <!-- MAIN CSS -->
-    <link rel="stylesheet" href="css/style.css">    
+    <link rel="stylesheet" href="static/css/style.css">    
   </head>
   <body id="top">
 
@@ -46,43 +46,44 @@
     <header class="site-navbar mt-3">
       <div class="container-fluid">
         <div class="row align-items-center">
-          <div class="site-logo col-6"><a href="index.html">JobBoard</a></div>
+          <div class="site-logo col-6"><a href="index">JobBoard</a></div>
 
           <nav class="mx-auto site-navigation">
             <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
-              <li><a href="index.html" class="nav-link">Home</a></li>
-              <li><a href="about.html">About</a></li>
+              <li><a href="{{url_for('index')}}" class="nav-link">Home</a></li>
+              <li><a href="{{url_for('about')}}">About</a></li>
               <li class="has-children">
-                <a href="job-listings.html">Job Listings</a>
+                <a href="{{url_for('joblistings')}}">Job Listings</a>
                 <ul class="dropdown">
-                  <li><a href="job-single.html">Job Single</a></li>
-                  <li><a href="post-job.html">Post a Job</a></li>
+                  <li><a href="{{url_for('jobsingle')}}">Job Single</a></li>
+                  <li><a href="{{url_for('postjob')}}">Post a Job</a></li>
                 </ul>
               </li>
               <li class="has-children">
-                <a href="services.html">Pages</a>
+                <a href="{{url_for('services')}}">Pages</a>
                 <ul class="dropdown">
-                  <li><a href="services.html">Services</a></li>
-                  <li><a href="service-single.html">Service Single</a></li>
-                  <li><a href="blog-single.html">Blog Single</a></li>
-                  <li><a href="portfolio.html">Portfolio</a></li>
-                  <li><a href="portfolio-single.html">Portfolio Single</a></li>
-                  <li><a href="testimonials.html">Testimonials</a></li>
-                  <li><a href="faq.html">Frequently Ask Questions</a></li>
-                  <li><a href="gallery.html" class="active">Gallery</a></li>
+                  <li><a href="{{url_for('services')}}">Services</a></li>
+                  <li><a href="{{url_for('servicesingle')}}">Service Single</a></li>
+                  <li><a href="{{url_for('blogsingle')}}">Blog Single</a></li>
+                  <li><a href="{{url_for('portfolio')}}">Portfolio</a></li>
+                  <li><a href="{{url_for('portfoliosingle')}}">Portfolio Single</a></li>
+                  <li><a href="{{url_for('testimonials')}}">Testimonials</a></li>
+                  <li><a href="{{url_for('faq')}}">Frequently Ask Questions</a></li>
+                  <li><a href="{{url_for('gallery')}}">Gallery</a></li>
                 </ul>
               </li>
-              <li><a href="blog.html">Blog</a></li>
-              <li><a href="contact.html">Contact</a></li>
-              <li class="d-lg-none"><a href="post-job.html"><span class="mr-2">+</span> Post a Job</a></li>
-              <li class="d-lg-none"><a href="login.html">Log In</a></li>
+              <li><a href="{{url_for('blog')}}">Blog</a></li>
+              <li><a href="{{url_for('contact')}}">Contact</a></li>
+              <li class="d-lg-none"><a href="{{url_for('login')}}">Log In</a></li>
+              <li class="d-lg-none"><a href="{{url_for('postjob')}}" ><span class="mr-2">+</span> Post a Job</a></li>
+             
             </ul>
           </nav>
           
           <div class="right-cta-menu text-right d-flex aligin-items-center col-6">
             <div class="ml-auto">
-              <a href="post-job.html" class="btn btn-outline-white border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-add"></span>Post a Job</a>
-              <a href="login.html" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-lock_outline"></span>Log In</a>
+              <a href="{{url_for('postjob')}}" class="btn btn-outline-white border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-add"></span>Post a Job</a>
+              <a href="{{url_for('login')}}"class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-lock_outline"></span>Log In</a>
             </div>
             <a href="#" class="site-menu-toggle js-menu-toggle d-inline-block d-xl-none mt-lg-2 ml-3"><span class="icon-menu h3 m-0 p-0 mt-2"></span></a>
           </div>
@@ -92,13 +93,13 @@
     </header>
 
     <!-- HOME -->
-    <section class="section-hero overlay inner-page bg-image" style="background-image: url('images/hero_1.jpg');" id="home-section">
+    <section class="section-hero overlay inner-page bg-image" style="background-image: url('static/images/hero_1.jpg');" id="home-section">
       <div class="container">
         <div class="row">
           <div class="col-md-7">
             <h1 class="text-white font-weight-bold">Gallery</h1>
             <div class="custom-breadcrumbs">
-              <a href="index.html">Home</a> <span class="mx-2 slash">/</span>
+              <a href="{{url_for('index')}}">Home</a> <span class="mx-2 slash">/</span>
               <span class="text-white"><strong>Gallery</strong></span>
             </div>
           </div>
@@ -110,91 +111,91 @@
       <div class="container">
         <div class="row">
           <div class="col-md-6 col-lg-4 item">
-            <a href="images/sq_img_1.jpg" class="item-wrap fancybox" data-fancybox="gallery2">
+            <a href="static/images/sq_img_1.jpg" class="item-wrap fancybox" data-fancybox="gallery2">
               <span class="icon-search2"></span>
-              <img class="img-fluid" src="images/sq_img_1.jpg">
+              <img class="img-fluid" src="static/images/sq_img_1.jpg">
             </a>
           </div>
           <div class="col-md-6 col-lg-4 item">
-            <a href="images/sq_img_2.jpg" class="item-wrap fancybox" data-fancybox="gallery2">
+            <a href="static/images/sq_img_2.jpg" class="item-wrap fancybox" data-fancybox="gallery2">
               <span class="icon-search2"></span>
-              <img class="img-fluid" src="images/sq_img_2.jpg">
+              <img class="img-fluid" src="static/images/sq_img_2.jpg">
             </a>
           </div>
           <div class="col-md-6 col-lg-4 item">
-            <a href="images/sq_img_3.jpg" class="item-wrap fancybox" data-fancybox="gallery2">
+            <a href="static/images/sq_img_3.jpg" class="item-wrap fancybox" data-fancybox="gallery2">
               <span class="icon-search2"></span>
-              <img class="img-fluid" src="images/sq_img_3.jpg">
+              <img class="img-fluid" src="static/images/sq_img_3.jpg">
             </a>
           </div>
 
           <div class="col-md-6 col-lg-4 item">
-            <a href="images/sq_img_4.jpg" class="item-wrap fancybox" data-fancybox="gallery2">
+            <a href="static/images/sq_img_4.jpg" class="item-wrap fancybox" data-fancybox="gallery2">
               <span class="icon-search2"></span>
-              <img class="img-fluid" src="images/sq_img_4.jpg">
+              <img class="img-fluid" src="static/images/sq_img_4.jpg">
             </a>
           </div>
           <div class="col-md-6 col-lg-4 item">
-            <a href="images/sq_img_5.jpg" class="item-wrap fancybox" data-fancybox="gallery2">
+            <a href="static/images/sq_img_5.jpg" class="item-wrap fancybox" data-fancybox="gallery2">
               <span class="icon-search2"></span>
-              <img class="img-fluid" src="images/sq_img_5.jpg">
+              <img class="img-fluid" src="static/images/sq_img_5.jpg">
             </a>
           </div>
           <div class="col-md-6 col-lg-4 item">
-            <a href="images/sq_img_6.jpg" class="item-wrap fancybox" data-fancybox="gallery2">
+            <a href="static/images/sq_img_6.jpg" class="item-wrap fancybox" data-fancybox="gallery2">
               <span class="icon-search2"></span>
-              <img class="img-fluid" src="images/sq_img_6.jpg">
+              <img class="img-fluid" src="static/images/sq_img_6.jpg">
             </a>
           </div>
 
           <div class="col-md-6 col-lg-6 item">
-            <a href="images/sq_img_11.jpg" class="item-wrap fancybox" data-fancybox="gallery2">
+            <a href="static/images/sq_img_11.jpg" class="item-wrap fancybox" data-fancybox="gallery2">
               <span class="icon-search2"></span>
-              <img class="img-fluid" src="images/sq_img_11.jpg">
+              <img class="img-fluid" src="static/images/sq_img_11.jpg">
             </a>
           </div>
           <div class="col-md-6 col-lg-6 item">
-            <a href="images/sq_img_2.jpg" class="item-wrap fancybox" data-fancybox="gallery2">
+            <a href="static/images/sq_img_2.jpg" class="item-wrap fancybox" data-fancybox="gallery2">
               <span class="icon-search2"></span>
-              <img class="img-fluid" src="images/sq_img_2.jpg">
+              <img class="img-fluid" src="static/images/sq_img_2.jpg">
             </a>
           </div>
 
           <div class="col-md-6 col-lg-4 item">
-            <a href="images/sq_img_7.jpg" class="item-wrap fancybox" data-fancybox="gallery2">
+            <a href="static/images/sq_img_7.jpg" class="item-wrap fancybox" data-fancybox="gallery2">
               <span class="icon-search2"></span>
-              <img class="img-fluid" src="images/sq_img_7.jpg">
+              <img class="img-fluid" src="static/images/sq_img_7.jpg">
             </a>
           </div>
           <div class="col-md-6 col-lg-4 item">
-            <a href="images/sq_img_8.jpg" class="item-wrap fancybox" data-fancybox="gallery2">
+            <a href="static/images/sq_img_8.jpg" class="item-wrap fancybox" data-fancybox="gallery2">
               <span class="icon-search2"></span>
-              <img class="img-fluid" src="images/sq_img_8.jpg">
+              <img class="img-fluid" src="static/images/sq_img_8.jpg">
             </a>
           </div>
           <div class="col-md-6 col-lg-4 item">
-            <a href="images/sq_img_9.jpg" class="item-wrap fancybox" data-fancybox="gallery2">
+            <a href="static/images/sq_img_9.jpg" class="item-wrap fancybox" data-fancybox="gallery2">
               <span class="icon-search2"></span>
-              <img class="img-fluid" src="images/sq_img_9.jpg">
+              <img class="img-fluid" src="static/images/sq_img_9.jpg">
             </a>
           </div>
 
           <div class="col-md-6 col-lg-4 item">
-            <a href="images/sq_img_10.jpg" class="item-wrap fancybox" data-fancybox="gallery2">
+            <a href="static/images/sq_img_10.jpg" class="item-wrap fancybox" data-fancybox="gallery2">
               <span class="icon-search2"></span>
-              <img class="img-fluid" src="images/sq_img_10.jpg">
+              <img class="img-fluid" src="static/images/sq_img_10.jpg">
             </a>
           </div>
           <div class="col-md-6 col-lg-4 item">
-            <a href="images/sq_img_11.jpg" class="item-wrap fancybox" data-fancybox="gallery2">
+            <a href="static/images/sq_img_11.jpg" class="item-wrap fancybox" data-fancybox="gallery2">
               <span class="icon-search2"></span>
-              <img class="img-fluid" src="images/sq_img_11.jpg">
+              <img class="img-fluid" src="static/images/sq_img_11.jpg">
             </a>
           </div>
           <div class="col-md-6 col-lg-4 item">
-            <a href="images/sq_img_12.jpg" class="item-wrap fancybox" data-fancybox="gallery2">
+            <a href="static/images/sq_img_12.jpg" class="item-wrap fancybox" data-fancybox="gallery2">
               <span class="icon-search2"></span>
-              <img class="img-fluid" src="images/sq_img_12.jpg">
+              <img class="img-fluid" src="static/images/sq_img_12.jpg">
             </a>
           </div>
 
@@ -263,22 +264,22 @@
   </div>
 
     <!-- SCRIPTS -->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/isotope.pkgd.min.js"></script>
-    <script src="js/stickyfill.min.js"></script>
-    <script src="js/jquery.fancybox.min.js"></script>
-    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="static/js/jquery.min.js"></script>
+    <script src="static/js/bootstrap.bundle.min.js"></script>
+    <script src="static/js/isotope.pkgd.min.js"></script>
+    <script src="static/js/stickyfill.min.js"></script>
+    <script src="static/js/jquery.fancybox.min.js"></script>
+    <script src="static/js/jquery.easing.1.3.js"></script>
     
-    <script src="js/jquery.waypoints.min.js"></script>
-    <script src="js/jquery.animateNumber.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/quill.min.js"></script>
+    <script src="static/js/jquery.waypoints.min.js"></script>
+    <script src="static/js/jquery.animateNumber.min.js"></script>
+    <script src="static/js/owl.carousel.min.js"></script>
+    <script src="static/js/quill.min.js"></script>
     
     
-    <script src="js/bootstrap-select.min.js"></script>
+    <script src="static/js/bootstrap-select.min.js"></script>
     
-    <script src="js/custom.js"></script>
+    <script src="static/js/custom.js"></script>
    
    
      
