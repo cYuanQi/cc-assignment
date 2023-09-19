@@ -47,44 +47,44 @@
     <header class="site-navbar mt-3">
       <div class="container-fluid">
         <div class="row align-items-center">
-          <div class="site-logo col-6"><a href="{{url_for('company')}}">JobBoard</a></div>
+          <div class="site-logo col-6"><a href="{{url _for('company')}}">JobBoard</a></div>
 
           <nav class="mx-auto site-navigation">
             <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
-              <li><a href="{{url_for('company')}}" class="nav-link active">Home</a></li>
-              <li><a href="{{url_for('about')}}">About</a></li>
+              <li><a href="{{url _for('company')}}" class="nav-link active">Home</a></li>
+              <li><a href="{{url _for('about')}}">About</a></li>
               <li class="has-children">
-                <a href="{{url_for('joblistings')}}">Job Listings</a>
+                <a href="{{url _for('joblistings')}}">Job Listings</a>
                 <ul class="dropdown">
-                  <li><a href="{{url_for('jobsingle')}}">Job Single</a></li>
-                  <li><a href="{{url_for('postjob')}}">Post a Job</a></li>
+                  <li><a href="{{url _for('jobsingle')}}">Job Single</a></li>
+                  <li><a href="{{url _for('postjob')}}">Post a Job</a></li>
                 </ul>
               </li>
               <li class="has-children">
-                <a href="{{url_for('services')}}">Pages</a>
+                <a href="{{url _for('services')}}">Pages</a>
                 <ul class="dropdown">
-                  <li><a href="{{url_for('services')}}">Services</a></li>
-                  <li><a href="{{url_for('servicesingle')}}">Service Single</a></li>
-                  <li><a href="{{url_for('blogsingle')}}">Blog Single</a></li>
-                  <li><a href="{{url_for('portfolio')}}">Portfolio</a></li>
-                  <li><a href="{{url_for('portfoliosingle')}}">Portfolio Single</a></li>
-                  <li><a href="{{url_for('testimonials')}}">Testimonials</a></li>
-                  <li><a href="{{url_for('faq')}}">Frequently Ask Questions</a></li>
-                  <li><a href="{{url_for('gallery')}}">Gallery</a></li>
+                  <li><a href="{{url _for('services')}}">Services</a></li>
+                  <li><a href="{{url _for('servicesingle')}}">Service Single</a></li>
+                  <li><a href="{{url _for('blogsingle')}}">Blog Single</a></li>
+                  <li><a href="{{url _for('portfolio')}}">Portfolio</a></li>
+                  <li><a href="{{url _for('portfoliosingle')}}">Portfolio Single</a></li>
+                  <li><a href="{{url _for('testimonials')}}">Testimonials</a></li>
+                  <li><a href="{{url _for('faq')}}">Frequently Ask Questions</a></li>
+                  <li><a href="{{url _for('gallery')}}">Gallery</a></li>
                
                 </ul>
               </li>
-              <li><a href="{{url_for('blog')}}">Blog</a></li>
-              <li><a href="{{url_for('contact')}}">Contact</a></li>
-              <li class="d-lg-none"><a href="{{url_for('postjob')}}"><span class="mr-2">+</span> Post a Job</a></li>
-              <li class="d-lg-none"><a href="{{url_for('nologin')}}">Log Out</a></li>
+              <li><a href="{{url _for('blog')}}">Blog</a></li>
+              <li><a href="{{url _for('contact')}}">Contact</a></li>
+              <li class="d-lg-none"><a href="{{url _for('postjob')}}"><span class="mr-2">+</span> Post a Job</a></li>
+              <li class="d-lg-none"><a href="{{url _for('nologin')}}">Log Out</a></li>
             </ul>
           </nav>
           
           <div class="right-cta-menu text-right d-flex aligin-items-center col-6">
             <div class="ml-auto">
-              <a href="{{url_for('postjob')}}" class="btn btn-outline-white border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-add"></span>Post a Job</a>
-              <a href="{{url_for('nologin')}}" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-lock_outline"></span>Log Out</a>
+              <a href="{{url _for('postjob')}}" class="btn btn-outline-white border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-add"></span>Post a Job</a>
+              <a href="{{url _for('nologin')}}" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-lock_outline"></span>Log Out</a>
             </div>
             <a href="#" class="site-menu-toggle js-menu-toggle d-inline-block d-xl-none mt-lg-2 ml-3"><span class="icon-menu h3 m-0 p-0 mt-2"></span></a>
           </div>
@@ -208,7 +208,7 @@
         
         <ul class="job-listings mb-5">
           <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
-            <a href="{{url_for('jobsingle')}}"></a>
+            <a href="{{url _for('jobsingle')}}"></a>
             <div class="job-listing-logo">
               <img src="static/images/job_logo_1.jpg" alt="Free Website Template by Free-Template.co" class="img-fluid">
             </div>
@@ -228,7 +228,7 @@
             
           </li>
           <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
-            <a href="{{url_for('jobsingle')}}"></a>
+            <a href="{{url _for('jobsingle')}}"></a>
             <div class="job-listing-logo">
               <img src="static/images/job_logo_2.jpg" alt="Free Website Template by Free-Template.co" class="img-fluid">
             </div>
@@ -248,7 +248,7 @@
           </li>
 
           <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
-            <a href="{{url_for('jobsingle')}}"></a>
+            <a href="{{url _for('jobsingle')}}"></a>
             <div class="job-listing-logo">
               <img src="static/images/job_logo_3.jpg" alt="Free Website Template by Free-Template.co" class="img-fluid">
             </div>
@@ -268,7 +268,7 @@
           </li>
 
           <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
-            <a href="{{url_for('jobsingle')}}"></a>
+            <a href="{{url _for('jobsingle')}}"></a>
             <div class="job-listing-logo">
               <img src="static/images/job_logo_4.jpg" alt="Free Website Template by Free-Template.co" class="img-fluid">
             </div>
@@ -288,7 +288,7 @@
           </li>
 
           <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
-            <a href="{{url_for('jobsingle')}}"></a>
+            <a href="{{url _for('jobsingle')}}"></a>
             <div class="job-listing-logo">
               <img src="static/images/job_logo_5.jpg" alt="Free Website Template by Free-Template.co" class="img-fluid">
             </div>
@@ -307,7 +307,7 @@
             </div>
           </li>
           <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
-            <a href="{{url_for('jobsingle')}}"></a>
+            <a href="{{url _for('jobsingle')}}"></a>
             <div class="job-listing-logo">
               <img src="static/images/job_logo_1.jpg" alt="Free Website Template by Free-Template.co" class="img-fluid">
             </div>
@@ -327,7 +327,7 @@
             
           </li>
           <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
-            <a href="{{url_for('jobsingle')}}"></a>
+            <a href="{{url _for('jobsingle')}}"></a>
             <div class="job-listing-logo">
               <img src="static/images/job_logo_2.jpg" alt="Free Website Template by Free-Template.co" class="img-fluid">
             </div>
