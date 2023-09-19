@@ -1,11 +1,10 @@
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <title>JobBoard &mdash; Website Template by Colorlib</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>JobBoard &mdash; Website Template by Colorlib</title>
+    
     
     <link rel="stylesheet" href="css/custom-bs.css">
     <link rel="stylesheet" href="css/jquery.fancybox.min.css">
@@ -54,14 +53,13 @@
               <li><a href ="lecturer-details.html">Lecturer Details</a></li>
               <li><a href="EvaluateReport.html">Report Evaluation</a></li>
               <li><a href="Grade.html">Grading</a></li>
-            
               <li class="d-lg-none"><a href="no_login.html">Log Out</a></li>
             </ul>
           </nav>
           
           <div class="right-cta-menu text-right d-flex aligin-items-center col-6">
             <div class="ml-auto">
-            
+              <a href="Student_report.html" class="btn btn-outline-white border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-add"></span>Submit Report</a>
               <a href="no_login.html" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-lock_outline"></span>Log Out</a>
             </div>
             <a href="#" class="site-menu-toggle js-menu-toggle d-inline-block d-xl-none mt-lg-2 ml-3"><span class="icon-menu h3 m-0 p-0 mt-2"></span></a>
@@ -76,54 +74,64 @@
       <div class="container">
         <div class="row">
           <div class="col-md-7">
-            <h1 class="text-white font-weight-bold">Evaluate Report</h1>
+            <h1 class="text-white font-weight-bold">Lecturer Details</h1>
             <div class="custom-breadcrumbs">
               <a href="#">Home</a> <span class="mx-2 slash">/</span>
-              <span class="text-white"><strong>Evaluate Report</strong></span>
+              <a href="#">Profile</a> <span class="mx-2 slash">/</span>
+              <span class="text-white"><strong>Lecturer Details</strong></span>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-      <section class="site-section bg-light">
-      <div class="container">
+    <section class="site-section">        
+        <!-- Lecturer Details Section -->
         <div class="row">
-          <div class="col-lg-12">
-            <h2 class="section-title">Evaluate Internship Reports</h2>
+          <div class="col-lg-6 offset-lg-3">
+            <h2 class="mb-4">Lecturer Details</h2>
+            <form action="/submit_lecturer" method="POST" class="p-4 border rounded">
+
+              <div class="row form-group">
+                <div class="col-md-12 mb-3 mb-md-0">
+                  <label class="text-black" for="lecturerName">Lecturer Name</label>
+                  <input type="text" id="lecturerName" class="form-control" placeholder="Lecturer Name">
+                </div>
+              </div>
+              <div class="row form-group">
+                <div class="col-md-12 mb-3 mb-md-0">
+                  <label class="text-black" for="lecturerEmail">Lecturer Email</label>
+                  <input type="text" id="lecturerEmail" class="form-control" placeholder="Lecturer Email">
+                </div>
+              </div>
+              <div class="row form-group">
+                <div class="col-md-12 mb-3 mb-md-0">
+                  <label class="text-black" for="lecturerFaculty">Faculty</label>
+                  <input type="text" id="lecturerFaculty" class="form-control" placeholder="Lecturer Departement">
+                </div>
+              </div>
+              <div class="row form-group">
+                <div class="col-md-12 mb-3 mb-md-0">
+                  <label class="text-black" for="lecturerDepartement">Departement</label>
+                  <input type="text" id="lecturerDepartement" class="form-control" placeholder="Lecturer Departement">
+                </div>
+              </div>
+              <div class="row form-group">
+                <div class="col-md-12 mb-3 mb-md-0">
+                  <label class="text-black" for="lecturerPosition">Position</label>
+                  <input type="text" id="lecturerPosition" class="form-control" placeholder="Lecturer Position">
+                </div>
+              </div>
+
+              <div class="row form-group">
+                <div class="col-md-12">
+                  <input type="submit" value="Save" class="btn px-4 btn-primary text-white" onclick="displayConfirmationMessage()">
+                </div>
+              </div>
+            </form>
           </div>
         </div>
-        <div class="row">
-          <div class="col-lg-12">
-            <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th>Report ID</th>
-                  <th>Student Name</th>
-                  <th>Company Name</th>
-                  <th>Report Date</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>John Doe</td>
-                  <td>ABC Company</td>
-                  <td>2023-09-20</td>
-                  <td>
-                    <button onclick="evaluateReport(1)" class="btn btn-primary">Evaluate</button>
-                  </td>
-                </tr>
-                <!-- Add more rows for other reports -->
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </section>
-          </div>
-        </div>
+        
       </div>
     </section>
     
@@ -204,8 +212,12 @@
     <script src="js/bootstrap-select.min.js"></script>
     
     <script src="js/custom.js"></script>
+
+    <script>
+      function displayConfirmationMessage() {
+        alert("Saved Successfully.");
+      }
+    </script>
    
-   
-     
   </body>
 </html>
