@@ -32,11 +32,6 @@ def addAdmin():
 
 @app.route("/companylistadm", methods=['GET', 'POST'])
 def company_list():
-    cursor = db_conn.cursor()
-
-    cursor.execute('SELECT * FROM company')
-    rows = cursor.fetchall()
-    cursor.close()
     return render_template('company_list_adm.html', rows=row)
 
 
