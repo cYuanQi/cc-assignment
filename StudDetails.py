@@ -54,6 +54,10 @@ def submit_student():
             # Generate a secure filename for the resume
             resume_filename = secure_filename(resume_file.filename)
 
+            # Ensure the 'temp' directory exists, create it if not
+            if not os.path.exists('temp'):
+                os.makedirs('temp')
+
             # Save the resume to a temporary location on the server
             resume_path = os.path.join('temp', resume_filename)
             resume_file.save(resume_path)
