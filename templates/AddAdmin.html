@@ -86,20 +86,20 @@
 
     <!-- PAGE CONTENT -->
     <section class="s-pagecontent pagecontent" style="margin-left: 20%; margin-right: 20%;">
-		<h3 class="u-add-bottom">Add New Employee</h3>
-		<form action="/addEmpProcess" method = "POST" enctype="multipart/form-data">
+		<h3 class="u-add-bottom">Edit Administrator Profile</h3>
+		<form action="/addAdminProcess" method = "POST" enctype="multipart/form-data">
 			<div>
-				<label for="employee_id">Employee ID</label>
-				<input class="u-fullwidth" type="text" id="employee_id" name="employee_id">
+				<label for="adm_id">Administrator ID</label>
+				<input class="u-fullwidth" type="text" id="adm_id" name="adm_id">
 			</div>
 			<div>
-				<label for="name">Name</label>
-				<input class="u-fullwidth" type="text" id="name" name="name">
+				<label for="adm_name">Administrator Name</label>
+				<input class="u-fullwidth" type="text" id="adm_name" name="adm_name">
 			</div>
 			<div>
-				<label for="gender">Gender</label>
+				<label for="adm_gender">Administrator Gender</label>
 				<div class="ss-custom-select">
-					<select class="u-fullwidth" id="gender" name="gender">
+					<select class="u-fullwidth" id="adm_gender" name="adm_gender">
 						<option value="Male">Male</option>
 						<option value="Female">Female</option>
 						<option value="Other">Other</option>
@@ -107,20 +107,20 @@
 				</div>
 			</div>
 			<div>
-				<label for="dob">Date of Birth</label>
-				<input class="u-fullwidth" type="date" id="dob" name="dob">
+				<label for="adm_dob">Date of Birth</label>
+				<input class="u-fullwidth" type="date" id="adm_dob" name="adm_dob">
 			</div>
 			<div>
-				<label for="address">Address</label>
-				<textarea class="u-fullwidth" id="address" name="address"></textarea>
+				<label for="adm_address">Address</label>
+				<textarea class="u-fullwidth" id="address" name="adm_address"></textarea>
 			</div>
 			<div>
-				<label for="email">Email</label>
-				<input class="u-fullwidth" type="email" id="email" name="email">
+				<label for="adm_email">Email</label>
+				<input class="u-fullwidth" type="email" id="adm_email" name="adm_email">
 			</div>
 			<div>
-				<label for="phone">Phone Number</label>
-				<input class="u-fullwidth" type="tel" id="phone" name="phone">
+				<label for="adm_phone">Phone Number</label>
+				<input class="u-fullwidth" type="tel" id="adm_phone" name="adm_phone">
 			</div>
 
             </form>
