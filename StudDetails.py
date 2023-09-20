@@ -63,7 +63,7 @@ def submit_student():
 
         # Insert student data into the database
         cursor = db_conn.cursor()
-        insert_sql = "INSERT INTO student (student_name, student_email, student_programme, student_skills, resume_file) VALUES (%s, %s, %s, %s, %s)"
+        insert_sql = "INSERT INTO student_detail (student_name, student_email, student_programme, student_skills, resume_file) VALUES (%s, %s, %s, %s, %s)"
         cursor.execute(insert_sql, (student_name, student_email, student_programme, student_skills, resume_filename))
         db_conn.commit()
         cursor.close()
@@ -77,7 +77,7 @@ def submit_student():
 @app.route("/view_student/<user_email>", methods=['GET'])
 def display_student_data(user_email):
     cursor = db_conn.cursor()
-    select_sql = "SELECT * FROM student WHERE student_email = %s"
+    select_sql = "SELECT * FROM student_detail WHERE student_email = %s"
     cursor.execute(select_sql, (user_email,))
     student_data = cursor.fetchone()
     cursor.close()
