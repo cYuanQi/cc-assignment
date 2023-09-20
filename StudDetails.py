@@ -84,6 +84,11 @@ def display_student_data(user_email):
 
     return render_template('display_student_data.html', student_data=student_data)
 
+# Route to download the student's resume
+@app.route("/download_resume/<filename>", methods=['GET'])
+def download_resume(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+
 @app.route("/nologin", methods=['GET', 'POST'])
 def nologin():
     return render_template('no_login.html')
