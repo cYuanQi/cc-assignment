@@ -27,7 +27,7 @@ def admin():
 
 @app.route("/addadmin", methods=['GET', 'POST'])
 def addAdmin():
-    return render_template('addadmin.html')
+    return render_template('AddAdmin.html')
 
 
 @app.route("/companylistadm", methods=['GET', 'POST'])
