@@ -48,9 +48,13 @@ def submit_student():
         student_skills = request.form['studentSkills']
         resume_file = request.files['studentResume']
 
+        # Ensure that the 'uploads' directory exists
+        if not os.path.exists('uploads'):
+            os.makedirs('uploads')
+
         # Check if a file is selected and has the allowed extension
         if resume_file and allowed_file(resume_file.filename):
-            # Upload resume file to a directory (you can modify this path)
+            # Upload resume file to the 'uploads' directory
             resume_filename = os.path.join('uploads', resume_file.filename)
             resume_file.save(resume_filename)
         else:
