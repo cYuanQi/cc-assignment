@@ -54,9 +54,11 @@ def submit_student():
 
         # Check if a file is selected and has the allowed extension
         if resume_file and allowed_file(resume_file.filename):
+            # Generate a secure filename to prevent possible security issues
+            resume_filename = secure_filename(resume_file.filename)
             # Upload resume file to the 'uploads' directory
-            resume_filename = os.path.join('uploads', resume_file.filename)
-            resume_file.save(resume_filename)
+            resume_path = os.path.join('uploads', resume_filename)
+            resume_file.save(resume_path)
         else:
             flash('Invalid resume file. Please upload a PDF file.', 'error')
             return redirect(url_for('student_details_form'))
@@ -72,6 +74,7 @@ def submit_student():
 
         # Redirect to the route that displays the inserted data
         return redirect(url_for('display_student_data', user_email=student_email))
+
 
 # Route to display the inserted student data
 @app.route("/view_student/<user_email>", methods=['GET'])
