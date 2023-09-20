@@ -63,21 +63,27 @@ def submit_student():
             resume_file.save(resume_path)
 
             # Upload the resume to S3
-            s3 = boto3.client('s3', region_name=region, aws_access_key_id=customawsaccesskey, aws_secret_access_key=customawssecretkey)
+            resume_file_name_in_s3 = "stud-name-" + str(student_name) + "_resume_file"
+            s3 = boto3.resource('s3')
 
-            try:
-                s3.upload_file(resume_path, bucket, resume_filename)
-                flash('Resume uploaded to S3 successfully', 'success')
-            except NoCredentialsError:
-                flash('AWS credentials not available. Resume upload to S3 failed.', 'error')
-            except Exception as e:
-                flash(f'An error occurred while uploading the resume to S3: {str(e)}', 'error')
+        try:
+            print("Data inserted in MySQL RDS... uploading image to S3...")
+            s3.Bucket(custombucket).put_object(Key=resume_file_name_in_s3, Body=resume_file)
+            bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
+            s3_location = (bucket_location['LocationConstraint'])
 
-            # Clean up: remove the resume file from the server
-            os.remove(resume_path)
-        else:
-            flash('Invalid resume file. Please upload a PDF file.', 'error')
-            return redirect(url_for('student_details_form'))
+            if s3_location is None:
+                s3_location = ''
+            else:
+                s3_location = '-' + s3_location
+
+            object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+                s3_location,
+                custombucket,
+                emp_image_file_name_in_s3)
+
+        except Exception as e:
+            return str(e)
 
         # Insert student data into the database
         cursor = db_conn.cursor()
