@@ -59,7 +59,7 @@ def assign_supervisorProcess():
     rows = cursor.fetchall()
     cursor.close()
 
-    return render_template('assign_supervisor_Output.html')
+    return render_template('assign_supervisor.html')
 
 
 if __name__ == '__main__':
