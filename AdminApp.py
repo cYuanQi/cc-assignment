@@ -32,7 +32,7 @@ def addAdmin():
 
 @app.route("/companylistadm", methods=['GET', 'POST'])
 def company_list():
-    return render_template('company_list_adm.html', rows=row)
+    return render_template('company_list_adm.html')
 
 
 @app.route("/assignsupervisor", methods=['GET', 'POST'])
