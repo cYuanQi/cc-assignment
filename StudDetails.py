@@ -48,18 +48,6 @@ def submit_student():
         student_skills = request.form['studentSkills']
         resume_file = request.files['studentResume']
 
-        # Check if a file is selected and has the allowed extension
-        if resume_file and allowed_file(resume_file.filename):
-            # Generate a secure filename for the resume
-            resume_filename = secure_filename(resume_file.filename)
-
-            # Ensure the 'temp' directory exists, create it if not
-            if not os.path.exists('temp'):
-                os.makedirs('temp')
-
-            # Save the resume to a temporary location on the server
-            resume_path = os.path.join('temp', resume_filename)
-            resume_file.save(resume_path)
 
             # Upload the resume to S3
             resume_file_name_in_s3 = "stud-name-" + str(student_name) + "_resume_file"
