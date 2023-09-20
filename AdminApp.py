@@ -43,27 +43,6 @@ def assign_supervisor():
 def nologin():
     return render_template('no_login.html')
     
-@app.route("/assignsupervisorProcess", methods=['POST'])
-def assign_supervisorProcess():
-    stud_name = request.form['stud_name']
-    stud_id = request.form['stud_id']
-    sup_name = request.form['sup_name']
-    sup_id = request.form['sup_id']
-
-    
-    insert_sql = "INSERT INTO admin VALUES (%s, %s, %s, %s)"
-    cursor = db_conn.cursor()
-
-    cursor.execute(insert_sql, (stud_name, stud_id, sup_name, sup_id))
-    db_conn.commit()
-    cursor.close()
-
-    cursor = db_conn.cursor()
-    cursor.execute('SELECT * FROM admin')
-    rows = cursor.fetchall()
-    cursor.close()
-
-    return render_template('assign_supervisor.html')
 
 
 if __name__ == '__main__':
