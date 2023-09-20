@@ -42,11 +42,11 @@ def student_details_form():
 @app.route("/submit_student", methods=['POST'])
 def submit_student():
     if request.method == 'POST':
-        student_name = request.form['student_name']
-        student_email = request.form['student_email']
-        student_programme = request.form['student_programme']
-        student_skills = request.form['student_skills']
-        resume_file = request.files['resume_file']
+        student_name = request.form['studentName']
+        student_email = request.form['studentEmail']
+        student_programme = request.form['studentProgramme']
+        student_skills = request.form['studentSkills']
+        resume_file = request.files['studentResume']
 
         # Check if a file is selected and has the allowed extension
         if resume_file and allowed_file(resume_file.filename):
