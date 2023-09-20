@@ -63,7 +63,7 @@ def submit_student():
 
         # Insert student data into the database
         cursor = db_conn.cursor()
-        insert_sql = "INSERT INTO student (student_name, student_email, student_programme, student_skills, student_resume) VALUES (%s, %s, %s, %s, %s)"
+        insert_sql = "INSERT INTO student (student_name, student_email, student_programme, student_skills, resume_file) VALUES (%s, %s, %s, %s, %s)"
         cursor.execute(insert_sql, (student_name, student_email, student_programme, student_skills, resume_filename))
         db_conn.commit()
         cursor.close()
