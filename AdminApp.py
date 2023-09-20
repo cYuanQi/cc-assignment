@@ -28,7 +28,7 @@ def home():
 def admin():
     return render_template('admin.html')
 
-@app.route("/addadmin", methods=['GET'])
+@app.route("/addAdmin", methods=['GET'])
 def addAdmin():
     return render_template('addadmin.html')
 
