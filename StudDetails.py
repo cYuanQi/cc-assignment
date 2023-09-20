@@ -3,10 +3,10 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from pymysql import connections
 import os
 import boto3
-from werkzeug.utils import secure_filename
 from config import *
 
 app = Flask(__name__)
+app.secret_key = 'de3bff82a9f94e920d78e0c42311dd68' 
 
 bucket = custombucket
 region = customregion
@@ -48,39 +48,30 @@ def submit_student():
         student_skills = request.form['studentSkills']
         resume_file = request.files['studentResume']
 
+        # Ensure that the 'uploads' directory exists
+        if not os.path.exists('uploads'):
+            os.makedirs('uploads')
+
         # Check if a file is selected and has the allowed extension
         if resume_file and allowed_file(resume_file.filename):
-            # Generate a secure filename for the resume
-            resume_filename = secure_filename(resume_file.filename)
+            # Upload resume file to the 'uploads' directory
+            resume_filename = os.path.join('uploads', resume_file.filename)
+            resume_file.save(resume_filename)
+        else:
+            flash('Invalid resume file. Please upload a PDF file.', 'error')
+            return redirect(url_for('student_details_form'))
 
-            # Save the resume to a temporary location on the server
-            resume_path = os.path.join('temp', resume_filename)
-            resume_file.save(resume_path)
+        # Insert student data into the database
+        cursor = db_conn.cursor()
+        insert_sql = "INSERT INTO student (student_name, student_email, student_programme, student_skills, resume_file) VALUES (%s, %s, %s, %s, %s)"
+        cursor.execute(insert_sql, (student_name, student_email, student_programme, student_skills, resume_filename))
+        db_conn.commit()
+        cursor.close()
 
-            # Upload the resume to S3
-            try:
-                s3.upload_file(resume_path, bucket_name, resume_filename)
-                flash('Resume uploaded to S3 successfully', 'success')
-            except Exception as e:
-                flash(f'An error occurred while uploading the resume to S3: {str(e)}', 'error')
+        flash('Student data saved successfully', 'success')
 
-            # Insert student data into the MySQL database
-            cursor = db_conn.cursor()
-            insert_sql = "INSERT INTO students (student_name, student_email, student_programme, student_skills, resume_url) VALUES (%s, %s, %s, %s, %s)"
-            cursor.execute(insert_sql, (student_name, student_email, student_programme, student_skills, resume_filename))
-            db_conn.commit()
-            cursor.close()
-
-            # Clean up: remove the resume file from the server
-            os.remove(resume_path)
-
-            flash('Student data saved successfully', 'success')
-
-            # Redirect to a success page or another route
-            return redirect('/success')
-
-    return redirect(url_for('display_student_data', user_email=student_email))
-
+        # Redirect to the route that displays the inserted data
+        return redirect(url_for('display_student_data', user_email=student_email))
 
 # Route to display the inserted student data
 @app.route("/view_student/<user_email>", methods=['GET'])
@@ -210,6 +201,5 @@ def userpage():
 def admin():
     return render_template('admin.html')
 
-if __name__ == '__main__':
+if _name_ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
-
