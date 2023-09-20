@@ -41,45 +41,51 @@ def student_details_form():
 # Route for submitting student data
 @app.route("/submit_student", methods=['POST'])
 def submit_student():
-    if request.method == 'POST':
         student_name = request.form['studentName']
         student_email = request.form['studentEmail']
         student_programme = request.form['studentProgramme']
         student_skills = request.form['studentSkills']
+    
         resume_file = request.files['studentResume']
 
-        # Ensure that the 'uploads' directory exists
-        if not os.path.exists('uploads'):
-            os.makedirs('uploads')
-
-        # Check if a file is selected and has the allowed extension
-        if resume_file and allowed_file(resume_file.filename):
-            # Upload resume file to the 'uploads' directory
-            resume_filename = os.path.join('uploads', resume_file.filename)
-            resume_file.save(resume_filename)
-        else:
-            flash('Invalid resume file. Please upload a PDF file.', 'error')
-            return redirect(url_for('student_details_form'))
-
-        # Insert student data into the database
         cursor = db_conn.cursor()
-        insert_sql = "INSERT INTO student_detail (student_name, student_email, student_programme, student_skills, resume_file) VALUES (%s, %s, %s, %s, %s)"
+        insert_sql = "INSERT INTO student_detail (student_name, student_email, student_programme, student_skills) VALUES (%s, %s, %s, %s)"
+
+        if resume_file.filename == "":
+        return "Please select a file"
+
+    try:
         cursor.execute(insert_sql, (student_name, student_email, student_programme, student_skills, resume_filename))
         db_conn.commit()
+        # Uplaod image file in S3 #
+        resume_file_name_in_s3 = "stud-name" + str(student_name) + "_resume_file"
+        s3 = boto3.resource('s3')
+        
+        try:
+            print("Data inserted in MySQL RDS... uploading image to S3...")
+            s3.Bucket(custombucket).put_object(Key=resume_file_name_in_s3, Body=resume_file)
+            bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
+            s3_location = (bucket_location['LocationConstraint'])
+
+            if s3_location is None:
+                s3_location = ''
+            else:
+                s3_location = '-' + s3_location
+
+            object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+                s3_location,
+                custombucket,
+                resume_file_name_in_s3)
+            
+        except Exception as e:
+            return str(e)
+    finally:
         cursor.close()
 
-        flash('Student data saved successfully', 'success')
-
-        # Redirect to the route that displays the inserted data
-        return redirect(url_for('display_student_data', user_email=student_email))
-
-# Route to display the inserted student data
-@app.route("/view_student/<user_email>", methods=['GET'])
-def display_student_data(user_email):
     cursor = db_conn.cursor()
-    select_sql = "SELECT * FROM student_detail WHERE student_email = %s"
-    cursor.execute(select_sql, (user_email,))
-    student_data = cursor.fetchone()
+
+    cursor.execute('SELECT * FROM student_detail')
+    rows = cursor.fetchall()
     cursor.close()
 
     return render_template('display_student_data.html', student_data=student_data)
