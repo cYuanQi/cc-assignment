@@ -50,13 +50,17 @@ def submit_student():
         resume_file = request.files['studentResume']
 
         # Check if a file is selected and has the allowed extension
-        if resume_file and allowed_file(resume_file.filename):
-            # Generate a secure filename for the resume
-            resume_filename = secure_filename(resume_file.filename)
+if resume_file and allowed_file(resume_file.filename):
+    # Ensure that the 'temp' directory exists
+    if not os.path.exists('temp'):
+        os.makedirs('temp')
 
-            # Save the resume to a temporary location on the server
-            resume_path = os.path.join('temp', resume_filename)
-            resume_file.save(resume_path)
+    # Specify the correct path to save the file
+    resume_path = os.path.join('temp', resume_file.filename)
+    resume_file.save(resume_path)
+else:
+    flash('Invalid resume file. Please upload a PDF file.', 'error')
+    return redirect(url_for('student_details_form'))
 
             # Upload the resume to S3
             s3 = boto3.client('s3', region_name=region, aws_access_key_id=customawsaccesskey, aws_secret_access_key=customawssecretkey)
