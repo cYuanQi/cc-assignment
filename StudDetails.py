@@ -50,30 +50,30 @@ def submit_student():
         resume_file = request.files['studentResume']
 
         # Check if a file is selected and has the allowed extension
-if resume_file and allowed_file(resume_file.filename):
-    # Generate a secure filename for the resume
-    resume_filename = secure_filename(resume_file.filename)
+        if resume_file and allowed_file(resume_file.filename):
+            # Generate a secure filename for the resume
+            resume_filename = secure_filename(resume_file.filename)
 
-    # Save the resume to a temporary location on the server
-    resume_path = os.path.join('temp', resume_filename)
-    resume_file.save(resume_path)
+            # Save the resume to a temporary location on the server
+            resume_path = os.path.join('temp', resume_filename)
+            resume_file.save(resume_path)
 
-    # Upload the resume to S3
-    s3 = boto3.client('s3', region_name=region, aws_access_key_id=customawsaccesskey, aws_secret_access_key=customawssecretkey)
+            # Upload the resume to S3
+            s3 = boto3.client('s3', region_name=region, aws_access_key_id=customawsaccesskey, aws_secret_access_key=customawssecretkey)
 
-    try:
-        s3.upload_file(resume_path, bucket, resume_filename)
-        flash('Resume uploaded to S3 successfully', 'success')
-    except NoCredentialsError:
-        flash('AWS credentials not available. Resume upload to S3 failed.', 'error')
-    except Exception as e:
-        flash(f'An error occurred while uploading the resume to S3: {str(e)}', 'error')
+            try:
+                s3.upload_file(resume_path, bucket, resume_filename)
+                flash('Resume uploaded to S3 successfully', 'success')
+            except NoCredentialsError:
+                flash('AWS credentials not available. Resume upload to S3 failed.', 'error')
+            except Exception as e:
+                flash(f'An error occurred while uploading the resume to S3: {str(e)}', 'error')
 
-    # Clean up: remove the resume file from the server
-    os.remove(resume_path)
-else:
-    flash('Invalid resume file. Please upload a PDF file.', 'error')
-    return redirect(url_for('student_details_form'))
+            # Clean up: remove the resume file from the server
+            os.remove(resume_path)
+        else:
+            flash('Invalid resume file. Please upload a PDF file.', 'error')
+            return redirect(url_for('student_details_form'))
 
         # Insert student data into the database
         cursor = db_conn.cursor()
