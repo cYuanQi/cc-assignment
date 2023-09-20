@@ -39,11 +39,11 @@ def company_list():
 def assign_supervisor():
     return render_template('assign-supervisor.html')
     
-@app.route("/nologin", methods = ['GET', 'POST'])
+@app.route("/nologin", methods = ['GET'])
 def nologin():
     return render_template('no_login.html')
     
-@app.route("/jobsingle", methods = ['GET', 'POST'])
+@app.route("/jobsingle", methods = ['GET'])
 def jobsingle():
     return render_template('job-single.html')
 
