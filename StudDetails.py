@@ -41,23 +41,24 @@ def student_details_form():
 # Route for submitting student data
 @app.route("/submit_student", methods=['POST'])
 def submit_student():
-        student_name = request.form['studentName']
-        student_email = request.form['studentEmail']
-        student_programme = request.form['studentProgramme']
-        student_skills = request.form['studentSkills']
-    
-        resume_file = request.files['studentResume']
+    student_name = request.form['studentName']
+    student_email = request.form['studentEmail']
+    student_programme = request.form['studentProgramme']
+    student_skills = request.form['studentSkills']
 
-        cursor = db_conn.cursor()
-        insert_sql = "INSERT INTO student_detail (student_name, student_email, student_programme, student_skills) VALUES (%s, %s, %s, %s)"
+    resume_file = request.files['studentResume']
 
-        if resume_file.filename == "":
+    cursor = db_conn.cursor()
+    insert_sql = "INSERT INTO student_detail (student_name, student_email, student_programme, student_skills) VALUES (%s, %s, %s, %s)"
+
+    if resume_file.filename == "":
         return "Please select a file"
 
     try:
-        cursor.execute(insert_sql, (student_name, student_email, student_programme, student_skills, resume_filename))
+        cursor.execute(insert_sql, (student_name, student_email, student_programme, student_skills))
         db_conn.commit()
-        # Uplaod image file in S3 #
+
+        # Upload resume file to S3
         resume_file_name_in_s3 = "stud-name" + str(student_name) + "_resume_file"
         s3 = boto3.resource('s3')
         
@@ -65,17 +66,9 @@ def submit_student():
             print("Data inserted in MySQL RDS... uploading image to S3...")
             s3.Bucket(custombucket).put_object(Key=resume_file_name_in_s3, Body=resume_file)
             bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
-            s3_location = (bucket_location['LocationConstraint'])
+            s3_location = (bucket_location.get('LocationConstraint', ''))
 
-            if s3_location is None:
-                s3_location = ''
-            else:
-                s3_location = '-' + s3_location
-
-            object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
-                s3_location,
-                custombucket,
-                resume_file_name_in_s3)
+            object_url = f"https://s3{s3_location}.amazonaws.com/{custombucket}/{resume_file_name_in_s3}"
             
         except Exception as e:
             return str(e)
@@ -83,9 +76,8 @@ def submit_student():
         cursor.close()
 
     cursor = db_conn.cursor()
-
     cursor.execute('SELECT * FROM student_detail')
-    rows = cursor.fetchall()
+    student_data = cursor.fetchall()
     cursor.close()
 
     return render_template('display_student_data.html', student_data=student_data)
