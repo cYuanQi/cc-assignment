@@ -80,7 +80,7 @@ def submit_student():
     student_data = cursor.fetchall()
     cursor.close()
 
-    return render_template('display_student_data.html', student_data=student_data)
+    return render_template('student_detail.html')
 
 
 
