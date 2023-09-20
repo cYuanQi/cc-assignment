@@ -43,7 +43,9 @@ def assign_supervisor():
 def nologin():
     return render_template('no_login.html')
     
-
+@app.route("/jobsingle", methods = ['GET', 'POST'])
+def jobsingle():
+    return render_template('job-single.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
