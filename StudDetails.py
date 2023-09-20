@@ -7,7 +7,6 @@ from werkzeug.utils import secure_filename
 from config import *
 
 app = Flask(__name__)
-app.secret_key = 'de3bff82a9f94e920d78e0c42311dd68' 
 
 bucket = custombucket
 region = customregion
