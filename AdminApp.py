@@ -21,29 +21,29 @@ output = {}
 table = 'admin'
 
 
-@app.route("/admin")
+@app.route("/admin", methods =['GET', 'POST'])
 def admin():
     return render_template('admin.html')
 
-@app.route("/addAdmin")
+@app.route("/addAdmin", methods =['GET', 'POST'])
 def addAdmin():
     return render_template('addadmin.html')
 
 
-@app.route("/companylistadm")
+@app.route("/companylistadm", methods =['GET', 'POST'])
 def companylistadm():
     return render_template('company_list_adm.html')
 
 
-@app.route("/assignsupervisor")
+@app.route("/assignsupervisor", methods =['GET', 'POST'])
 def assignsupervisor():
     return render_template('assign-supervisor.html')
     
-@app.route("/nologin")
+@app.route("/nologin", methods =['GET', 'POST'])
 def nologin():
     return render_template('no_login.html')
     
-@app.route("/jobsingle")
+@app.route("/jobsingle", methods =['GET', 'POST'])
 def jobsingle():
     return render_template('job-single.html')
 
