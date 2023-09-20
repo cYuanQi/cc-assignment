@@ -70,7 +70,8 @@ def UserLogin():
 
     cursor = db_conn.cursor()
     cursor.execute("SELECT * FROM login WHERE email=%s", (user_email,))
-    user = cursor.fetchone()
+    user = cursor.fetchall()
+    cursor.close()
 
     if user:
         # Check the email domain to determine the role and redirect accordingly
