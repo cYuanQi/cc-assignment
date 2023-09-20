@@ -38,7 +38,11 @@ def company_list():
 @app.route("/assignsupervisor", methods=['GET', 'POST'])
 def assign_supervisor():
     return render_template('assign-supervisor.html')
-
+    
+@app.route("/nologin", methods = ['GET', 'POST'])
+def nologin():
+    return render_template('no_login.html')
+    
 @app.route("/assignsupervisorProcess", methods=['POST'])
 def assign_supervisorProcess():
     stud_name = request.form['stud_name']
