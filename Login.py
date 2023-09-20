@@ -68,6 +68,7 @@ def UserLogin():
     user_email = request.form['loginEmail']
     user_password = request.form['loginPassword']
 
+    cursor = db_conn.cursor()
     cursor.execute("SELECT * FROM login WHERE email=%s", (user_email,))
     user = cursor.fetchone()
 
