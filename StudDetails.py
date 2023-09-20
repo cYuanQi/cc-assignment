@@ -84,6 +84,8 @@ def display_student_data(user_email):
 
     return render_template('display_student_data.html', student_data=student_data)
 
+
+
 # Route to download the student's resume
 @app.route("/download_resume/<filename>", methods=['GET'])
 def download_resume(filename):
@@ -92,6 +94,10 @@ def download_resume(filename):
 @app.route("/nologin", methods=['GET', 'POST'])
 def nologin():
     return render_template('no_login.html')
+
+@app.route("/display_student_data.html", methods=['GET', 'POST'])
+def display_student_data.html():
+    return render_template('display_student_data.html')
     
 @app.route("/about", methods=['GET', 'POST'])
 def about():
