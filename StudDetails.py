@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from pymysql import connections
 import os
 import boto3
+from werkzeug.utils import secure_filename
 from config import *
 
 app = Flask(__name__)
