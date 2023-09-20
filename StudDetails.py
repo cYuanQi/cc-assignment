@@ -71,14 +71,14 @@ def submit_student():
         flash('Student data saved successfully', 'success')
 
         # Redirect to the route that displays the inserted data
-        return redirect(url_for('display_student_data'))
+        return redirect(url_for('display_student_data', user_email=student_email))
 
 # Route to display the inserted student data
-@app.route("/display_student_data", methods=['GET'])
-def display_student_data():
+@app.route("/view_student/<user_email>", methods=['GET'])
+def display_student_data(user_email):
     cursor = db_conn.cursor()
-    select_sql = "SELECT * FROM student ORDER BY student_id DESC LIMIT 1"
-    cursor.execute(select_sql)
+    select_sql = "SELECT * FROM student WHERE student_email = %s"
+    cursor.execute(select_sql, (user_email,))
     student_data = cursor.fetchone()
     cursor.close()
 
