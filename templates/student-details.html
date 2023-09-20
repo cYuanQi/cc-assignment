@@ -92,71 +92,63 @@
 
     <!-- HOME -->
     <section class="section-hero overlay inner-page bg-image" style="background-image: url('images/hero_1.jpg');" id="home-section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-7">
-            <h1 class="text-white font-weight-bold">Student Details</h1>
-            <div class="custom-breadcrumbs">
-              <a href="#">Home</a> <span class="mx-2 slash">/</span>
-              <a href="#">Profile</a> <span class="mx-2 slash">/</span>
-              <span class="text-white"><strong>Student Details</strong></span>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <h1 class="text-white font-weight-bold">Student Details</h1>
+                    <div class="custom-breadcrumbs">
+                        <a href="#">Home</a> <span class="mx-2 slash">/</span>
+                        <a href="#">Profile</a> <span class="mx-2 slash">/</span>
+                        <span class="text-white"><strong>Student Details</strong></span>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </section>
 
-    <section class="site-section">        
-        <!-- Student Details Section -->
+    <section class="site-section">
+        <!-- Student Details Form -->
         <div class="row">
-          <div class="col-lg-6 offset-lg-3">
-            <h2 class="mb-4">Student Details</h2>
-            <form action="/submit_student" method="POST" class="p-4 border rounded">
-
-              <div class="row form-group">
-                <div class="col-md-12 mb-3 mb-md-0">
-                  <label class="text-black" for="studentName">Student Name</label>
-                  <input type="text" id="studentName" class="form-control" placeholder="Student Name">
-                </div>
-              </div>
-              <div class="row form-group">
-                <div class="col-md-12 mb-3 mb-md-0">
-                  <label class="text-black" for="studentEmail">Student Email</label>
-                  <input type="text" id="studentEmail" class="form-control" placeholder="Student Email">
-                </div>
-              </div>
-              <div class="row form-group">
-                <div class="col-md-12 mb-3 mb-md-0">
-                  <label class="text-black" for="studentCourse">Student Programme</label>
-                  <input type="text" id="studentProgramme" class="form-control" placeholder="Student Programme">
-                </div>
-              </div>
-              <div class="row form-group mb-4">
-                <div class="col-md-12 mb-3 mb-md-0">
-                  <label class="text-black" for="studentSkills">Student Skills</label>
-                  <input type="text" id="studentSkills" class="form-control" placeholder="Student Skills">
-                </div>
-              </div>
-
-
-              <div class="form-group">
-                <label for="resume_file" class="btn btn-primary btn-md btn-file">
-                  Browse File<input type="file" name="resume_file" id="resume_file" hidden>
-                </label>
-              </div>
-
-              <div class="row form-group">
-                <div class="col-md-12">
-                  <input type="submit" value="Save" class="btn px-4 btn-primary text-white" onclick="displayConfirmationMessage()">
-                </div>
-              </div>
-
-            </form>
-          </div>
+            <div class="col-lg-6 offset-lg-3">
+                <h2 class="mb-4">Student Details</h2>
+                <form action="/submit_student" method="POST" class="p-4 border rounded">
+                    <div class="row form-group">
+                        <div class="col-md-12 mb-3 mb-md-0">
+                            <label class="text-black" for="studentName">Student Name</label>
+                            <input type="text" id="studentName" name="studentName" class="form-control" placeholder="Student Name" required>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12 mb-3 mb-md-0">
+                            <label class="text-black" for="studentEmail">Student Email</label>
+                            <input type="email" id="studentEmail" name="studentEmail" class="form-control" placeholder="Student Email" required>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12 mb-3 mb-md-0">
+                            <label class="text-black" for="studentProgramme">Student Programme</label>
+                            <input type="text" id="studentProgramme" name="studentProgramme" class="form-control" placeholder="Student Programme" required>
+                        </div>
+                    </div>
+                    <div class="row form-group mb-4">
+                        <div class="col-md-12 mb-3 mb-md-0">
+                            <label class="text-black" for="studentSkills">Student Skills</label>
+                            <input type="text" id="studentSkills" name="studentSkills" class="form-control" placeholder="Student Skills" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="studentResume" class="d-block">Resume</label>
+                        <input type="file" id="studentResume" name="studentResume" class="d-block" required>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <input type="submit" value="Save" class="btn px-4 btn-primary text-white">
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
-        <!-- End Register Company Section -->
-        
-      </div>
+        <!-- End Student Details Form -->
     </section>
     
     <footer class="site-footer">
