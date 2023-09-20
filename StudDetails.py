@@ -22,6 +22,10 @@ db_conn = connections.Connection(
 output = {}
 table = 'student'
 
+@app.route("/", methods=['GET', 'POST'])
+def home():
+    return render_template('student-details.html')
+
 # Allowed file extensions for resume uploads
 ALLOWED_EXTENSIONS = {'pdf'}
 
