@@ -31,12 +31,12 @@ def addAdmin():
 
 
 @app.route("/companylistadm")
-def company_list():
+def companylistadm():
     return render_template('company_list_adm.html')
 
 
 @app.route("/assignsupervisor")
-def assign_supervisor():
+def assignsupervisor():
     return render_template('assign-supervisor.html')
     
 @app.route("/nologin")
