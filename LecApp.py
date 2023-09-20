@@ -30,7 +30,7 @@ def evaluate_report():
         # Handle the report evaluation process here (e.g., download student report in PDF)
         # You need to specify the logic for downloading the report in PDF format
         # For demonstration purposes, we'll simulate it here:
-        report_pdf_path = '/Downloads/'report_name  # Replace with the actual path
+        report_pdf_path = '/Downloads/' + report_name  # Replace with the actual path
         
         # Check if the file exists
         if os.path.exists(report_pdf_path):
