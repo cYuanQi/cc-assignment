@@ -111,7 +111,7 @@
         <div class="row">
             <div class="col-lg-6 offset-lg-3">
                 <h2 class="mb-4">Student Details</h2>
-              <form action="/submit_student" method="POST" class="p-4 border rounded" enctype="multipart/form-data">
+              <form action="/submit_student" method="POST" enctype="multipart/form-data" class="p-4 border rounded">
                     <div class="row form-group">
                         <div class="col-md-12 mb-3 mb-md-0">
                             <label class="text-black" for="studentName">Student Name</label>
@@ -136,10 +136,10 @@
                             <input type="text" id="studentSkills" name="studentSkills" class="form-control" placeholder="Student Skills" required>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="studentResume" class="d-block">Resume</label>
-                        <input type="file" id="studentResume" name="studentResume" class="d-block" required>
-                    </div>
+                     <div class="form-group">
+                     <label for="studentResume" class="d-block">Resume</label>
+                     <input type="file" id="studentResume" name="studentResume" class="d-block" required>
+                   </div>
                     <div class="row form-group">
                         <div class="col-md-12">
                             <input type="submit" value="Save" class="btn px-4 btn-primary text-white">
