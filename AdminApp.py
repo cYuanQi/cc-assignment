@@ -33,20 +33,20 @@ def addAdmin():
     return render_template('addadmin.html')
 
 
-@app.route("/companylistadm", methods=['GET'])
+@app.route("/companyListAdm", methods=['GET'])
 def company_list():
     return render_template('company_list_adm.html')
 
 
-@app.route("/assignsupervisor", methods=['GET'])
+@app.route("/assignSupervisor", methods=['GET'])
 def assign_supervisor():
     return render_template('assign-supervisor.html')
     
-@app.route("/nologin", methods = ['GET'])
+@app.route("/noLogin", methods = ['GET'])
 def nologin():
     return render_template('no_login.html')
     
-@app.route("/jobsingle", methods = ['GET'])
+@app.route("/jobSingle", methods = ['GET'])
 def jobsingle():
     return render_template('job-single.html')
 
