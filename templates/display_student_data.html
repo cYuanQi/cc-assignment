@@ -27,11 +27,10 @@
 		<body bgcolor="lightgrey">
 			<form>
 				<div>
-					Student ID:<br> {{ student_id }} <br><br>
-					First Name:<br> {{ student_fname }} <br><br>
-					Last Name:<br> {{ student_lname }} <br><br>
-					Programme:<br> {{ student_programme }} <br><br>
-					Skills:<br> {{ student_skills }} <br><br>
+					Student Name<br> {{ student_data[0] }} <br><br>
+					Student Email:<br> {{ student_data[1] }} <br><br>
+					Student Programme:<br> {{ student_data[2] }} <br><br>
+					Student Skills:<br> {{ student_data[3] }} <br><br>
 					<a href="{{ url_for('download_resume', filename=student_data[4]) }}" class="btn btn-primary btn-md">Download Resume</a> <br><br>
 					<a href="{{ url_for('studentdetails') }}" class="btn">Back to Previous Page</a> <br><br>
 				</div>
