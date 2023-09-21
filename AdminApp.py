@@ -103,30 +103,27 @@ def nologin():
 def jobsingle():
     return render_template('job-single.html')
 
-@app.route("/assignsupervisorProcess", methods=['POST', 'GET'])
+@app.route("/assignsupervisorProcess", methods=['GET','POST'])
 def assignsupervisorProcess():
     stud_name = request.form['stud_name']
     stud_id = request.form['stud_id']
     sup_name = request.form['sup_name']
     sup_id = request.form['sup_id']
 
-    try:
-        insert_sql = "INSERT INTO admin (stud_name, stud_id, sup_name, sup_id) VALUES (%s, %s, %s, %s)"
-        cursor = db_conn.cursor()
+    insert_sql = "INSERT INTO admin(stud_name, stud_id, sup_name, sup_id) VALUES (%s, %s, %s, %s)"
+    cursor = db_conn.cursor()
 
-        cursor.execute(insert_sql, (stud_name, stud_id, sup_name, sup_id))
-        db_conn.commit()
+    cursor.execute(insert_sql, (stud_name, stud_id, sup_name, sup_id))
+    db_conn.commit()
 
-        cursor.close()
+    cursor.close()
 
-        cursor = db_conn.cursor()
-        cursor.execute('SELECT * FROM admin')
-        rows = cursor.fetchall()
-        cursor.close()
+    cursor = db_conn.cursor()
+    cursor.execute('SELECT * FROM admin')
+    rows = cursor.fetchall()
+    cursor.close()
 
-        return render_template('assign-supervisor-Output.html', rows=rows)
-    except Exception as e:
-        return str(e)
+    return render_template('assign-supervisor-Output.html', rows=rows)
 
 
 if __name__ == '__main__':
