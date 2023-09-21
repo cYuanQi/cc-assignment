@@ -85,6 +85,27 @@ def addAdminProcess():
 
     return render_template('admin_list.html', rows=rows)
 
+@app.route("/adminProfile/<email>", methods=['GET'])
+def adminProfile(email):
+    cursor = db_conn.cursor()
+    select_sql = "SELECT * FROM adm_profile WHERE adm_email = %s"
+
+    try:
+        cursor.execute(select_sql, (email,))
+        adminData = cursor.fetchone()
+
+        if adminData:
+            adm_image_file_name = adminData[8]  # Assuming the image file name is in the 8th column
+        else:
+            return "Administrator not found"  # Handle case when administrator is not found
+
+    except Exception as e:
+        return str(e)
+    finally:
+        cursor.close()
+
+    return render_template('admin_profile.html', adminData=adminData, adm_image_file_name=adm_image_file_name)
+
     
 @app.route("/companylistadm", methods=['GET', 'POST'])
 def companylistadm():
