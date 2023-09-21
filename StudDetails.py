@@ -95,7 +95,7 @@ def submit_student():
     student_data = cursor.fetchall()
     cursor.close()
 
-    return render_template('studentdetails.html')
+    return render_template('student_details.html')
 
 
 
