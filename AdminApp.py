@@ -26,7 +26,7 @@ def admin():
     return render_template('admin.html')
 
 @app.route("/addadmin", methods=['GET', 'POST'])
-def addAdmin():
+def addadmin():
     return render_template('addadmin.html')
 
 @app.route("/AddAdminProcess", methods=['GET', 'POST'])
@@ -89,12 +89,12 @@ def admProfile():
     return render_template('admin_profile.html')
 
 @app.route("/companylistadm", methods=['GET', 'POST'])
-def company_list():
+def companylistadm():
     return render_template('company_list_adm.html')
 
 
 @app.route("/assignsupervisor", methods=['GET', 'POST'])
-def assign_supervisor():
+def assignsupervisor():
     return render_template('assign-supervisor.html')
 
 @app.route("/nologin", methods = ['GET', 'POST'])
@@ -106,7 +106,7 @@ def jobsingle():
     return render_template('job-single.html')
 
 @app.route("/assignsupervisorProcess", methods=['POST'])
-def assign_supervisorProcess():
+def assignsupervisorProcess():
     stud_name = request.form['stud_name']
     stud_id = request.form['stud_id']
     sup_name = request.form['sup_name']
