@@ -151,7 +151,7 @@ def submit_student_report():
     cursor = db_conn.cursor()
     insert_sql = "INSERT INTO student_reports (report_name, student_name, sup_email ) VALUES (%s, %s, %s)"
 
-    if report_file.filename == "":
+    if report_name.filename == "":
         cursor.close()  # Close the cursor before returning
         return "Please select a report file"
 
