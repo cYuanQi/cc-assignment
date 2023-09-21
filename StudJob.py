@@ -81,6 +81,32 @@ def submit_student():
 
     return render_template('student_detail.html')
 
+@app.route("/submit_job_application", methods=['POST'])
+def submit_job_application():
+    if request.method == 'POST':
+        student_name = request.form['studentName']
+        student_email = request.form['studentEmail']
+        student_programme = request.form['studentProgramme']
+        student_skills = request.form['studentSkills']
+        resume_file = request.files['resume_file']
+        job_title = request.form['job_title']
+        company_name = request.form['company_name']
+
+        # Insert the job application data into the database
+        cursor = db_conn.cursor()
+        insert_sql = "INSERT INTO job_applications (student_name,student_email, student_programme, student_skills, student_skills, resume_file, job_title, company_name) VALUES (%s, %s, %s, %s, %s,  %s, %s)"
+        student_skills = request.form['studentSkills']
+        cursor.execute(insert_sql, (student_name, student_email, student_programme, student_skills,  resume_file, job_title, company_name))
+        db_conn.commit()
+        cursor.close()
+
+        # Display a pop-up message using JavaScript
+        return """
+            <script>
+                alert('Job application submitted successfully');
+                window.location.href = '/job-single'; // Redirect back to job-single.html
+            </script>
+        """
 
 
 # Route to download the student's resume
