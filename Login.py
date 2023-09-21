@@ -199,8 +199,8 @@ def contact():
 def login():
     return render_template('login.html')
 
-@app.route("/lecture/<user_email>", methods=['GET', 'POST'])
-def lecture(user_email):
+@app.route("/lecturer/<user_email>", methods=['GET', 'POST'])
+def lecturer(user_email):
     return render_template('lecture.html', user_email = user_email)
 
 @app.route("/lecturerdetails/<user_email>", methods=['GET', 'POST'])
