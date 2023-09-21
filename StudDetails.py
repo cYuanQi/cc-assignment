@@ -122,7 +122,6 @@ def view_student_data(user_email):
         return "Student not found"  # Handle student not found error
 
 
-
 # Route to download the student's resume
 @app.route("/download_resume/<filename>", methods=['GET'])
 def download_resume(filename):
