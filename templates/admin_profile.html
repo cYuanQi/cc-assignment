@@ -89,6 +89,10 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
+                <div class="text-center">
+                    <!-- Display the administrator's circular profile image from Amazon S3 -->
+                    <img src="{{ adminImage }}" alt="Administrator Image" class="rounded-circle" style="max-width: 150px;">
+                </div>
                 <h3 class="u-add-bottom">Administrator Profile</h3>
                 <div class="table-responsive">
                     <table class="table">
@@ -101,10 +105,10 @@
                                 <th>Administrator Address</th>
                                 <th>Administrator Email</th>
                                 <th>Administrator Phone</th>
-                                <th>Administrator Image</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <!-- Display data for a specific administrator based on their email -->
                             <tr>
                                 <td>{{ adminData[0] }}</td>
                                 <td>{{ adminData[1] }}</td>
@@ -113,17 +117,16 @@
                                 <td>{{ adminData[4] }}</td>
                                 <td>{{ adminData[5] }}</td>
                                 <td>{{ adminData[6] }}</td>
-                                <td>{{ adminData[7] }}</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-            </div>
-            <div class="row align-items-center mb-5">
-                <div class="col-lg-4 ml-auto">
-                    <div class="row">
-                        <div class="col-6">
-                            <a href="#" class="btn btn-block btn-primary btn-md">Edit</a>
+                <div class="row align-items-center mb-5">
+                    <div class="col-lg-4 ml-auto">
+                        <div class="row">
+                            <div class="col-6">
+                                <a href="{{url_for('AddAdmin')}}" class="btn btn-block btn-primary btn-md">Edit</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -131,6 +134,7 @@
         </div>
     </div>
 </section>
+
 
 
     <!-- FOOTER -->
