@@ -32,7 +32,7 @@ ALLOWED_EXTENSIONS = {'pdf'}
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.route("/EvaluateReport/<user_email>", methods=['GET', 'POST'])
+@app.route("/EvaluateReport/<user_email>", methods=['GET'])
 def evaluate_report(user_email):
     cursor = db_conn.cursor()
     select_sql = "SELECT * FROM report WHERE sup_email = %s"
@@ -42,7 +42,7 @@ def evaluate_report(user_email):
         
     if report_data:
         # Assuming student_data[4] contains the resume file name in S3
-        report_file_name_in_s3 = report_data[1]
+        report_file_name_in_s3 = report_data[0]
 
         # Retrieve the resume file from S3
         s3 = boto3.client('s3')
@@ -78,21 +78,32 @@ def downloadreport(report_name):
     except Exception as e:
         return str(e)
 
-# Function to fetch reports from the database (replace with your actual query)
 def fetchreports():
     cursor = db_conn.cursor()
-    select_sql = "SELECT * FROM report"
-    cursor.execute(select_sql)
-    reports = cursor.fetchall()
-    cursor.close()
-    return reports
+    try:
+        # Execute a SELECT query to fetch the reports
+        select_sql = "SELECT report_id, student_name, report_name FROM report"
+        cursor.execute(select_sql)
+        reports = cursor.fetchall()
+        cursor.close()
+        return reports
+    except Exception as e:
+        cursor.close()
+        print(f"Error fetching reports: {e}")
+        return []  # Return an empty list in case of an error
+
 
 def gradereport():
     if request.method == 'POST':
         reports = fetchreports()  # Implement this function to fetch reports
 
+        # Check if any reports were found
+        if not reports:
+            return "No reports found to grade."
+
         for report in reports:
             report_name = report[0]  # Assuming the report_id is in the first column of your report table
+            student_name = report[1]
             student_score = request.form.get(f'student_score_{report_name}')
 
             if student_score is not None:
@@ -109,7 +120,7 @@ def gradereport():
                     return "An error occurred while updating the student_score."
 
         return "Reports graded and data updated in the database."
-
+    reports = fetch_reports()
     return render_template('Grade.html', reports=reports)
 
 
