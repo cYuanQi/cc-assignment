@@ -83,9 +83,11 @@ def submit_student():
 
 @app.route("/submit_job_application", methods=['POST'])
 def submit_job_application():
-    student_email = request.form['student_email']
+    student_email = request.form['student_email']  # Retrieve student_email from the form
     cursor = db_conn.cursor()
-    select_sql = "SELECT * FROM student WHERE student_email = %s"  # Fix the SQL query
+    
+    # Modify your SQL query to select the desired student details based on email
+    select_sql = "SELECT student_name, student_programme, student_skills, student_resume FROM student WHERE student_email = %s"
     cursor.execute(select_sql, (student_email,))
     student_data = cursor.fetchone()
     cursor.close()
