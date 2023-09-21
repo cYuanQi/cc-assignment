@@ -119,5 +119,9 @@ def evaluatereport():
 def grade():
     return render_template('Grade.html')
 
+@app.route("/jobsingle")
+def jobsingle():
+    return render_template('job-single.html')
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
