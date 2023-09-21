@@ -125,7 +125,24 @@ def view_student_data(user_email):
 # Route to download the student's resume
 @app.route("/download_resume/<filename>", methods=['GET'])
 def download_resume(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+    # Specify the S3 bucket name
+    s3_bucket_name = custombucket
+
+    # Create a new S3 client
+    s3 = boto3.client('s3')
+
+    try:
+        # Generate a pre-signed URL for the S3 object
+        url = s3.generate_presigned_url(
+            'get_object',
+            Params={'Bucket': s3_bucket_name, 'Key': filename},
+            ExpiresIn=3600  # URL expiration time in seconds (adjust as needed)
+        )
+
+        # Redirect the user to the pre-signed URL, which will trigger the file download
+        return redirect(url)
+    except Exception as e:
+        return str(e)
 
 @app.route("/nologin", methods=['GET', 'POST'])
 def nologin():
