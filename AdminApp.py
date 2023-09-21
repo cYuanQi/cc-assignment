@@ -84,7 +84,7 @@ def addAdminProcess():
 
     return render_template('admin_profile.html', rows=rows)
 
-@app.route("/admProfile", methos=['GET'])
+@app.route("/admProfile", methods=['GET'])
 def admProfile():
     return render_template('admin_profile.html')
 
