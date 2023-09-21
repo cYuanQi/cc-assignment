@@ -40,6 +40,9 @@ def AddAdmin():
 
 @app.route("/addAdminProcess", methods=['POST'])
 def addAdminProcess():
+    adm_id# Route for submitting admin data
+@app.route("/addAdminProcess", methods=['POST'])
+def addAdminProcess():
     adm_id = request.form['adm_id']
     adm_name = request.form['adm_name']
     adm_gender = request.form['adm_gender']
@@ -50,41 +53,52 @@ def addAdminProcess():
     adm_img = request.files['adm_img']
 
     cursor = db_conn.cursor()
-    insert_sql = "INSERT INTO adm_profile(adm_id, adm_name, adm_gender, adm_dob, adm_address, adm_email, adm_phone) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+    insert_sql = "INSERT INTO adm_profile(adm_id, adm_name, adm_gender, adm_dob, adm_address, adm_email, adm_phone, adm_image) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
 
     if not adm_img:
+        cursor.close()  # Close the cursor before returning
         return "Please select an image"
 
     try:
-        cursor.execute(insert_sql, (adm_id, adm_name, adm_gender, adm_dob, adm_address, adm_email, adm_phone))
-        db_conn.commit()
-
-        # Check if the uploaded file is empty
-        if adm_img.filename == '':
-            return "Please select a file"
-
-        # Generate a secure filename and save the image file
+        # Upload image file to S3
         adm_file_name_in_s3 = "adm-id-" + str(adm_id) + "_image_file.jpg"
-        adm_img.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(adm_file_name_in_s3)))
+        s3 = boto3.client('s3')
 
-        # Save the image file name in the database
-        update_sql = "UPDATE adm_profile SET adm_image = %s WHERE adm_id = %s"
-        cursor.execute(update_sql, (adm_file_name_in_s3, adm_id))
+        try:
+            print("Data inserted in MySQL RDS... uploading image to S3...")
+            s3.Bucket(custombucket).put_object(Key=adm_file_name_in_s3, Body=adm_img)
+            bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
+            s3_location = (bucket_location['LocationConstraint'])
+
+            if s3_location is None:
+                s3_location = ''
+            else:
+                s3_location = '-' + s3_location
+
+            object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+                s3_location,
+                custombucket,
+                adm_file_name_in_s3)
+
+        except Exception as e:
+            cursor.close()  # Close the cursor before returning
+            return str(e)
+
+        # After successfully storing into S3, then store admin details into the MariaDB
+        cursor.execute(insert_sql, (adm_id, adm_name, adm_gender, adm_dob, adm_address, adm_email, adm_phone, adm_file_name_in_s3))
         db_conn.commit()
-
-        # Retrieve the updated admin list from the database
-        cursor.execute('SELECT * FROM adm_profile')
-        rows = cursor.fetchall()
-
     except Exception as e:
+        cursor.close()  # Close the cursor before returning
         return str(e)
-
     finally:
-        cursor.close()
+        cursor.close()  # Close the cursor in the finally block
 
-    return render_template('admin_list.html', rows=rows)
+    cursor = db_conn.cursor()
+    cursor.execute('SELECT * FROM adm_profile')
+    admin_data = cursor.fetchall()
+    cursor.close()
 
-
+    return render_template('admin_list.html', admin_data=admin_data)
 
     
 @app.route("/admin_list")
