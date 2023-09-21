@@ -23,7 +23,7 @@ table = 'student_detail'
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
-    return render_template('student-details_try.html')
+    return render_template('student-details.html')
 
 # Allowed file extensions for resume uploads
 ALLOWED_EXTENSIONS = {'pdf'}
@@ -91,7 +91,7 @@ def submit_student():
     student_data = cursor.fetchall()
     cursor.close()
 
-    return redirect(url_for('view_student_data', user_email=student_email))
+    return redirect(url_for('display_student_data', user_email=student_email))
 
 
 
@@ -117,7 +117,7 @@ def view_student_data(user_email):
             return str(e)  # Handle S3 retrieval error
 
         # You can now pass the resume_data to your template for download
-        return render_template('display_student_data.html', student_data=student_data, resume_data=resume_data)
+        return redirect(url_for('view_student_data', student_data=student_data, resume_data=resume_data)
     else:
         return "Student not found"  # Handle student not found error
 
