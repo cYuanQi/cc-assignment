@@ -201,7 +201,7 @@ def login():
 
 @app.route("/lecturer/<user_email>", methods=['GET', 'POST'])
 def lecturer(user_email):
-    return render_template('lecture.html', user_email = user_email)
+    return render_template('lecture.html', user_email=user_email)
 
 @app.route("/lecturerdetails/<user_email>", methods=['GET', 'POST'])
 def lecturerdetails(user_email):
