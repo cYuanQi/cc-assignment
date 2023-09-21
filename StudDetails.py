@@ -23,7 +23,7 @@ table = 'student_detail'
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
-    return render_template('student-details.html')
+    return render_template('display_student_data.html')
 
 # Allowed file extensions for resume uploads
 ALLOWED_EXTENSIONS = {'pdf'}
@@ -35,7 +35,7 @@ def allowed_file(filename):
 # Route for the student details form
 @app.route("/student_details", methods=['GET'])
 def student_details_form():
-    return render_template('display_student_data.html')
+    return render_template('student-details.html')
 
 # Route for submitting student data
 @app.route("/submit_student", methods=['POST'])
