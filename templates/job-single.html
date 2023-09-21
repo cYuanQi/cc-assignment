@@ -131,6 +131,15 @@
               <div class="col-6">
                 <a href="#" id="applyNowButton" class="btn btn-block btn-primary btn-md">Apply Now</a>
               </div>
+              <div id="applicationForm" style="display: none;">
+                <h3>Apply for the Job</h3>
+                <form action="/submit_job_application" method="POST"id="jobApplicationForm">
+                  <label for="email">Email:</label>
+                  <input type="email" id="email" name="email" required>
+                  <br>
+                  <button type="submit">Submit Application</button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
@@ -539,6 +548,12 @@
             console.log(xhr.responseText);
           }
         };
+      });
+    </script>
+    <script>
+     document.getElementById("applyNowButton").addEventListener("click", function() {
+    // Show the application form
+    document.getElementById("applicationForm").style.display = "block";
       });
     </script>
 
