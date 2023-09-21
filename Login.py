@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, session, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for
+# , session
 from pymysql import connections
 import os
 import boto3
@@ -35,7 +36,9 @@ def AddUser():
     user_password = request.form['password']
     user_repassword = request.form['retypePassword']
 
-    session['email'] = user_email
+    #RuntimeError
+    #RuntimeError: The session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.
+    # session['email'] = user_email
 
     # Check the email domain to determine the role and redirect accordingly
     if user_email.endswith('@student.com'):
@@ -80,27 +83,27 @@ def UserLogin():
     if user_email:
         # Check the email domain to determine the role and redirect accordingly
         if user_email.endswith('@student.com'):
-            return render_template('user_page.html')
+            return render_template('user_page.html', user_email=user_email)
         elif user_email.endswith('@admin.com'):
-            return render_template('admin.html')
+            return render_template('admin.html', user_email=user_email)
         elif user_email.endswith('@lecturer.com'):
-            return render_template('lecture.html')
+            return render_template('lecture.html', user_email=user_email)
         elif user_email.endswith('@company.com'):
-            return render_template('company.html')
+            return render_template('company.html', user_email=user_email)
     else:
         # return render_template('login.html', show_msg="User does not exist")
         return render_template('login.html', show_msg="Email format invalid!")
 
 # --------------------Lecture to Lecturer details--------------------
 
-@app.route("/submitlecdetails", methods=['GET', 'POST'])
-def submitlecdetails():
+@app.route("/submitlecdetails/<user_email>", methods=['GET', 'POST'])
+def submitlecdetails(user_email):
 
-    email = session.get('email')
+    # email = session.get('email')
 
     select_sql = "SELECT * FROM lecturer WHERE lecturer_email = %s"
     cursor = db_conn.cursor()
-    cursor.execute(select_sql, (email,))
+    cursor.execute(select_sql, (user_email,))
     lecturer = cursor.fetchone()
     
     # details of form
@@ -132,7 +135,7 @@ def submitlecdetails():
         finally:
             cursor.close()
     
-    return redirect(url_for('lecturerdetails'))
+    return redirect(url_for('lecturerdetails', user_email))
 
 # --------------------GENERAL redirect--------------------
 
@@ -200,20 +203,20 @@ def login():
 def lecture():
     return render_template('lecture.html')
 
-@app.route("/lecturerdetails", methods=['GET', 'POST'])
-def lecturerdetails():
-    email = session.get('email')
+@app.route("/lecturerdetails/<user_email>", methods=['GET', 'POST'])
+def lecturerdetails(user_email):
+    # email = session.get('email')
 
     select_sql = "SELECT * FROM lecturer_details WHERE lecturer_email = %s"
     cursor = db_conn.cursor()
-    cursor.execute(select_sql, (email,))
+    cursor.execute(select_sql, (user_email,))
     lecturer = cursor.fetchone()
     
     if lecturer:
         return render_template('lecturer-details.html', lecturer = lecturer)
     else:
         select_sql = "SELECT * FROM login WHERE user_email = %s"
-        cursor.execute(select_sql, (email,))
+        cursor.execute(select_sql, (user_email,))
         user = cursor.fetchone()
         
         return render_template('lecturer-details.html', user = user)
