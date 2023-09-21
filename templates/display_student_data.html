@@ -14,9 +14,15 @@
         /* Style the student details container */
         .col-lg-6 {
             background-color: #fff;
-            border-radius: 10px;
+            border-radius: 100px;
             padding: 100px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+            /* Center the content using flexbox */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
         }
 
         /* Style the headings */
@@ -37,7 +43,8 @@
             border-radius: 5px;
             padding: 10px;
             margin-bottom: 15px;
-            width: 100%;
+            width: 100%; /* Set a fixed width for all input boxes */
+            text-align: center; /* Center-align text within input boxes */
         }
 
         /* Style the download button */
