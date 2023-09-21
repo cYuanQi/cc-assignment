@@ -38,8 +38,6 @@ def admin():
 def AddAdmin():
     return render_template('addadmin.html')
 
-from werkzeug.utils import secure_filename
-
 @app.route("/addAdminProcess", methods=['POST'])
 def addAdminProcess():
     adm_id = request.form['adm_id']
@@ -83,15 +81,13 @@ def addAdminProcess():
     finally:
         cursor.close()
 
-     cursor = db_conn.cursor()
-
+    # Now, you can query the admin_list table to get data
+    cursor = db_conn.cursor()
     cursor.execute('SELECT * FROM admin_list')
     rows = cursor.fetchall()
     cursor.close()
 
     return render_template('admin_list.html', rows=rows)
-
-@app.route("/adminList
 
 @app.route("/companylistadm", methods=['GET', 'POST'])
 def companylistadm():
