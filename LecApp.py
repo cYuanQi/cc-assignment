@@ -78,9 +78,21 @@ def download_report(report_name):
     except Exception as e:
         return str(e)
 
+# Function to fetch reports from the database (replace with your actual query)
+def fetch_reports():
+    cursor = db_conn.cursor()
+    select_sql = "SELECT * FROM report"
+    cursor.execute(select_sql)
+    reports = cursor.fetchall()
+    cursor.close()
+    return reports
+
 @app.route("/Grade", methods=['GET', 'POST'])
 def grade_report():
     if request.method == 'POST':
+
+        reports = fetch_reports()  # Implement this function to fetch reports
+        
         # Get the report_name and student_score from the form
         report_name = request.form.get('report_name')
         student_score = request.form.get('student_score')
@@ -99,21 +111,7 @@ def grade_report():
             print(f"Error updating student_score: {e}")
             return "An error occurred while updating the student_score."
 
-    reports = fetch_reports()  # Implement this function to fetch reports
-
     return render_template('Grade.html', reports=reports)
-
-
-    # Rest of your code
-
-# Function to fetch reports from the database (replace with your actual query)
-def fetch_reports():
-    cursor = db_conn.cursor()
-    select_sql = "SELECT * FROM report"
-    cursor.execute(select_sql)
-    reports = cursor.fetchall()
-    cursor.close()
-    return reports
 
 
 @app.route("/nologin", methods=['GET', 'POST'])
