@@ -58,7 +58,7 @@ def evaluate_report(user_email):
         return "Report not found"  # Handle student not found error
 
 @app.route("/download_report/<report_name>", methods=['GET'])
-def download_report(report_name):
+def downloadreport(report_name):
     # Specify the S3 bucket name
     s3_bucket_name = custombucket
 
@@ -79,7 +79,7 @@ def download_report(report_name):
         return str(e)
 
 # Function to fetch reports from the database (replace with your actual query)
-def fetch_reports():
+def fetchreports():
     cursor = db_conn.cursor()
     select_sql = "SELECT * FROM report"
     cursor.execute(select_sql)
@@ -87,9 +87,9 @@ def fetch_reports():
     cursor.close()
     return reports
 
-def grade_report():
+def gradereport():
     if request.method == 'POST':
-        reports = fetch_reports()  # Implement this function to fetch reports
+        reports = fetchreports()  # Implement this function to fetch reports
 
         for report in reports:
             report_name = report[0]  # Assuming the report_id is in the first column of your report table
