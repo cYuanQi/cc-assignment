@@ -57,6 +57,21 @@ def evaluate_report(user_email):
     else:
         return "Report not found"  # Handle student not found error
 
+def fetchreports():
+    cursor = db_conn.cursor()
+    try:
+        # Execute a SELECT query to fetch the reports
+        select_sql = "SELECT * FROM report WHERE sup_email = %s"
+        cursor.execute(select_sql)
+        reports = cursor.fetchall()
+        cursor.close()
+        return reports
+    except Exception as e:
+        cursor.close()
+        print(f"Error fetching reports: {e}")
+        return []  # Return an empty list in case of an error
+
+
 @app.route("/download_report/<report_name>", methods=['GET'])
 def downloadreport(report_name):
     # Specify the S3 bucket name
@@ -77,20 +92,6 @@ def downloadreport(report_name):
         return redirect(url)
     except Exception as e:
         return str(e)
-
-def fetchreports():
-    cursor = db_conn.cursor()
-    try:
-        # Execute a SELECT query to fetch the reports
-        select_sql = "SELECT report_id, student_name, report_name FROM report"
-        cursor.execute(select_sql)
-        reports = cursor.fetchall()
-        cursor.close()
-        return reports
-    except Exception as e:
-        cursor.close()
-        print(f"Error fetching reports: {e}")
-        return []  # Return an empty list in case of an error
 
 
 def gradereport():
@@ -129,7 +130,7 @@ def nologin():
     return render_template('no_login.html')
 
 @app.route("/lecture")
-def lecturer():
+def lecture():
     return render_template('lecture.html')
 
 @app.route("/lecturerdetails")
