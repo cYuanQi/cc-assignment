@@ -88,7 +88,19 @@ def addAdminProcess():
 
     return render_template('admin_profile.html', rows=rows)
 
+@app.route("/adminProfile/<int:adm_id>", methods=['GET'])
+def adminProfile(adm_id):
+    cursor = db_conn.cursor()
+    select_sql = "SELECT * FROM adm_profile WHERE adm_id = %s"
+    cursor.execute(select_sql, (adm_id,))
+    row = cursor.fetchone()
+    cursor.close()
+    
+    if row is None:
+        return "Administrator not found"
 
+    return render_template('admin_profile.html', adminData=row)
+    
 @app.route("/companylistadm", methods=['GET', 'POST'])
 def companylistadm():
     return render_template('company_list_adm.html')
