@@ -84,10 +84,13 @@ def addAdminProcess():
 
     return render_template('admin_profile.html', rows=rows)
 
+@app.route("/admProfile", methos=['GET'])
+def admProfile():
+    return render_template('admin_profile.html')
+
 @app.route("/companylistadm", methods=['GET', 'POST'])
 def company_list():
     return render_template('company_list_adm.html')
-
 
 
 @app.route("/assignsupervisor", methods=['GET', 'POST'])
@@ -122,30 +125,11 @@ def assign_supervisorProcess():
     rows = cursor.fetchall()
     cursor.close()
 
-    return render_template('assign_supervisor.html')
-
-@app.route("/assignsupervisorProcess", methods=['POST'])
-def assign_supervisorProcess():
-    stud_name = request.form['stud_name']
-    stud_id = request.form['stud_id']
-    sup_name = request.form['sup_name']
-    sup_id = request.form['sup_id']
-
-    
-    insert_sql = "INSERT INTO admin VALUES (%s, %s, %s, %s)"
-    cursor = db_conn.cursor()
-
-    cursor.execute(insert_sql, (stud_name, stud_id, sup_name, sup_id))
-    db_conn.commit()
-    cursor.close()
-
-    cursor = db_conn.cursor()
-    cursor.execute('SELECT * FROM admin')
-    rows = cursor.fetchall()
-    cursor.close()
-
     return render_template('assign-supervisor-Output.html', name=adm_name)
 
+@app.route("/assignsupervisorresult", methods=['GET'])
+def assignsupervisorresult():
+    return render_template('assign-supervisor-Output.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
