@@ -145,9 +145,6 @@ def download_resume(filename):
 def nologin():
     return render_template('no_login.html')
 
-@app.route("/display_student_data", methods=['GET', 'POST'])
-def display_student_data():
-    return render_template('display_student_data.html')
     
 @app.route("/about", methods=['GET', 'POST'])
 def about():
