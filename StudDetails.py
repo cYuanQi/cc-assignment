@@ -100,12 +100,22 @@ def submit_student():
     student_data = cursor.fetchall()
     cursor.close()
 
-    return render_template('student_detail.html', student_data=student_data)
+   # return render_template('student_detail.html', student_data=student_data)
+    return redirect(url_for('display_student_data', user_email=student_email))
 
 
 
 
+# Route to display the inserted student data
+@app.route("/view_student/<user_email>", methods=['GET'])
+def display_student_data(user_email):
+    cursor = db_conn.cursor()
+    select_sql = "SELECT * FROM student_detail WHERE student_email = %s"
+    cursor.execute(select_sql, (user_email,))
+    student_data = cursor.fetchone()
+    cursor.close()
 
+    return render_template('display_student_data.html', student_data=student_data)
 
 
 # Route to download the student's resume
