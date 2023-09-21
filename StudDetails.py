@@ -54,7 +54,7 @@ def submit_student():
         return "Please select a file"
 
     try:
-        cursor.execute(insert_sql, (student_name, student_email, student_programme, student_skills))
+        cursor.execute(insert_sql, (student_name, student_email, student_programme, student_skills, resume_file.filename))
         db_conn.commit()
 
         # Upload resume file to S3
