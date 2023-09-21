@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, redirect, url_for
 from pymysql import connections
 import os
 import boto3
@@ -93,10 +93,46 @@ def UserLogin():
 
 # --------------------Lecture to Lecturer details--------------------
 
-@app.route("/lecturerdetails", methods=['GET', 'POST'])
+@app.route("/submitlecdetails", methods=['GET', 'POST'])
 def lecturerdetails():
+
     email = session.get('email')
-    return render_template('lecturer-details.html')
+
+    select_sql = "SELECT * FROM lecturer WHERE lecturer_email = %s"
+    cursor = db_conn.cursor()
+    cursor.execute(select_sql, (email,))
+    lecturer = cursor.fetchone()
+    
+    # details of form
+    lecturer_name = request.form['lecturerName']
+    lecturer_email = request.form['lecturerEmail']
+    lecturer_faculty = request.form['lecturerFaculty']
+    lecturer_department = request.form['lecturerDepartement']
+    lecturer_position = request.form['lecturerPosition']
+
+    if not lecturer:
+        insert_sql = "INSERT INTO lecturer VALUES (%s, %s, %s, %s, %s)"
+
+        try:
+            cursor.execute(insert_sql, (lecturer_name, lecturer_email, lecturer_faculty, lecturer_department, lecturer_position))
+            db_conn.commit()
+        
+        except Exception as e:
+            return str(e)
+        finally:
+            cursor.close()
+    else:
+        update_sql = "UPDATE lecturer SET lecturer_name = %s, lecturer_faculty = %s, lecturer_department = %s, lecturer_position = %s WHERE lecturer_email = %s"
+        
+        try:
+            cursor.execute(update_sql, (lecturer_name, lecturer_faculty, lecturer_department, lecturer_position, lecturer_email))
+            db_conn.commit()
+        except Exception as e:
+            return str(e)
+        finally:
+            cursor.close()
+    
+    return redirect(url_for('lecturerdetails'))
 
 # --------------------GENERAL redirect--------------------
 
@@ -163,6 +199,24 @@ def login():
 @app.route("/lecture", methods=['GET', 'POST'])
 def lecture():
     return render_template('lecture.html')
+
+@app.route("/lecturerdetails", methods=['GET', 'POST'])
+def lecturerdetails():
+    email = session.get('email')
+
+    select_sql = "SELECT * FROM lecturer_details WHERE lecturer_email = %s"
+    cursor = db_conn.cursor()
+    cursor.execute(select_sql, (email,))
+    lecturer = cursor.fetchone()
+    
+    if lecturer:
+        return render_template('lecturer-details.html', lecturer = lecturer)
+    else:
+        select_sql = "SELECT * FROM login WHERE user_email = %s"
+        cursor.execute(select_sql, (email,))
+        user = cursor.fetchone()
+        
+        return render_template('lecturer-details.html', user = user)
 
 @app.route("/evaluatereport", methods=['GET', 'POST'])
 def evaluatereport():
