@@ -107,7 +107,6 @@ def submit_student():
 
 
 
-# Route to display the inserted student data
 @app.route("/view_student/<user_email>", methods=['GET'])
 def view_student_data(user_email):
     cursor = db_conn.cursor()
@@ -116,7 +115,22 @@ def view_student_data(user_email):
     student_data = cursor.fetchone()
     cursor.close()
 
-    return render_template('display_student_data.html', student_data=student_data)
+    if student_data:
+        # Assuming student_data[4] contains the resume file name in S3
+        resume_file_name_in_s3 = student_data[4]
+
+        # Retrieve the resume file from S3
+        s3 = boto3.client('s3')
+        try:
+            s3_object = s3.get_object(Bucket=custombucket, Key=resume_file_name_in_s3)
+            resume_data = s3_object['Body'].read()
+        except Exception as e:
+            return str(e)  # Handle S3 retrieval error
+
+        # You can now pass the resume_data to your template for download
+        return render_template('display_student_data.html', student_data=student_data, resume_data=resume_data)
+    else:
+        return "Student not found"  # Handle student not found error
 
 
 # Route to download the student's resume
