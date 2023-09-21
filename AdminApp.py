@@ -20,15 +20,12 @@ db_conn = connections.Connection(
 output = {}
 table = 'admin'
 
-@app.route("/", methods=['GET', 'POST'])
-def home():
-    return render_template('admin.html')
 
-@app.route("/admin", methods =['GET', 'POST'])
+@app.route("/admin", methods=['GET', 'POST'])
 def admin():
     return render_template('admin.html')
 
-@app.route("/addAdmin", methods =['GET', 'POST'])
+@app.route("/addadmin", methods=['GET', 'POST'])
 def addAdmin():
     return render_template('addadmin.html')
 
@@ -87,22 +84,68 @@ def addAdminProcess():
 
     return render_template('admin_profile.html', rows=rows)
 
-@app.route("/companylistadm", methods =['GET', 'POST'])
-def companylistadm():
+@app.route("/companylistadm", methods=['GET', 'POST'])
+def company_list():
     return render_template('company_list_adm.html')
 
 
-@app.route("/assignsupervisor", methods =['GET', 'POST'])
-def assignsupervisor():
+
+@app.route("/assignsupervisor", methods=['GET', 'POST'])
+def assign_supervisor():
     return render_template('assign-supervisor.html')
-    
-@app.route("/nologin", methods =['GET', 'POST'])
+
+@app.route("/nologin", methods = ['GET', 'POST'])
 def nologin():
     return render_template('no_login.html')
-    
-@app.route("/jobsingle", methods =['GET', 'POST'])
+
+@app.route("/jobsingle", methods = ['GET', 'POST'])
 def jobsingle():
     return render_template('job-single.html')
+
+@app.route("/assignsupervisorProcess", methods=['POST'])
+def assign_supervisorProcess():
+    stud_name = request.form['stud_name']
+    stud_id = request.form['stud_id']
+    sup_name = request.form['sup_name']
+    sup_id = request.form['sup_id']
+
+    
+    insert_sql = "INSERT INTO admin VALUES (%s, %s, %s, %s)"
+    cursor = db_conn.cursor()
+
+    cursor.execute(insert_sql, (stud_name, stud_id, sup_name, sup_id))
+    db_conn.commit()
+    cursor.close()
+
+    cursor = db_conn.cursor()
+    cursor.execute('SELECT * FROM admin')
+    rows = cursor.fetchall()
+    cursor.close()
+
+    return render_template('assign_supervisor.html')
+
+@app.route("/assignsupervisorProcess", methods=['POST'])
+def assign_supervisorProcess():
+    stud_name = request.form['stud_name']
+    stud_id = request.form['stud_id']
+    sup_name = request.form['sup_name']
+    sup_id = request.form['sup_id']
+
+    
+    insert_sql = "INSERT INTO admin VALUES (%s, %s, %s, %s)"
+    cursor = db_conn.cursor()
+
+    cursor.execute(insert_sql, (stud_name, stud_id, sup_name, sup_id))
+    db_conn.commit()
+    cursor.close()
+
+    cursor = db_conn.cursor()
+    cursor.execute('SELECT * FROM admin')
+    rows = cursor.fetchall()
+    cursor.close()
+
+    return render_template('assign-supervisor-Output.html', name=adm_name)
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
