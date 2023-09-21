@@ -38,6 +38,8 @@ def admin():
 def AddAdmin():
     return render_template('addadmin.html')
 
+from werkzeug.utils import secure_filename
+
 @app.route("/addAdminProcess", methods=['POST'])
 def addAdminProcess():
     adm_id = request.form['adm_id']
@@ -59,12 +61,16 @@ def addAdminProcess():
         cursor.execute(insert_sql, (adm_id, adm_name, adm_gender, adm_dob, adm_address, adm_email, adm_phone))
         db_conn.commit()
 
-        # Upload image file to S3
-        adm_file_name_in_s3 = "adm-id-" + str(adm_id) + "_image_file"
-        print("adm_file_name_in_s3:", adm_file_name_in_s3)  # Debugging line
+        # Check if the uploaded file is a PNG image
+        if adm_img.filename == '':
+            return "Please select a file"
 
-        s3 = boto3.client('s3')
-        s3.upload_fileobj(adm_img, custombucket, adm_file_name_in_s3)
+        if not adm_img.filename.endswith('.png'):
+            return "Please upload a PNG image"
+
+        # Generate a secure filename and save the image file
+        adm_file_name_in_s3 = "adm-id-" + str(adm_id) + "_image_file.png"
+        adm_img.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(adm_file_name_in_s3)))
 
         # Save the image file name in the database
         update_sql = "UPDATE adm_profile SET adm_image = %s WHERE adm_id = %s"
@@ -79,9 +85,6 @@ def addAdminProcess():
 
     return redirect(url_for('admin_list'))  # Assuming you have an 'admin_list' route to display the admin list
 
-
-
-    
 @app.route("/companylistadm", methods=['GET', 'POST'])
 def companylistadm():
     return render_template('company_list_adm.html')
