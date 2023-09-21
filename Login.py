@@ -199,9 +199,9 @@ def contact():
 def login():
     return render_template('login.html')
 
-@app.route("/lecture", methods=['GET', 'POST'])
-def lecture():
-    return render_template('lecture.html')
+@app.route("/lecture/<user_email>", methods=['GET', 'POST'])
+def lecture(user_email):
+    return render_template('lecture.html', user_email = user_email)
 
 @app.route("/lecturerdetails/<user_email>", methods=['GET', 'POST'])
 def lecturerdetails(user_email):
@@ -213,12 +213,13 @@ def lecturerdetails(user_email):
     lecturer = cursor.fetchone()
     
     if lecturer:
+        cursor.close()
         return render_template('lecturer-details.html', lecturer = lecturer)
     else:
         select_sql = "SELECT * FROM login WHERE user_email = %s"
         cursor.execute(select_sql, (user_email,))
         user = cursor.fetchone()
-        
+        cursor.close()
         return render_template('lecturer-details.html', user = user)
 
 @app.route("/evaluatereport", methods=['GET', 'POST'])
