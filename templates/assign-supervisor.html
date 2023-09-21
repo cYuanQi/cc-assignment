@@ -85,32 +85,56 @@
     </section>
 
     <!-- PAGE CONTENT -->
-    <form action="/assignsupervisorProcess" method="POST" enctype="multipart/form-data">
-      <h3 class="text-black mb-5 border-bottom pb-2">Student and Supervisor Details</h3>
-      
-      <div class="form-group">
-        <label for="stud_name">Student Name</label>
-        <input type="text" class="form-control" id="stud_name" name="stud_name" placeholder="John Doe">
+    <section class="site-section">
+      <div class="container">
+        <div class="row align-items-center mb-5">
+          <div class="col-lg-8 mb-4 mb-lg-0">
+            <div class="d-flex align-items-center">
+              <div>
+                <h2>Assign Supervisors to Students</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-5">
+          <div class="col-lg-12">
+            <form action="/assignsupervisorProcess" method="POST" enctype="multipart/form-data">
+              <h3 class="text-black mb-5 border-bottom pb-2">Student and Supervisor Details</h3>
+              
+              <div class="form-group">
+                <label for="stud_name">Student Name</label>
+                <input type="text" class="form-control" id="stud_name" name="stud_name" placeholder="John Doe">
+              </div>
+
+              <div class="form-group">
+                <label for="stud_id">Student ID</label>
+                <input type="text" class="form-control" id="stud_id" name="stud_id" placeholder="123456">
+              </div>
+
+              <div class="form-group">
+                <label for="sup_name">Supervisor Name</label>
+                <input type="text" class="form-control" id="sup_name" name="sup_name" placeholder="Jane Smith">
+              </div>
+
+              <div class="form-group">
+                <label for="sup_id">Supervisor ID</label>
+                <input type="text" class="form-control" id="sup_id" name="sup_id" placeholder="789012">
+              </div>
+
+            </form>
+          </div>
+        </div>
+        <div class="row align-items-center mb-5">
+          <div class="col-lg-4 ml-auto">
+            <div class="row">
+              <div class="col-6">
+                <a href="#" class="btn btn-block btn-primary btn-md">Save Changes</a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    
-      <div class="form-group">
-        <label for="stud_id">Student ID</label>
-        <input type="text" class="form-control" id="stud_id" name="stud_id" placeholder="123456">
-      </div>
-    
-      <div class="form-group">
-        <label for="sup_name">Supervisor Name</label>
-        <input type="text" class="form-control" id="sup_name" name="sup_name" placeholder="Jane Smith">
-      </div>
-    
-      <div class="form-group">
-        <label for="sup_id">Supervisor ID</label>
-        <input type="text" class="form-control" id="sup_id" name="sup_id" placeholder="789012">
-      </div>
-    
-      <button type="submit" class="btn btn-block btn-primary btn-md">Save Changes</button>
-    </form>
-    
+    </section>
 
     <!-- FOOTER -->
     <footer class="site-footer">
