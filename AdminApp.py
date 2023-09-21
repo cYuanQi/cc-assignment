@@ -80,7 +80,7 @@ def addAdminProcess():
                 adm_file_name_in_s3)
 
             # Update the image file name in the database
-            update_sql = "UPDATE adm_profile SET adm_image = %s WHERE adm_id = %s"
+            update_sql = "UPDATE adm_profile SET adm_img = %s WHERE adm_id = %s"
             cursor.execute(update_sql, (adm_file_name_in_s3, adm_id))
             db_conn.commit()
 
