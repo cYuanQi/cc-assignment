@@ -129,7 +129,7 @@ def gradereport():
 def nologin():
     return render_template('no_login.html')
 
-@app.route("/lecture")
+@app.route("/lecturer")
 def lecture():
     return render_template('lecture.html')
 
