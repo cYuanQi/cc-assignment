@@ -61,6 +61,8 @@ def addAdminProcess():
 
         # Upload image file to S3
         adm_file_name_in_s3 = "adm-id-" + str(adm_id) + "_image_file"
+        print("adm_file_name_in_s3:", adm_file_name_in_s3)  # Debugging line
+
         s3 = boto3.client('s3')
         s3.upload_fileobj(adm_img, custombucket, adm_file_name_in_s3)
 
@@ -75,7 +77,8 @@ def addAdminProcess():
     finally:
         cursor.close()
 
-    return render_template('admin_list.html', rows=rows)
+    return redirect(url_for('admin_list'))  # Assuming you have an 'admin_list' route to display the admin list
+
 
 
     
