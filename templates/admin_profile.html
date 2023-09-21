@@ -102,6 +102,7 @@
                                 <th>Administrator Name</th>
                                 <th>Administrator Gender</th>
                                 <th>Administrator DOB</th>
+                                <!-- Display the address as non-editable text -->
                                 <th>Administrator Address</th>
                                 <th>Administrator Email</th>
                                 <th>Administrator Phone</th>
@@ -114,7 +115,8 @@
                                 <td>{{ adminData[1] }}</td>
                                 <td>{{ adminData[2] }}</td>
                                 <td>{{ adminData[3] }}</td>
-                                <td>{{ adminData[4] }}</td>
+                                <!-- Use a <span> element to display the address as non-editable text -->
+                                <td><span>{{ adminData[4] }}</span></td>
                                 <td>{{ adminData[5] }}</td>
                                 <td>{{ adminData[6] }}</td>
                             </tr>
@@ -134,6 +136,7 @@
         </div>
     </div>
 </section>
+
 
 
 
