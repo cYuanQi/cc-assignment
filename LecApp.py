@@ -34,16 +34,15 @@ def allowed_file(filename):
 
 @app.route("/EvaluateReport/<user_email>", methods=['GET', 'POST'])
 def evaluate_report(user_email):
-    if request.method == 'POST':
-        cursor = db_conn.cursor()
-        select_sql = "SELECT * FROM report WHERE sup_email = %s"
-        cursor.execute(select_sql, (user_email,))
-        report_data = cursor.fetchone()
-        cursor.close()
+    cursor = db_conn.cursor()
+    select_sql = "SELECT * FROM report WHERE sup_email = %s"
+    cursor.execute(select_sql, (user_email,))
+    report_data = cursor.fetchone()
+    cursor.close()
         
-         if report_data:
-            # Assuming student_data[4] contains the resume file name in S3
-            report_file_name_in_s3 = report_data[1]
+    if report_data:
+        # Assuming student_data[4] contains the resume file name in S3
+        report_file_name_in_s3 = report_data[1]
 
         # Retrieve the resume file from S3
         s3 = boto3.client('s3')
