@@ -25,8 +25,8 @@ table = 'admin'
 def admin():
     return render_template('admin.html')
 
-@app.route("/addadmin", methods=['GET', 'POST'])
-def addadmin():
+@app.route("/AddAdmin", methods=['GET', 'POST'])
+def AddAdmin():
     return render_template('addadmin.html')
 
 @app.route("/AddAdminProcess", methods=['GET', 'POST'])
