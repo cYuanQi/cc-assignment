@@ -38,7 +38,7 @@ def addAdminProcess():
     adm_name = request.form['adm_name']
     adm_gender = request.form['adm_gender']
     adm_dob = request.form['adm_dob']
-    adm_address = request.form['adm_adddress']
+    adm_address = request.form['adm_address']
     adm_email = request.form['adm_email']
     adm_phone = request.form['adm_phone']
     adm_img = request.files['adm_img']
