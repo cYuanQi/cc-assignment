@@ -118,8 +118,7 @@ def view_student_data(user_email):
 
         # You can now pass the resume_data to your template for download
         return redirect(url_for('view_student_data', student_data=student_data, resume_data=resume_data)
-    else:
-        return "Student not found"  # Handle student not found error
+
 
 
 # Route to download the student's resume
