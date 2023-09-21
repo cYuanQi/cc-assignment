@@ -19,6 +19,13 @@ db_conn = connections.Connection(
 )
 output = {}
 
+# Allowed file extensions for resume uploads
+ALLOWED_EXTENSIONS = {'jpg'}
+
+# Function to check if a filename has an allowed extension
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+    
 @app.route("/")
 def home():
     return render_template('admin.html')
@@ -31,7 +38,7 @@ def admin():
 def AddAdmin():
     return render_template('addadmin.html')
 
-@app.route("/addAdminProcess", methods=['GET', 'POST'])
+@app.route("/addAdminProcess", methods=['POST'])
 def addAdminProcess():
     adm_id = request.form['adm_id']
     adm_name = request.form['adm_name']
@@ -45,7 +52,7 @@ def addAdminProcess():
     cursor = db_conn.cursor()
     insert_sql = "INSERT INTO adm_profile(adm_id, adm_name, adm_gender, adm_dob, adm_address, adm_email, adm_phone) VALUES (%s, %s, %s, %s, %s, %s, %s)"
 
-    if adm_img == "":
+    if not adm_img:
         return "Please select an image"
 
     try:
@@ -54,36 +61,22 @@ def addAdminProcess():
 
         # Upload image file to S3
         adm_file_name_in_s3 = "adm-id-" + str(adm_id) + "_image_file"
-        s3 = boto3.resource('s3')
+        s3 = boto3.client('s3')
+        s3.upload_fileobj(adm_img, custombucket, adm_file_name_in_s3)
 
-        try:
-            print("Data inserted in MySQL RDS... uploading image to S3...")
-            s3.Bucket(custombucket).put_object(Key=adm_file_name_in_s3, Body=adm_img)
-            bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
-            s3_location = (bucket_location['LocationConstraint'])
+        # Save the image file name in the database
+        update_sql = "UPDATE adm_profile SET adm_image = %s WHERE adm_id = %s"
+        cursor.execute(update_sql, (adm_file_name_in_s3, adm_id))
+        db_conn.commit()
 
-            if s3_location is None:
-                s3_location = ''
-            else:
-                s3_location = '-' + s3_location
-
-            object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
-                s3_location,
-                custombucket,
-                adm_file_name_in_s3)
-
-            # Save the image file name in the database
-            update_sql = "UPDATE adm_profile SET adm_image = %s WHERE adm_id = %s"
-            cursor.execute(update_sql, (adm_file_name_in_s3, adm_id))
-            db_conn.commit()
-
-        except Exception as e:
-            return str(e)
+    except Exception as e:
+        return str(e)
 
     finally:
         cursor.close()
 
     return render_template('admin_list.html', rows=rows)
+
 
     
 @app.route("/companylistadm", methods=['GET', 'POST'])
