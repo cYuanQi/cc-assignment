@@ -94,7 +94,7 @@ def UserLogin():
 # --------------------Lecture to Lecturer details--------------------
 
 @app.route("/submitlecdetails", methods=['GET', 'POST'])
-def lecturerdetails():
+def submitlecdetails():
 
     email = session.get('email')
 
