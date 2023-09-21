@@ -31,6 +31,7 @@ def admin():
 def AddAdmin():
     return render_template('addadmin.html')
 
+@app.route("/addAdminProcess", methods=['GET', 'POST'])
 def addAdminProcess():
     adm_id = request.form['adm_id']
     adm_name = request.form['adm_name']
@@ -45,13 +46,13 @@ def addAdminProcess():
     insert_sql = "INSERT INTO adm_profile(adm_id, adm_name, adm_gender, adm_dob, adm_address, adm_email, adm_phone) VALUES (%s, %s, %s, %s, %s, %s, %s)"
 
     if adm_img == "":
-        return "Please select a image"
+        return "Please select an image"
 
     try:
         cursor.execute(insert_sql, (adm_id, adm_name, adm_gender, adm_dob, adm_address, adm_email, adm_phone))
         db_conn.commit()
 
-        # Uplaod image file in S3 #
+        # Upload image file to S3 #
         adm_file_name_in_s3 = "adm-id-" + str(adm_id) + "_image_file"
         s3 = boto3.resource('s3')
 
@@ -82,7 +83,7 @@ def addAdminProcess():
         cursor.execute('SELECT * FROM adm_profile')
         rows = cursor.fetchall()
     finally:
-    cursor.close()
+        cursor.close()
 
     return render_template('admin_profile.html', rows=rows)
 
