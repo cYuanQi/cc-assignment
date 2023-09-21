@@ -45,7 +45,7 @@ def addAdminProcess():
     adm_img = request.files['adm_img']
 
     cursor = db_conn.cursor()
-    insert_sql = "INSERT INTO admin_profile(adm_id, adm_name, adm_gender, adm_dob, adm_address, adm_email, adm_phone) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+    insert_sql = "INSERT INTO adm_profile(adm_id, adm_name, adm_gender, adm_dob, adm_address, adm_email, adm_phone) VALUES (%s, %s, %s, %s, %s, %s, %s)"
 
     if adm_img == "":
         return "Please select a image"
@@ -82,7 +82,7 @@ def addAdminProcess():
 
     cursor = db_conn.cursor()
 
-    cursor.execute('SELECT * FROM admin_profile')
+    cursor.execute('SELECT * FROM adm_profile')
     rows = cursor.fetchall()
     cursor.close()
 
