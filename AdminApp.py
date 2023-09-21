@@ -18,8 +18,6 @@ db_conn = connections.Connection(
 
 )
 output = {}
-table_1 = 'admin'
-table_2 = 'admin_profile'
 
 @app.route("/")
 def home():
@@ -101,7 +99,11 @@ def adminProfile(email):
     finally:
         cursor.close()
 
-    return render_template('admin_profile.html', adminData=adminData)
+    if adminData is not None:
+        return render_template('admin_profile.html', adminData=adminData)
+    else:
+        return "Administrator not found"
+
 
     
 @app.route("/companylistadm", methods=['GET', 'POST'])
