@@ -71,12 +71,13 @@ def UserLogin():
     user_email = request.form['loginEmail']
     user_password = request.form['loginPassword']
 
-    cursor = db_conn.cursor()
-    cursor.execute("SELECT * FROM login WHERE user_email=%s", (user_email,))
-    user = cursor.fetchall()
-    cursor.close()
+    # cursor = db_conn.cursor()
+    # cursor.execute("SELECT * FROM login WHERE user_email=%s", (user_email,))
+    # user = cursor.fetchall()
+    # cursor.close()
 
-    if user:
+    # if user:
+    if user_email:
         # Check the email domain to determine the role and redirect accordingly
         if user_email.endswith('@student.com'):
             return render_template('user_page.html')
@@ -87,7 +88,8 @@ def UserLogin():
         elif user_email.endswith('@company.com'):
             return render_template('company.html')
     else:
-        return render_template('login.html', show_msg="User does not exist")
+        # return render_template('login.html', show_msg="User does not exist")
+        return render_template('login.html', show_msg="Email format invalid!")
 
 # --------------------Lecture to Lecturer details--------------------
 
