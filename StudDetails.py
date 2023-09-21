@@ -54,8 +54,8 @@ def submit_student():
         return "Please select a file"
 
     try:
-        cursor.execute(insert_sql, (student_name, student_email, student_programme, student_skills, resume_file.filename))
-        db_conn.commit()
+        # cursor.execute(insert_sql, (student_name, student_email, student_programme, student_skills, resume_file.filename))
+        # db_conn.commit()
 
         # Upload resume file to S3
         resume_file_name_in_s3 = "stud-name" + str(student_name) + "_resume_file"
@@ -65,10 +65,10 @@ def submit_student():
         #     print("Data inserted in MySQL RDS... uploading image to S3...")
         #     s3.Bucket(bucket).upload_fileobj(resume_file,resume_file_name_in_s3)
 
-            
-            
+        
         # except Exception as e:
         #     return str(e)
+        # Store file (object) into S3 bucket
         try:
             print("Data inserted in MySQL RDS... uploading image to S3...")
             s3.Bucket(custombucket).put_object(Key=resume_file_name_in_s3, Body=resume_file)
@@ -85,9 +85,13 @@ def submit_student():
                 custombucket,
                 resume_file_name_in_s3)
             
-
         except Exception as e:
             return str(e)
+        
+        # after successfully store into S3
+        # then store student details into the mariadb
+        cursor.execute(insert_sql, (student_name, student_email, student_programme, student_skills, resume_file_name_in_s3))
+        db_conn.commit()
     finally:
         cursor.close()
 

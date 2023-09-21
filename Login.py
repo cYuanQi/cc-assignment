@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session
 from pymysql import connections
 import os
 import boto3
@@ -26,13 +26,16 @@ def home():
     # return render_template('login.html')
     return render_template('login.html')
 
-# USer Sign up - stud, lecturer
+# --------------------Login.html to own hoempage--------------------
+# User Sign up
 @app.route("/adduser", methods=['POST'])
 def AddUser():
     user_name = request.form['name']
     user_email = request.form['email']
     user_password = request.form['password']
     user_repassword = request.form['retypePassword']
+
+    session['email'] = user_email
 
     # Check the email domain to determine the role and redirect accordingly
     if user_email.endswith('@student.com'):
@@ -86,7 +89,14 @@ def UserLogin():
     else:
         return render_template('login.html', show_msg="User does not exist")
 
-# --------------------GENERAL--------------------
+# --------------------Lecture to Lecturer details--------------------
+
+@app.route("/lecturerdetails", methods=['GET', 'POST'])
+def lecturerdetails():
+    email = session.get('email')
+    return render_template('lecturer-details.html')
+
+# --------------------GENERAL redirect--------------------
 
 @app.route("/nologin", methods=['GET', 'POST'])
 def nologin():
@@ -151,10 +161,6 @@ def login():
 @app.route("/lecture", methods=['GET', 'POST'])
 def lecture():
     return render_template('lecture.html')
-
-@app.route("/lecturerdetails", methods=['GET', 'POST'])
-def lecturerdetails():
-    return render_template('lecturer-details.html')
 
 @app.route("/evaluatereport", methods=['GET', 'POST'])
 def evaluatereport():
