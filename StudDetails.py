@@ -93,9 +93,6 @@ def submit_student():
 
     return redirect(url_for('display_student_data', user_email=student_email))
 
-
-
-
 @app.route("/view_student/<user_email>", methods=['GET'])
 def view_student_data(user_email):
     cursor = db_conn.cursor()
