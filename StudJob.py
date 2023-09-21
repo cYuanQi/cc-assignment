@@ -83,9 +83,10 @@ def submit_student():
 
 @app.route("/submit_job_application", methods=['POST'])
 def submit_job_application():
+    student_email = request.form['student_email']
     cursor = db_conn.cursor()
-    select_sql = "SELECT * FROM student WHERE student_email = %s"
-    cursor.execute(select_sql, (user_email,))
+    select_sql = "SELECT * FROM student WHERE student_email = student_email"
+    cursor.execute(select_sql)
     student_data = cursor.fetchone()
     cursor.close()
 
@@ -94,7 +95,6 @@ def submit_job_application():
         job_title = data.get('jobTitle')  # Extract the job title
         company_name = data.get('companyName')  # Extract the company name
         student_name = student_data['student_name']  # Replace with the actual column name from your database
-        student_email = student_data['student_email']  # Replace with the actual column name
         student_programme = student_data['student_programme']  # Replace with the actual column name
         student_skills = student_data['student_skills']
         resume_file = student_data['student_resume']
