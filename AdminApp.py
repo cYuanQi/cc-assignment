@@ -18,7 +18,8 @@ db_conn = connections.Connection(
 
 )
 output = {}
-table = 'admin'
+table_1 = 'admin'
+table_2 = 'admin_profile'
 
 @app.route("/")
 def home():
