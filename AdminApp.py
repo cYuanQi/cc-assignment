@@ -124,7 +124,7 @@ def nologin():
 def jobsingle():
     return render_template('job-single.html')
 
-@app.route("/assignsupervisorProcess", methods=['POST'])
+@app.route("/assignsupervisorProcess", methods=['POST', 'GET'])
 def assignsupervisorProcess():
     stud_name = request.form['stud_name']
     stud_id = request.form['stud_id']
