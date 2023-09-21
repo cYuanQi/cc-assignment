@@ -108,14 +108,14 @@
                                 <!-- Loop through the data from HeidiSQL and populate the table -->
                                 {% for row in heidiSQLData %}
                                     <tr>
-                                        <td>{{ row[0]] }}</td>
+                                        <td>{{ row[0] }}</td>
                                         <td>{{ row[1] }}</td>
                                         <td>{{ row[2] }}</td>
                                         <td>{{ row[3] }}</td>
                                         <td>{{ row[4] }}</td>
                                         <td>{{ row[5] }}</td>
                                         <td>{{ row[6] }}</td>
-                                        <td>{{ row[7]] }}</td>
+                                        <td>{{ row[7] }}</td>
                                     </tr>
                                 {% endfor %}
                             </tbody>
@@ -126,7 +126,7 @@
                     <div class="col-lg-4 ml-auto">
                       <div class="row">
                         <div class="col-6">
-                          <a href="#" class="btn btn-block btn-primary btn-md">Edit</a>
+                          <a href="{{url_for('AddAdmin')}}" class="btn btn-block btn-primary btn-md">Edit</a>
                         </div>
                       </div>
                     </div>
