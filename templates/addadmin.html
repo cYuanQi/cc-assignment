@@ -85,57 +85,69 @@
     </section>
 
     <!-- PAGE CONTENT -->
-    <section class="s-pagecontent pagecontent" style="margin-left: 20%; margin-right: 20%;">
-		<h3 class="u-add-bottom">Edit Administrator Profile</h3>
-		<form action="/addAdminProcess" method = "POST" enctype="multipart/form-data">
-			<div>
-				<label for="adm_id">Administrator ID</label>
-				<input class="u-fullwidth" type="text" id="adm_id" name="adm_id">
-			</div>
-			<div>
-				<label for="adm_name">Administrator Name</label>
-				<input class="u-fullwidth" type="text" id="adm_name" name="adm_name">
-			</div>
-			<div>
-				<label for="adm_gender">Administrator Gender</label>
-				<div class="ss-custom-select">
-					<select class="u-fullwidth" id="adm_gender" name="adm_gender">
-						<option value="Male">Male</option>
-						<option value="Female">Female</option>
-						<option value="Other">Other</option>
-					</select>
-				</div>
-			</div>
-			<div>
-				<label for="adm_dob">Date of Birth</label>
-				<input class="u-fullwidth" type="date" id="adm_dob" name="adm_dob">
-			</div>
-			<div>
-				<label for="adm_address">Address</label>
-				<textarea class="u-fullwidth" id="address" name="adm_address"></textarea>
-			</div>
-			<div>
-				<label for="adm_email">Email</label>
-				<input class="u-fullwidth" type="email" id="adm_email" name="adm_email">
-			</div>
-			<div>
-				<label for="adm_phone">Phone Number</label>
-				<input class="u-fullwidth" type="tel" id="adm_phone" name="adm_phone">
-			</div>
-
-            </form>
-          </div>
-        </div>
-        <div class="row align-items-center mb-5">
-          <div class="col-lg-4 ml-auto">
-            <div class="row">
-              <div class="col-6">
-                <a href="#" class="btn btn-block btn-primary btn-md">Save Changes</a>
-              </div>
+    <!-- PAGE CONTENT -->
+    <section class="s-pagecontent pagecontent">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                  <br>
+                  <br>
+                    <h3 class="u-add-bottom">Edit Administrator Profile</h3>
+                  <br>
+                  <br>
+                    <form action="/addAdminProcess" method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="adm_id">Administrator ID</label>
+                            <input class="form-control" type="text" id="adm_id" name="adm_id">
+                        </div>
+                        <div class="form-group">
+                            <label for="adm_name">Administrator Name</label>
+                            <input class="form-control" type="text" id="adm_name" name="adm_name">
+                        </div>
+                        <div class="form-group">
+                            <label for="adm_gender">Administrator Gender</label>
+                            <select class="form-control" id="adm_gender" name="adm_gender">
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="adm_dob">Date of Birth</label>
+                            <input class="form-control" type="date" id="adm_dob" name="adm_dob">
+                        </div>
+                        <div class="form-group">
+                            <label for="adm_address">Address</label>
+                            <textarea class="form-control" id="address" name="adm_address"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="adm_email">Email</label>
+                            <input class="form-control" type="email" id="adm_email" name="adm_email">
+                        </div>
+                        <div class="form-group">
+                            <label for="adm_phone">Phone Number</label>
+                            <input class="form-control" type="tel" id="adm_phone" name="adm_phone">
+                        </div>
+                        <div>
+                          <label for="adm_img">Administrator Image </label>
+                          <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="adm_img" name="adm_img">
+                            <label class="custom-file-label" for="adm_img">Choose file</label>
+                          </div>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-md">Save Changes</button>
+                        </div>
+                      <br>
+                  
+                      <br>
+                      
+                    </form>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </section>
 
     <!-- FOOTER -->
