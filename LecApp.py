@@ -42,13 +42,13 @@ def evaluate_report(user_email):
         cursor.close()
         
          if report_data:
-        # Assuming student_data[4] contains the resume file name in S3
-        resume_file_name_in_s3 = report_data[1]
+            # Assuming student_data[4] contains the resume file name in S3
+            report_file_name_in_s3 = report_data[1]
 
         # Retrieve the resume file from S3
         s3 = boto3.client('s3')
         try:
-            s3_object = s3.get_object(Bucket=custombucket, Key=resume_file_name_in_s3)
+            s3_object = s3.get_object(Bucket=custombucket, Key=report_file_name_in_s3)
             report_file_data = s3_object['Body'].read()
         except Exception as e:
             return str(e)  # Handle S3 retrieval error
