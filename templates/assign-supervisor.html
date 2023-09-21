@@ -51,7 +51,7 @@
           <nav class="mx-auto site-navigation">
             <ul class="site-menu static/static/js-clone-nav d-none d-xl-block ml-0 pl-0">
               <li><a href="{{url_for('admin')}}" class="nav-link active">Home</a></li>
-              <li><a href="{{url_for('AddAdmin')}}">Admin Information</a></li>
+              <li><a href="{{url_for('AddAdmin')}}">Admin Profile</a></li>
               <li><a href="{{url_for('companylistadm')}}">Approve Application</a></li>
               <li><a href="{{url_for('assignsupervisor')}}">Supervisor Assignment</a></li>
               <li class="d-lg-none"><a href="{{url_for('nologin')}}">Log Out</a></li>
@@ -102,23 +102,23 @@
               <h3 class="text-black mb-5 border-bottom pb-2">Student and Supervisor Details</h3>
               
               <div class="form-group">
-                <label for="student-name">Student Name</label>
-                <input type="text" class="form-control" id="student-name" placeholder="John Doe">
+                <label for="stud_name">Student Name</label>
+                <input type="text" class="form-control" id="stud_name" placeholder="John Doe">
               </div>
 
               <div class="form-group">
-                <label for="student-id">Student ID</label>
-                <input type="text" class="form-control" id="student-id" placeholder="123456">
+                <label for="stud_id">Student ID</label>
+                <input type="text" class="form-control" id="stud_id" placeholder="123456">
               </div>
 
               <div class="form-group">
-                <label for="supervisor-name">Supervisor Name</label>
-                <input type="text" class="form-control" id="supervisor-name" placeholder="Jane Smith">
+                <label for="sup_name">Supervisor Name</label>
+                <input type="text" class="form-control" id="sup_name" placeholder="Jane Smith">
               </div>
 
               <div class="form-group">
-                <label for="supervisor-id">Supervisor ID</label>
-                <input type="text" class="form-control" id="supervisor-id" placeholder="789012">
+                <label for="sup_id">Supervisor ID</label>
+                <input type="text" class="form-control" id="sup_id" placeholder="789012">
               </div>
 
             </form>
