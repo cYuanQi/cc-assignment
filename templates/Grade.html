@@ -92,14 +92,15 @@
                                   <tr>
                                       <td>{{ report.student_name }}</td>
                                       <td>
-                                          <select name="student_score_{{ report.report_id }}">
-                                              <option value="A">A</option>
-                                              <option value="B">B</option>
-                                              <option value="C">C</option>
-                                              <option value="D">D</option>
-                                          </select>
+                                        <select name="student_score_{{ report.report_name }}">
+                                            <option value="">Select Grade</option>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="D">D</option>
+                                        </select>                                        
                                       </td>
-                                      <td>{{ report.student_report }}</td>
+                                      <td>{{ report.report_name }}</td>
                                       <td>
                                           <button type="submit" class="btn btn-primary" name="report_id" value="{{ report.report_id }}">Grade</button>
                                       </td>
