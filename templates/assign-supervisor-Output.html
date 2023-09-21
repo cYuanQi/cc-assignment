@@ -85,38 +85,34 @@
     </section>
 
     <!-- PAGE CONTENT -->
-    <section id="content" class="s-content">
-    <section class="s-pageheader pageheader">
-        <div class="row">
-            <div class="column xl-12">
-                <h3 class="u-add-bottom">Assign Supervisor Result</h3>
-            </div>
-        </div>
-    </section> <!-- pageheader -->  
     <section class="s-pagecontent pagecontent">
-        <div class="row pageintro">
-            <div class="table-responsive" style="margin: 50;">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Student ID</th>
-                            <th>Student Name</th>
-                            <th>Supervisor ID</th>
-                            <th>Supervisor Name</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Loop through the data from HeidiSQL and populate the table -->
-                        {% for row in heidiSQLData %}
-                        <tr>
-                            <td>{{ row[0] }}</td>
-                            <td>{{ row[1] }}</td>
-                            <td>{{ row[2] }}</td>
-                            <td>{{ row[3] }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h3 class="u-add-bottom">Assign Supervisor List</h3>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Student ID</th>
+                                <th>Student Name</th>
+                                <th>Supervisor ID</th>
+                                <th>Supervisor Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Loop through the data from HeidiSQL and populate the table -->
+                            {% for row in heidiSQLData %}
+                            <tr>
+                                <td>{{ row[0] }}</td>
+                                <td>{{ row[1] }}</td>
+                                <td>{{ row[2] }}</td>
+                                <td>{{ row[3] }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <div class="row align-items-center mb-5">
@@ -128,7 +124,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 </section>
 
 
