@@ -102,6 +102,7 @@ def submit_student():
 
     return redirect(url_for('display_student_data', user_email=student_email))
 
+
 # Route to display the inserted student data
 @app.route("/view_student/<user_email>", methods=['GET'])
 def display_student_data(user_email):
@@ -112,6 +113,7 @@ def display_student_data(user_email):
     cursor.close()
 
     return render_template('display_student_data.html', student_data=student_data)
+
 
 
 
