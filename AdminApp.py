@@ -85,7 +85,7 @@ def addAdminProcess():
     finally:
         cursor.close()
 
-    return render_template('admin_profile.html', rows=rows)
+    return render_template('admin_list.html', rows=rows)
 
     
 @app.route("/companylistadm", methods=['GET', 'POST'])
