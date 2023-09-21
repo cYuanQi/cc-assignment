@@ -59,6 +59,10 @@ def addAdminProcess():
         cursor.execute(insert_sql, (adm_id, adm_name, adm_gender, adm_dob, adm_address, adm_email, adm_phone))
         db_conn.commit()
 
+        # Check if the uploaded file is empty
+        if adm_img.filename == '':
+            return "Please select a file"
+
         # Generate a secure filename and save the image file
         adm_file_name_in_s3 = "adm-id-" + str(adm_id) + "_image_file.jpg"
         adm_img.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(adm_file_name_in_s3)))
@@ -68,7 +72,7 @@ def addAdminProcess():
         cursor.execute(update_sql, (adm_file_name_in_s3, adm_id))
         db_conn.commit()
 
-        # Now, retrieve the updated admin list from the database
+        # Retrieve the updated admin list from the database
         cursor.execute('SELECT * FROM adm_profile')
         rows = cursor.fetchall()
 
@@ -79,6 +83,7 @@ def addAdminProcess():
         cursor.close()
 
     return render_template('admin_list.html', rows=rows)
+
 
 
     
