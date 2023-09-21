@@ -40,9 +40,6 @@ def AddAdmin():
 
 @app.route("/addAdminProcess", methods=['POST'])
 def addAdminProcess():
-    adm_id# Route for submitting admin data
-@app.route("/addAdminProcess", methods=['POST'])
-def addAdminProcess():
     adm_id = request.form['adm_id']
     adm_name = request.form['adm_name']
     adm_gender = request.form['adm_gender']
