@@ -38,7 +38,7 @@ def admin():
 def AddAdmin():
     return render_template('addadmin.html')
 
-@app.route("/addAdminProcess", methods=['GET', 'POST'])
+@app.route("/addAdminProcess", methods=['POST'])
 def addAdminProcess():
     adm_id = request.form['adm_id']
     adm_name = request.form['adm_name']
@@ -50,13 +50,13 @@ def addAdminProcess():
     adm_img = request.files['adm_img']
 
     cursor = db_conn.cursor()
-    insert_sql = "INSERT INTO adm_profile(adm_id, adm_name, adm_gender, adm_dob, adm_address, adm_email, adm_phone) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+    insert_sql = "INSERT INTO adm_profile(adm_id, adm_name, adm_gender, adm_dob, adm_address, adm_email, adm_phone, adm_image) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
 
     if adm_img == "":
         return "Please select an image"
 
     try:
-        cursor.execute(insert_sql, (adm_id, adm_name, adm_gender, adm_dob, adm_address, adm_email, adm_phone))
+        cursor.execute(insert_sql, (adm_id, adm_name, adm_gender, adm_dob, adm_address, adm_email, adm_phone, ""))
         db_conn.commit()
 
         # Upload image file to S3
@@ -79,7 +79,7 @@ def addAdminProcess():
                 custombucket,
                 adm_file_name_in_s3)
 
-            # Save the image file name in the database
+            # Update the image file name in the database
             update_sql = "UPDATE adm_profile SET adm_image = %s WHERE adm_id = %s"
             cursor.execute(update_sql, (adm_file_name_in_s3, adm_id))
             db_conn.commit()
@@ -90,7 +90,7 @@ def addAdminProcess():
     finally:
         cursor.close()
 
-    return render_template('admin_list.html', rows=rows)
+    return render_template('admin_list.html')
 
     
 @app.route("/admin_list")
