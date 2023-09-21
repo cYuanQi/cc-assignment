@@ -87,25 +87,28 @@ def fetch_reports():
     cursor.close()
     return reports
 
-@app.route("/Grade", methods=['GET', 'POST'])
 def grade_report():
     if request.method == 'POST':
-
         reports = fetch_reports()  # Implement this function to fetch reports
 
-        # Update the student_score in the database for the corresponding report_name
-        cursor = db_conn.cursor()
-        try:
-            # Update the student_score for the specified report_name
-            update_sql = "UPDATE report SET student_score = %s WHERE report_name = %s"
-            cursor.execute(update_sql, (student_score, report_name))
-            db_conn.commit()
-            cursor.close()
-            return "Report graded and data updated in the database."
-        except Exception as e:
-            cursor.close()
-            print(f"Error updating student_score: {e}")
-            return "An error occurred while updating the student_score."
+        for report in reports:
+            report_name = report[0]  # Assuming the report_id is in the first column of your report table
+            student_score = request.form.get(f'student_score_{report_name}')
+
+            if student_score is not None:
+                cursor = db_conn.cursor()
+                try:
+                    # Update the student_score for the specified report_id
+                    update_sql = "UPDATE report SET student_score = %s WHERE report_id = %s"
+                    cursor.execute(update_sql, (student_score, report_name))
+                    db_conn.commit()
+                    cursor.close()
+                except Exception as e:
+                    cursor.close()
+                    print(f"Error updating student_score: {e}")
+                    return "An error occurred while updating the student_score."
+
+        return "Reports graded and data updated in the database."
 
     return render_template('Grade.html', reports=reports)
 
