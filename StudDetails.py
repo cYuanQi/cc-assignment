@@ -47,29 +47,17 @@ def submit_student():
 
     resume_file = request.files['studentResume']
 
-    #duplicate, below have insert
-    #cursor = db_conn.cursor()
-    #insert_sql = "INSERT INTO student_detail (student_name, student_email, student_programme, student_skills, resume_file) VALUES (%s, %s, %s, %s, %s)"
+    cursor = db_conn.cursor()
+    insert_sql = "INSERT INTO student_detail (student_name, student_email, student_programme, student_skills, resume_file) VALUES (%s, %s, %s, %s, %s)"
 
     if resume_file.filename == "":
+        cursor.close()  # Close the cursor before returning
         return "Please select a file"
 
     try:
-        # cursor.execute(insert_sql, (student_name, student_email, student_programme, student_skills, resume_file.filename))
-        # db_conn.commit()
-
         # Upload resume file to S3
         resume_file_name_in_s3 = str(student_name) + "_resume_file"
         s3 = boto3.resource('s3')
-        
-        # try:
-        #     print("Data inserted in MySQL RDS... uploading image to S3...")
-        #     s3.Bucket(bucket).upload_fileobj(resume_file,resume_file_name_in_s3)
-
-        
-        # except Exception as e:
-        #     return str(e)
-        # Store file (object) into S3 bucket
         try:
             print("Data inserted in MySQL RDS... uploading image to S3...")
             s3.Bucket(custombucket).put_object(Key=resume_file_name_in_s3, Body=resume_file)
@@ -85,23 +73,24 @@ def submit_student():
                 s3_location,
                 custombucket,
                 resume_file_name_in_s3)
-            
         except Exception as e:
+            cursor.close()  # Close the cursor before returning
             return str(e)
-        
-        # after successfully store into S3
-        # then store student details into the mariadb
+
+        # After successfully storing into S3, then store student details into the MariaDB
         cursor.execute(insert_sql, (student_name, student_email, student_programme, student_skills, resume_file_name_in_s3))
         db_conn.commit()
+    except Exception as e:
+        cursor.close()  # Close the cursor before returning
+        return str(e)
     finally:
-        cursor.close()
+        cursor.close()  # Close the cursor in the finally block
 
     cursor = db_conn.cursor()
     cursor.execute('SELECT * FROM student_detail')
     student_data = cursor.fetchall()
     cursor.close()
 
-   # return render_template('student_detail.html', student_data=student_data)
     return redirect(url_for('view_student_data', user_email=student_email))
 
 
