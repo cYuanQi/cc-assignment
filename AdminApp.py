@@ -83,7 +83,15 @@ def addAdminProcess():
     finally:
         cursor.close()
 
-    return redirect(url_for('admin_list'))  # Assuming you have an 'admin_list' route to display the admin list
+     cursor = db_conn.cursor()
+
+    cursor.execute('SELECT * FROM admin_list')
+    rows = cursor.fetchall()
+    cursor.close()
+
+    return render_template('admin_list.html', rows=rows)
+
+@app.route("/adminList
 
 @app.route("/companylistadm", methods=['GET', 'POST'])
 def companylistadm():
