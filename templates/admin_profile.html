@@ -86,54 +86,52 @@
 
     <!-- PAGE CONTENT -->
     <section class="s-pagecontent pagecontent">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-8">
-                    <h3 class="u-add-bottom">Administrator Profile</h3>
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Administrator ID</th>
-                                    <th>Administrator Name</th>
-                                    <th>Administrator Gender</th>
-                                    <th>Administrator DOB</th>
-                                    <th>Administrator Address</th>
-                                    <th>Administrator Email</th>
-                                    <th>Administrator Phone</th>
-                                    <th>Administrator Image</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Loop through the data from HeidiSQL and populate the table -->
-                                {% for row in heidiSQLData %}
-                                    <tr>
-                                        <td>{{ row[0] }}</td>
-                                        <td>{{ row[1] }}</td>
-                                        <td>{{ row[2] }}</td>
-                                        <td>{{ row[3] }}</td>
-                                        <td>{{ row[4] }}</td>
-                                        <td>{{ row[5] }}</td>
-                                        <td>{{ row[6] }}</td>
-                                        <td>{{ row[7] }}</td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h3 class="u-add-bottom">Administrator Profile</h3>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Administrator ID</th>
+                                <th>Administrator Name</th>
+                                <th>Administrator Gender</th>
+                                <th>Administrator DOB</th>
+                                <th>Administrator Address</th>
+                                <th>Administrator Email</th>
+                                <th>Administrator Phone</th>
+                                <th>Administrator Image</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ adminData[0] }}</td>
+                                <td>{{ adminData[1] }}</td>
+                                <td>{{ adminData[2] }}</td>
+                                <td>{{ adminData[3] }}</td>
+                                <td>{{ adminData[4] }}</td>
+                                <td>{{ adminData[5] }}</td>
+                                <td>{{ adminData[6] }}</td>
+                                <td>{{ adminData[7] }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <div class="row align-items-center mb-5">
-                    <div class="col-lg-4 ml-auto">
-                      <div class="row">
+            </div>
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-4 ml-auto">
+                    <div class="row">
                         <div class="col-6">
-                          <a href="{{url_for('AddAdmin')}}" class="btn btn-block btn-primary btn-md">Edit</a>
+                            <a href="#" class="btn btn-block btn-primary btn-md">Edit</a>
                         </div>
-                      </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
 
     <!-- FOOTER -->
     <footer class="site-footer">
