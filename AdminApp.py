@@ -59,15 +59,15 @@ def addAdminProcess():
         cursor.execute(insert_sql, (adm_id, adm_name, adm_gender, adm_dob, adm_address, adm_email, adm_phone))
         db_conn.commit()
 
-        # Check if the uploaded file is a PNG image
+        # Check if the uploaded file is a JPG image
         if adm_img.filename == '':
             return "Please select a file"
 
-        if not adm_img.filename.endswith('.png'):
+        if not adm_img.filename.endswith('.jpg'):
             return "Please upload a PNG image"
 
         # Generate a secure filename and save the image file
-        adm_file_name_in_s3 = "adm-id-" + str(adm_id) + "_image_file.png"
+        adm_file_name_in_s3 = "adm-id-" + str(adm_id) + "_image_file.jpg"
         adm_img.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(adm_file_name_in_s3)))
 
         # Save the image file name in the database
