@@ -146,12 +146,12 @@ def download_resume(filename):
 def submit_student_report():
     student_name = request.form['student_name']
     sup_email = request.form['supervising_email']
-    report_name = request.files['report_file']
+    report_file = request.files['report_file']
 
     cursor = db_conn.cursor()
     insert_sql = "INSERT INTO student_reports (report_name, student_name, sup_email ) VALUES (%s, %s, %s)"
 
-    if report_name.filename == "":
+    if report_file.filename == "":
         cursor.close()  # Close the cursor before returning
         return "Please select a report file"
 
@@ -175,7 +175,7 @@ def submit_student_report():
     finally:
         cursor.close()  # Close the cursor in the finally block
 
-    return render_template('Student_report.htmll')
+    return render_template('Student_report.html')
 
 
 
