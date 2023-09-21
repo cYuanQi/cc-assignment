@@ -85,55 +85,46 @@
     </section>
 
     <!-- PAGE CONTENT -->
-    <section class="site-section">
-      <div class="container">
-        <div class="row align-items-center mb-5">
-          <div class="col-lg-8 mb-4 mb-lg-0">
-            <div class="d-flex align-items-center">
-              <div>
-                <h2>Assign Supervisors to Students</h2>
-              </div>
+    <section class="s-pagecontent pagecontent">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <h3 class="u-add-bottom">Assign Supervisor Result</h3>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Student ID</th>
+                                    <th>Student Name</th>
+                                    <th>Supervisor ID</th>
+                                    <th>Supervisor Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Loop through the data from HeidiSQL and populate the table -->
+                                {% for row in heidiSQLData %}
+                                    <tr>
+                                        <td>{{ row[0]] }}</td>
+                                        <td>{{ row[1] }}</td>
+                                        <td>{{ row[2] }}</td>
+                                        <td>{{ row[3] }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row align-items-center mb-5">
+                    <div class="col-lg-4 ml-auto">
+                      <div class="row">
+                        <div class="col-6">
+                          <a href="#" class="btn btn-block btn-primary btn-md">Edit</a>
+                        </div>
+                      </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-        <div class="row mb-5">
-          <div class="col-lg-12">
-            <form action="/assignsupervisorProcess" method = "POST" enctype="multipart/form-data">
-              <h3 class="text-black mb-5 border-bottom pb-2">Student and Supervisor Details</h3>
-              
-              <div class="form-group">
-                <label for="student-name">Student Name</label>
-                <input type="text" class="form-control" id="student-name" placeholder="John Doe">
-              </div>
-
-              <div class="form-group">
-                <label for="student-id">Student ID</label>
-                <input type="text" class="form-control" id="student-id" placeholder="123456">
-              </div>
-
-              <div class="form-group">
-                <label for="supervisor-name">Supervisor Name</label>
-                <input type="text" class="form-control" id="supervisor-name" placeholder="Jane Smith">
-              </div>
-
-              <div class="form-group">
-                <label for="supervisor-id">Supervisor ID</label>
-                <input type="text" class="form-control" id="supervisor-id" placeholder="789012">
-              </div>
-
-            </form>
-          </div>
-        </div>
-        <div class="row align-items-center mb-5">
-          <div class="col-lg-4 ml-auto">
-            <div class="row">
-              <div class="col-6">
-                <a href="#" class="btn btn-block btn-primary btn-md">Save Changes</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
 
     <!-- FOOTER -->
