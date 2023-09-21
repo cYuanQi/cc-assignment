@@ -108,9 +108,12 @@
                         <tbody>
                             <tr>
                                 <!-- Display the administrator's circular profile image from Amazon S3 -->
-                                <div class="text-center">
-                                  <img src="{{ url_for('static', filename='images/' + adm_image_file_name) }}" alt="Administrator Image" class="rounded-circle" style="max-width: 150px;">
-                                </div>
+                                <td>
+                                    <!-- Display the administrator's circular profile image from Amazon S3 -->
+                                    <div class="text-center">
+                                        <img src="{{ url_for('static', filename='images/' + adm_image_file_name) }}" alt="Administrator Image" class="rounded-circle" style="max-width: 150px;">
+                                    </div>
+                                </td>
                                 <td>{{ adminData[0] }}</td>
                                 <td>{{ adminData[1] }}</td>
                                 <td>{{ adminData[2] }}</td>
