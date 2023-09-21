@@ -117,7 +117,9 @@ def view_student_data(user_email):
             return str(e)  # Handle S3 retrieval error
 
         # You can now pass the resume_data to your template for download
-        return redirect(url_for('view_student_data', student_data=student_data, resume_data=resume_data)
+        return render_template('display_student_data.html', student_data=student_data, resume_data=resume_data)
+    else:
+        return "Student not found"  # Handle student not found error
 
 
 
