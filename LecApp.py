@@ -23,7 +23,7 @@ table = 'lecturer'
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
-    return render_template('lecturer.html')
+    return render_template('lecture.html')
 
 # Allowed file extensions for resume uploads
 ALLOWED_EXTENSIONS = {'pdf'}
