@@ -92,10 +92,6 @@ def grade_report():
     if request.method == 'POST':
 
         reports = fetch_reports()  # Implement this function to fetch reports
-        
-        # Get the report_name and student_score from the form
-        report_name = request.form.get('report_name')
-        student_score = request.form.get('student_score')
 
         # Update the student_score in the database for the corresponding report_name
         cursor = db_conn.cursor()
