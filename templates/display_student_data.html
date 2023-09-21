@@ -1,108 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Details</title>
-    <style>
-        /* Style the student details section */
-        .site-section {
-            background-color: #f7f7f7;
-            padding: 50px;
-        }
+	<title>Student Details</title>
+	<style>
+		/* Style the button */
+		.btn {
+			background-color: #007bff;
+			color: #fff;
+			border: none;
+			border-radius: 5px;
+			padding: 10px 20px;
+			text-decoration: none;
+			transition: background-color 0.3s;
+			margin-top: 10px; /* Add some space at the top */
+			display: inline-block; /* Make it an inline block so it looks like a button */
+		}
 
-        /* Style the student details container */
-        .col-lg-6 {
-            background-color: #fff;
-            border-radius: 100px;
-            padding: 100px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
-            /* Center the content using flexbox */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        /* Style the headings */
-        h2 {
-            color: #333;
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        /* Style the input labels */
-        .text-black {
-            color: #555;
-        }
-
-        /* Style the form controls */
-        .form-control {
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 10px;
-            margin-bottom: 15px;
-            width: 100%; /* Set a fixed width for all input boxes */
-            text-align: center; /* Center-align text within input boxes */
-        }
-
-        /* Style the download button */
-        .btn-primary {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            text-decoration: none;
-            transition: background-color 0.3s;
-        }
-
-        .btn-primary:hover {
-            background-color: #0056b3;
-        }
-    </style>
+		.btn:hover {
+			background-color: #0056b3;
+		}
+	</style>
 </head>
-<body>
-    <section class="site-section">        
-        <!-- Student Details Section -->
-        <div class="row">
-            <div class="col-lg-6 offset-lg-3">
-                <h2 class="mb-4">Student Details</h2>
-                <div class="row form-group">
-                    <div class="col-md-12 mb-3 mb-md-0">
-                        <label class="text-black" for="studentName">Student Name</label>
-                        <input type="text" id="studentName" class="form-control" placeholder="Student Name" value="{{ student_data[0] }}" disabled>
-                    </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col-md-12 mb-3 mb-md-0">
-                        <label class="text-black" for="studentEmail">Student Email</label>
-                        <input type="text" id="studentEmail" class="form-control" placeholder="Student Email" value="{{ student_data[1] }}" disabled>
-                    </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col-md-12 mb-3 mb-md-0">
-                        <label class="text-black" for="studentProgramme">Student Programme</label>
-                        <input type="text" id="studentProgramme" class="form-control" placeholder="Student Programme" value="{{ student_data[2] }}" disabled>
-                    </div>
-                </div>
-                <div class="row form-group mb-4">
-                    <div class="col-md-12 mb-3 mb-md-0">
-                        <label class="text-black" for="studentSkills">Student Skills</label>
-                        <input type="text" id="studentSkills" class="form-control" placeholder="Student Skills" value="{{ student_data[3] }}" disabled>
-                    </div>
-                </div>
-                <!-- Button Group: Download Resume and Back Button -->
-                <div class="form-group mb-4">
-                    <div class="btn-group">
-                        <a href="{{ url_for('download_resume', filename=student_data[4]) }}" class="btn btn-primary btn-md">Download Resume</a>
-                        <a href="{{ url_for('studentdetails') }}" class="btn btn-primary btn-md">Back</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End Student Details Section -->
-    </section>
-</body>
+<center>
+	<font color="black" size="5" style="font-family: avenir">
+		<h1 style="color: DodgerBlue">Student Details</h1>
+		<body bgcolor="lightgrey">
+			<form>
+				<div>
+					Student ID:<br> {{ student_id }} <br><br>
+					First Name:<br> {{ student_fname }} <br><br>
+					Last Name:<br> {{ student_lname }} <br><br>
+					Programme:<br> {{ student_programme }} <br><br>
+					Skills:<br> {{ student_skills }} <br><br>
+					<a href="{{ url_for('download_resume', filename=student_data[4]) }}" class="btn btn-primary btn-md">Download Resume</a> <br><br>
+					<a href="{{ url_for('previous_page') }}" class="btn">Back to Previous Page</a> <br><br>
+				</div>
+			</form>
+		</body>
+	</font>
+</center>
 </html>
