@@ -61,12 +61,8 @@ def addAdminProcess():
 
         # Check if the uploaded file is a JPG image
         if adm_img.filename == '':
-            return "Please select a file"
-
-        if not adm_img.filename.endswith('.jpg'):
-            return "Please upload a JPG image"
-
-        # Generate a secure filename and save the image file
+            #return "Please select a file"
+            # Generate a secure filename and save the image file
         adm_file_name_in_s3 = "adm-id-" + str(adm_id) + "_image_file.jpg"
         adm_img.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(adm_file_name_in_s3)))
 
@@ -78,14 +74,15 @@ def addAdminProcess():
         # Now, retrieve the updated admin list from the database
         cursor.execute('SELECT * FROM adm_profile')
         rows = cursor.fetchall()
-        
-    except Exception as e:
-        return str(e)
+         cursor.close()
+        return render_template('admin_list.html', rows=rows)
 
-    finally:
-        cursor.close()
+        if not adm_img.filename.endswith('.jpg'):
+            return "Please upload a JPG image"
 
-    return render_template('admin_list.html', rows=rows)
+       
+
+    
 
     
 @app.route("/admin_list")
