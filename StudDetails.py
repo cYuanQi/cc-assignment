@@ -47,8 +47,9 @@ def submit_student():
 
     resume_file = request.files['studentResume']
 
-    cursor = db_conn.cursor()
-    insert_sql = "INSERT INTO student_detail (student_name, student_email, student_programme, student_skills, resume_file) VALUES (%s, %s, %s, %s, %s)"
+    #duplicate, below have insert
+    #cursor = db_conn.cursor()
+    #insert_sql = "INSERT INTO student_detail (student_name, student_email, student_programme, student_skills, resume_file) VALUES (%s, %s, %s, %s, %s)"
 
     if resume_file.filename == "":
         return "Please select a file"
