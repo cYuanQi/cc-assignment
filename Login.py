@@ -212,14 +212,19 @@ def lecturerdetails(user_email):
     cursor.execute(select_sql, (user_email,))
     lecturer = cursor.fetchone()
     
+    # Initialize lecturer as an empty dictionary if it's None
+    lecturer = lecturer or {}
+    
     if lecturer:
         cursor.close()
+        
         return render_template('lecturer-details.html', lecturer = lecturer)
     else:
         select_sql = "SELECT * FROM login WHERE user_email = %s"
         cursor.execute(select_sql, (user_email,))
         user = cursor.fetchone()
         cursor.close()
+
         return render_template('lecturer-details.html', user = user)
 
 @app.route("/evaluatereport", methods=['GET', 'POST'])
