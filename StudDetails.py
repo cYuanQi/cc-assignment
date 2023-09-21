@@ -58,7 +58,7 @@ def submit_student():
         # db_conn.commit()
 
         # Upload resume file to S3
-        resume_file_name_in_s3 = "stud-name" + str(student_name) + "_resume_file"
+        resume_file_name_in_s3 = str(student_name) + "_resume_file"
         s3 = boto3.resource('s3')
         
         # try:
