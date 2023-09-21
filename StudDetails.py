@@ -23,7 +23,7 @@ table = 'student_detail'
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
-    return render_template('student-details.html')
+    return render_template('Student_report.html')
 
 # Allowed file extensions for resume uploads
 ALLOWED_EXTENSIONS = {'pdf'}
@@ -140,6 +140,44 @@ def download_resume(filename):
         return redirect(url)
     except Exception as e:
         return str(e)
+
+
+@app.route("/submit_student_report", methods=['POST'])
+def submit_student_report():
+    student_name = request.form['student_name']
+    sup_email = request.form['supervising_email']
+    report_name = request.files['report_file']
+
+    cursor = db_conn.cursor()
+    insert_sql = "INSERT INTO student_reports (report_name, student_name, sup_email ) VALUES (%s, %s, %s)"
+
+    if report_file.filename == "":
+        cursor.close()  # Close the cursor before returning
+        return "Please select a report file"
+
+    try:
+        # Upload report file to S3
+        report_file_name_in_s3 = str(student_name) + "_report_file.pdf"
+        s3 = boto3.client('s3')
+        try:
+            print("Data inserted in MySQL... uploading report to S3...")
+            s3.upload_fileobj(report_file, custombucket, report_file_name_in_s3)
+        except Exception as e:
+            cursor.close()  # Close the cursor before returning
+            return str(e)
+
+        # After successfully storing in S3, store student details in the MySQL database
+        cursor.execute(insert_sql, (report_file_name_in_s3, student_name, sup_email))
+        db_conn.commit()
+    except Exception as e:
+        cursor.close()  # Close the cursor before returning
+        return str(e)
+    finally:
+        cursor.close()  # Close the cursor in the finally block
+
+    return render_template('Student_report.htmll')
+
+
 
 @app.route("/nologin", methods=['GET', 'POST'])
 def nologin():
