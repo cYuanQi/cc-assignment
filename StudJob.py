@@ -85,7 +85,7 @@ def submit_student():
 def submit_job_application():
     student_email = request.form['student_email']
     cursor = db_conn.cursor()
-    select_sql = "SELECT * FROM student WHERE student_email = student_email"
+    select_sql = "SELECT * FROM student-detail WHERE student_email = student_email"
     cursor.execute(select_sql)
     student_data = cursor.fetchone()
     cursor.close()
