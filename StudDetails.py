@@ -61,12 +61,30 @@ def submit_student():
         resume_file_name_in_s3 = "stud-name" + str(student_name) + "_resume_file"
         s3 = boto3.resource('s3')
         
-        try:
-            print("Data inserted in MySQL RDS... uploading image to S3...")
-            s3.Bucket(bucket).upload_fileobj(resume_file,resume_file_name_in_s3)
+        # try:
+        #     print("Data inserted in MySQL RDS... uploading image to S3...")
+        #     s3.Bucket(bucket).upload_fileobj(resume_file,resume_file_name_in_s3)
 
             
             
+        # except Exception as e:
+        #     return str(e)
+        try:
+            print("Data inserted in MySQL RDS... uploading image to S3...")
+            s3.Bucket(custombucket).put_object(Key=resume_file_name_in_s3, Body=resume_file)
+            bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
+            s3_location = (bucket_location['LocationConstraint'])
+
+            if s3_location is None:
+                s3_location = ''
+            else:
+                s3_location = '-' + s3_location
+
+            object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+                s3_location,
+                custombucket,
+                mc_file_name_in_s3)
+
         except Exception as e:
             return str(e)
     finally:
