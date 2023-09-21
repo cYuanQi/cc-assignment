@@ -52,7 +52,7 @@ def addAdminProcess():
         cursor.execute(insert_sql, (adm_id, adm_name, adm_gender, adm_dob, adm_address, adm_email, adm_phone))
         db_conn.commit()
 
-        # Upload image file to S3 #
+        # Upload image file to S3
         adm_file_name_in_s3 = "adm-id-" + str(adm_id) + "_image_file"
         s3 = boto3.resource('s3')
 
@@ -72,16 +72,14 @@ def addAdminProcess():
                 custombucket,
                 adm_file_name_in_s3)
 
+            # Save the image file name in the database
+            update_sql = "UPDATE adm_profile SET adm_image = %s WHERE adm_id = %s"
+            cursor.execute(update_sql, (adm_file_name_in_s3, adm_id))
+            db_conn.commit()
+
         except Exception as e:
             return str(e)
 
-    finally:
-        cursor.close()
-
-    cursor = db_conn.cursor()
-    try:
-        cursor.execute('SELECT * FROM adm_profile')
-        rows = cursor.fetchall()
     finally:
         cursor.close()
 
