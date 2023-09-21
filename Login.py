@@ -135,7 +135,7 @@ def submitlecdetails(user_email):
         finally:
             cursor.close()
     
-    return redirect(url_for('lecturerdetails', user_email))
+    return redirect(url_for('lecturerdetails', user_email=user_email))
 
 # --------------------GENERAL redirect--------------------
 
