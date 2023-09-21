@@ -41,7 +41,7 @@ def evaluate_report(user_email):
         report_data = cursor.fetchone()
         cursor.close()
         
-         if student_data:
+         if report_data:
         # Assuming student_data[4] contains the resume file name in S3
         resume_file_name_in_s3 = report_data[1]
 
