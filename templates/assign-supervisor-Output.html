@@ -51,7 +51,7 @@
           <nav class="mx-auto site-navigation">
             <ul class="site-menu static/static/js-clone-nav d-none d-xl-block ml-0 pl-0">
               <li><a href="{{url_for('admin')}}" class="nav-link active">Home</a></li>
-              <li><a href="{{url_for('AddAdmin')}}">Admin Information</a></li>
+              <li><a href="{{url_for('AddAdmin')}}">Admin Profile</a></li>
               <li><a href="{{url_for('companylistadm')}}">Approve Application</a></li>
               <li><a href="{{url_for('assignsupervisor')}}">Supervisor Assignment</a></li>
               <li class="d-lg-none"><a href="{{url_for('nologin')}}">Log Out</a></li>
@@ -85,13 +85,36 @@
     </section>
 
     <!-- PAGE CONTENT -->
-    <section class="s-pagecontent pagecontent">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-8">
-                    <h3 class="u-add-bottom">Assign Supervisor Result</h3>
-                    <div class="table-responsive">
-                        <table class="table">
+    <section id="content" class="s-content">
+
+      <section class="s-pageheader pageheader">
+           <div class="row">
+               <div class="column xl-12">
+                <h3 class="u-add-bottom">Assign Supervisor Result</h3>
+               </div>
+           </div>
+      </section> <!-- pageheader -->  
+      <section class="s-pagecontent pagecontent">
+           <div class="row">
+               <div class="column xl-12 grid-block">             
+                   
+                   <div class="grid-full grid-list-items list-items show-ctr">
+                       
+                       <div class="grid-list-items__item list-items__item">
+                               <h3 class="list-items__item-title"><a class="btn btn--stroke u-fullwidth" href="{{url_for('addEmp')}}">Add New Employee</a></h3>
+                       </div> <!-- end list-items__item -->
+                       <div class="grid-list-items__item list-items__item">
+                               <h3 class="list-items__item-title"><a class="btn btn--stroke u-fullwidth" href="{{url_for('searchEmp')}}">Search Employee</a></h3>
+                       </div> <!-- end list-items__item -->
+                       <div class="grid-list-items__item list-items__item">
+                               <h3 class="list-items__item-title"><a class="btn btn--stroke u-fullwidth" href="{{url_for('removeEmp')}}">Remove Employee</a></h3>
+                       </div> <!-- end list-items__item -->
+                   </div> <!-- grid-list-items -->
+               </div> <!-- end grid-block-->
+           </div> <!-- end row -->
+           <div class="row pageintro">
+               <div class="table-responsive" style="margin: 50;">
+                   <table class="table">
                             <thead>
                                 <tr>
                                     <th>Student ID</th>
@@ -118,14 +141,15 @@
                     <div class="col-lg-4 ml-auto">
                       <div class="row">
                         <div class="col-6">
-                          <a href="#" class="btn btn-block btn-primary btn-md">Edit</a>
+                          <a href="{{url_for('assignsupervisor')}}" class="btn btn-block btn-primary btn-md">Add More</a>
                         </div>
                       </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
+               </div>
+           </div>                    
+      </section>
+  
 
     <!-- FOOTER -->
     <footer class="site-footer">
