@@ -64,7 +64,7 @@ def addAdminProcess():
             return "Please select a file"
 
         if not adm_img.filename.endswith('.jpg'):
-            return "Please upload a PNG image"
+            return "Please upload a JPG image"
 
         # Generate a secure filename and save the image file
         adm_file_name_in_s3 = "adm-id-" + str(adm_id) + "_image_file.jpg"
@@ -75,18 +75,25 @@ def addAdminProcess():
         cursor.execute(update_sql, (adm_file_name_in_s3, adm_id))
         db_conn.commit()
 
+        # Now, retrieve the updated admin list from the database
+        cursor.execute('SELECT * FROM adm_profile')
+        rows = cursor.fetchall()
+        
     except Exception as e:
         return str(e)
 
     finally:
         cursor.close()
 
-    # Now, you can query the admin_list table to get data
+    return render_template('admin_list.html', rows=rows)
+
+    
+@app.route("/admin_list")
+def admin_list():
     cursor = db_conn.cursor()
-    cursor.execute('SELECT * FROM admin_list')
+    cursor.execute('SELECT * FROM adm_profile')
     rows = cursor.fetchall()
     cursor.close()
-
     return render_template('admin_list.html', rows=rows)
 
 @app.route("/companylistadm", methods=['GET', 'POST'])
