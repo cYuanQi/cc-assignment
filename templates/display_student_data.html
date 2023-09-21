@@ -135,10 +135,10 @@
                                 <input type="text" id="studentSkills" class="form-control" placeholder="Student Skills" value="{{ student_data[3] }}" disabled>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="company-website-tw d-block">Resume</label> <br>
-                            <a href="{{ url_for('download_resume', filename=student_data[4]) }}" class="btn btn-primary btn-md">Download Resume</a>
-                        </div>
+                           <div class="form-group">
+                               <label for="company-website-tw d-block">Resume</label> <br>
+                               <a href="{{ url_for('download_resume', filename=student_data[4]) }}" class="btn btn-primary btn-md">Download Resume</a>
+                         </div>
                     </form>
                 </div>
             </div>
