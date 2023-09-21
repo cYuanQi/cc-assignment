@@ -114,10 +114,14 @@ def view_student_data(user_email):
             return str(e)  # Handle S3 retrieval error
 
         # You can now pass the resume_data to your template for download
-        return render_template('display_student_data.html', student_data=student_data, resume_data=resume_data)
+        return redirect(url_for('displaystuddetail', student_data=student_data, resume_data=resume_data))
     else:
         return "Student not found"  # Handle student not found error
 
+
+@app.route("/displaystuddetail", methods=['GET', 'POST'])
+def displaystuddetail():
+    return render_template('display_student_data.html')
 
 # Route to download the student's resume
 @app.route("/download_resume/<filename>", methods=['GET'])
