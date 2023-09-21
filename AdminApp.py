@@ -84,9 +84,6 @@ def addAdminProcess():
 
     return render_template('admin_profile.html', rows=rows)
 
-@app.route("/admProfile", methods=['GET'])
-def admProfile():
-    return render_template('admin_profile.html')
 
 @app.route("/companylistadm", methods=['GET', 'POST'])
 def companylistadm():
@@ -127,12 +124,5 @@ def assignsupervisorProcess():
 
     return render_template('assign-supervisor-Output.html', name=adm_name)
 
-@app.route("/assignsupervisorresult", methods=['GET'])
-def assignsupervisorresult():
-    return render_template('assign-supervisor-Output.html')
-
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
-
-
-
