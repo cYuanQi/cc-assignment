@@ -77,25 +77,32 @@ def download_report(report_name):
         return redirect(url)
     except Exception as e:
         return str(e)
-       
-from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory
-from pymysql import connections
-import os
-import boto3
-from config import *
-
-app = Flask(__name__)
-
-# ...
 
 @app.route("/Grade", methods=['GET', 'POST'])
 def grade_report():
     if request.method == 'POST':
-        # Assuming you fetch the 'reports' data from your database
-        # Replace this with your actual database query
-        reports = fetch_reports()  # Implement this function to fetch reports
+        # Get the report_name and student_score from the form
+        report_name = request.form.get('report_name')
+        student_score = request.form.get('student_score')
 
-        return render_template('Grade.html', reports=reports)
+        # Update the student_score in the database for the corresponding report_name
+        cursor = db_conn.cursor()
+        try:
+            # Update the student_score for the specified report_name
+            update_sql = "UPDATE report SET student_score = %s WHERE report_name = %s"
+            cursor.execute(update_sql, (student_score, report_name))
+            db_conn.commit()
+            cursor.close()
+            return "Report graded and data updated in the database."
+        except Exception as e:
+            cursor.close()
+            print(f"Error updating student_score: {e}")
+            return "An error occurred while updating the student_score."
+
+    reports = fetch_reports()  # Implement this function to fetch reports
+
+    return render_template('Grade.html', reports=reports)
+
 
     # Rest of your code
 
