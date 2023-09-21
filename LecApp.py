@@ -78,26 +78,36 @@ def download_report(report_name):
     except Exception as e:
         return str(e)
        
+from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory
+from pymysql import connections
+import os
+import boto3
+from config import *
+
+app = Flask(__name__)
+
+# ...
+
 @app.route("/Grade", methods=['GET', 'POST'])
 def grade_report():
     if request.method == 'POST':
-        # Assuming you have multiple reports to grade
-        report_id = request.form['report_id']  # Replace with the corresponding report_id
-        student_score = request.form['student_score']  # Replace with the corresponding student_score
+        # Assuming you fetch the 'reports' data from your database
+        # Replace this with your actual database query
+        reports = fetch_reports()  # Implement this function to fetch reports
 
-        # Now, you can insert the report_id and student_score into the database
-        conn = db_conn.cursor()
-        try:
-            # Execute SQL statements to insert grading data into the database
-            # Replace with your actual SQL query
-            conn.execute("INSERT INTO grades (report_id, student_score) VALUES (?, ?)", (report_id, student_score))
-            db_conn.commit()
-            return "Report graded and data inserted into the database."
-        except Exception as e:
-            print(f"Error inserting grading data: {e}")
-            return "An error occurred while processing the grading."
+        return render_template('Grade.html', reports=reports)
 
-    return render_template('Grade.html')
+    # Rest of your code
+
+# Function to fetch reports from the database (replace with your actual query)
+def fetch_reports():
+    cursor = db_conn.cursor()
+    select_sql = "SELECT * FROM report"
+    cursor.execute(select_sql)
+    reports = cursor.fetchall()
+    cursor.close()
+    return reports
+
 
 @app.route("/nologin", methods=['GET', 'POST'])
 def nologin():
