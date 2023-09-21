@@ -31,7 +31,6 @@ def admin():
 def AddAdmin():
     return render_template('addadmin.html')
 
-@app.route("/addAdminProcess", methods=['GET', 'POST'])
 def addAdminProcess():
     adm_id = request.form['adm_id']
     adm_name = request.form['adm_name']
@@ -79,31 +78,13 @@ def addAdminProcess():
         cursor.close()
 
     cursor = db_conn.cursor()
-
-    cursor.execute('SELECT * FROM adm_profile')
-    rows = cursor.fetchall()
+    try:
+        cursor.execute('SELECT * FROM adm_profile')
+        rows = cursor.fetchall()
+    finally:
     cursor.close()
 
     return render_template('admin_profile.html', rows=rows)
-
-@app.route("/adminProfile/<email>", methods=['GET'])
-def adminProfile(email):
-    cursor = db_conn.cursor()
-    select_sql = "SELECT * FROM adm_profile WHERE adm_email = %s"
-
-    try:
-        cursor.execute(select_sql, (email,))
-        adminData = cursor.fetchone()  # Fetch the data for the specific administrator
-    except Exception as e:
-        return str(e)
-    finally:
-        cursor.close()
-
-    if adminData is not None:
-        return render_template('admin_profile.html', adminData=adminData)
-    else:
-        return "Administrator not found"
-
 
     
 @app.route("/companylistadm", methods=['GET', 'POST'])
