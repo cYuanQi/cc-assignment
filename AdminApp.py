@@ -32,7 +32,7 @@ def admin():
 def AddAdmin():
     return render_template('addadmin.html')
 
-@app.route("/AddAdminProcess", methods=['GET', 'POST'])
+@app.route("/addAdminProcess", methods=['GET', 'POST'])
 def addAdminProcess():
     adm_id = request.form['adm_id']
     adm_name = request.form['adm_name']
