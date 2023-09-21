@@ -81,7 +81,6 @@
                       <table class="table table-bordered">
                           <thead>
                               <tr>
-                                  <th>Report ID</th>
                                   <th>Student Name</th>
                                   <th>Student Score</th>
                                   <th>Student Report</th>
@@ -91,7 +90,6 @@
                           <tbody>
                               {% for report in reports %}
                                   <tr>
-                                      <td>{{ report.report_id }}</td>
                                       <td>{{ report.student_name }}</td>
                                       <td>
                                           <select name="student_score_{{ report.report_id }}">
