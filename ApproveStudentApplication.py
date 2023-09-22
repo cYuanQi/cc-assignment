@@ -1,3 +1,4 @@
+# Import additional modules
 from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory
 from pymysql import connections
 import os
@@ -6,10 +7,10 @@ from config import *
 
 app = Flask(__name__)
 
+bucket = custombucket
+region = customregion
 
-
-
-# Configure your MySQL database connection
+# MySQL database connection setup
 db_conn = connections.Connection(
     host=customhost,
     port=3306,
@@ -17,7 +18,6 @@ db_conn = connections.Connection(
     password=custompass,
     db=customdb
 )
-
 @app.route("/", methods=['GET', 'POST'])
 def home():
     return render_template('CompanyConfStudApp.html')
