@@ -85,53 +85,34 @@
     </section>
 
     <!-- PAGE CONTENT -->
-    <section class="s-pagecontent pagecontent">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-              <br>
-              <br>
-                <h3 class="u-add-bottom">Assign Supervisor List</h3>
-                  <br>
-                  <br>
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Company Name</th>
-                                <th>Action</th>
-                                <th>Time Stamp</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Loop through the data from HeidiSQL and populate the table -->
-                            {% for row in rows %}
-                            <tr>
-                                <td>{{ row[0] }}</td>
-                                <td>{{ row[1] }}</td>
-                                <td>{{ row[2] }}</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+    <section class="site-section services-section bg-light block__62849" id="next-section">
+      <form action="/approve_or_reject_company" method="POST" enctype="multipart/form-data">
+        <div class="container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Company Name</th>
+                        <th>Company Background</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Loop through the data from HeidiSQL and populate the table -->
+                    {% for row in rows %}
+                    <tr>
+                      <td>{{ row[0] }}</td>
+                      <td>{{ row[1] }}</td>
+                        <td>
+                          <button type="submit" name="action" value="approve" class="btn btn-success btn-md">Approve</button>
+                          <button type="submit" name="action" value="reject" class="btn btn-danger btn-md">Reject</button>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                </tbody>
+            </table>
         </div>
-        <div class="row align-items-center mb-5">
-            <div class="col-lg-4 ml-auto">
-                <div class="row">
-                    <div class="col-6">
-                      <br>
-                      <br>
-                        <a href="{{url_for('companylistadm')}}" class="btn btn-block btn-primary btn-md">Add More</a>
-                    </div>
-                  <br>
-                  <br>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+        </form>
+    </section>
 
 
     <!-- FOOTER -->
