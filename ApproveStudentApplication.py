@@ -48,8 +48,10 @@ def approve_student():
     db_conn.commit()
     cursor.close()
 
+ 
     flash("Student approved successfully!", "success")
-    # Redirect to the page where you want to display the approved student's details
+
+    # Render the same template with the success message
     return render_template('CompanyConfStudApp.html')
 
 @app.route("/display_approved_student/<student_id>")
