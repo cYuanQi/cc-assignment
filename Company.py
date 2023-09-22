@@ -1,15 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for
 import pymysql 
-from pymysql import connections
-import os
 import boto3
 from config import *
 
 app = Flask(__name__)
-
-bucket = custombucket
-region = customregion
-
 
 # Configure your MySQL database connection
 db_conn = pymysql.connect(
@@ -17,10 +11,11 @@ db_conn = pymysql.connect(
     port=3306,
     user=customuser,
     password=custompass,
-    db=customdb ,
+    db=customdb,
     charset='utf8mb4',
     cursorclass=pymysql.cursors.DictCursor
 )
+
 @app.route("/", methods=['GET', 'POST'])
 def home():
     return render_template('company.html')
@@ -103,7 +98,8 @@ def postjob():
 def success():
     return "Job data submitted successfully!"
 
-
+if __name__ == "__main__":
+    app.run(debug=True)
 
 
 @app.route("/nologin", methods=['GET', 'POST'])
@@ -217,4 +213,3 @@ def admin():
 
 if __name__ == "__main__":
     app.run(debug=True)
-
