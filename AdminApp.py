@@ -87,7 +87,9 @@ def addAdminProcess():
             # Now, define and pass adm_image_file_name and adminData
             adm_image_file_name = adm_file_name_in_s3
             adminData = [adm_id, adm_name, adm_gender, adm_dob, adm_address, adm_email, adm_phone, adm_img]  # Replace this with actual data
-        
+
+            adm_image_file_name = session.get('adm_image_file_name')
+            adminData = session.get('adminData')
             return render_template('admin_list.html', adm_image_file_name=adm_image_file_name, adminData=adminData)
 
         except Exception as e:
@@ -96,25 +98,21 @@ def addAdminProcess():
     finally:
         cursor.close()
 
-@app.route("/admin_list/<adm_email>", methods=['GET', 'POST'])
-def admin_list(adm_email):
-    # Use 'adm_email' from the route parameter
-    cursor = db_conn.cursor()
-    cursor.execute('SELECT * FROM adm_profile WHERE adm_email = %s', (adm_email,))
-    person_data = cursor.fetchone()
-    cursor.close()
+from flask import session
 
-    # Initialize person_data to an empty dictionary if it's None
-    person_data = person_data or {}
+@app.route("/admin_list", methods=['GET'])
+def admin_list():
+    # Retrieve data from the session
+    adm_image_file_name = session.get('adm_image_file_name')
+    adminData = session.get('adminData')
 
-    # Check if person_data is not empty, which means a person with that adm_email was found
-    if person_data:
-        # person_data should contain the person's information based on the adm_email
-        # Pass person_data to the template
-        return render_template('admin_list.html', person_data=person_data)
+    # Check if the data is available in the session
+    if adm_image_file_name and adminData:
+        return render_template('admin_list.html', adm_image_file_name=adm_image_file_name, adminData=adminData)
     else:
-        # Handle the case where no person with the provided adm_email was found
-        return "Person not found"
+        # Handle the case where data is not available
+        return "Data not found"
+
 
 @app.route("/companylistadm", methods=['GET', 'POST'])
 def companylistadm():
