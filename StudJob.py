@@ -87,7 +87,7 @@ def submit_job_application():
     cursor = db_conn.cursor()
     
     # Modify your SQL query to select the desired student details based on email
-    select_sql = "SELECT student_name, student_programme, student_skills, student_resume FROM student_detail WHERE student_email = %s"
+    select_sql = "SELECT student_name, student_programme, student_skills, resume_file FROM student_detail WHERE student_email = %s"
     cursor.execute(select_sql, (student_email,))
     student_data = cursor.fetchone()
     cursor.close()
