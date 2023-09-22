@@ -1,4 +1,4 @@
-# Import additional modules
+## Import additional modules
 from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory
 from pymysql import connections
 import os
@@ -19,7 +19,6 @@ db_conn = connections.Connection(
     db=customdb
 )
 
-
 @app.route("/", methods=['GET', 'POST'])
 def home():
     return render_template('CompanyConfStudApp.html')
@@ -31,15 +30,15 @@ def company():
 # Route for approving a student and inserting into the database
 @app.route("/approve_student", methods=["POST"])
 def approve_student():
-    # Get student information from the form
-    student_id = request.form["student_id"]
-    student_name = request.form["student_name"]
-    field_of_study = request.form["field_of_study"]
-    level_of_study = request.form["level_of_study"]
+    # Predefined values for student
+    student_id = 1  # You can set the student_id to the appropriate value
+    student_name = "Student 1"
+    field_of_study = "Computer Science"
+    level_of_study = "Degree"
 
     # Insert the student's details into the database (e.g., approved_students table)
     cursor = db_conn.cursor()
-    insert_sql = "INSERT INTO approval_student (student_id, student_name, field_of_study, level_of_study) VALUES (%s, %s, %s, %s)"
+    insert_sql = "INSERT INTO approved_students (student_id, student_name, field_of_study, level_of_study) VALUES (%s, %s, %s, %s)"
     cursor.execute(insert_sql, (student_id, student_name, field_of_study, level_of_study))
     db_conn.commit()
     cursor.close()
@@ -47,7 +46,6 @@ def approve_student():
     # Redirect to the page where you want to display the approved student's details
     return redirect(url_for("display_approved_student", student_id=student_id))
 
-# Route for displaying the approved student's details
 @app.route("/display_approved_student/<student_id>")
 def display_approved_student(student_id):
     # Query the database to get the approved student's information
@@ -59,7 +57,6 @@ def display_approved_student(student_id):
 
     # Render a template to display the approved student's details
     return render_template("approved_student_template.html", student=student_info)
-
 
 
 @app.route("/nologin")
