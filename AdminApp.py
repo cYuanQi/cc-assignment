@@ -105,6 +105,36 @@ def admin_list():
 def companylistadm():
     return render_template('company_list_adm.html')
 
+import random
+import string
+
+def generate_company_id(length=8):
+    # Generate a random string of uppercase letters and digits
+    company_id = 'C' + ''.join(random.choices(string.ascii_uppercase + string.digits, k=length - 1))
+
+    return company_id
+
+# Modify your `approve_or_reject_company` function to include the company ID generation:
+
+@app.route("/approve_or_reject_company", methods=['POST'])
+def approve_or_reject_company():
+    company_name = request.form['company_name']
+    action = request.form['action']  # 'approve' or 'reject'
+
+    cursor = db_conn.cursor()
+
+    # Generate a unique company ID
+    company_id = generate_company_id()
+
+    # Insert the approval/rejection record into the history table with the generated company ID
+    insert_sql = "INSERT INTO company_approval_history (company_id, company_name, approval_status, timestamp) VALUES (%s, %s, %s, NOW())"
+    cursor.execute(insert_sql, (company_id, company_name, action.capitalize()))  # Capitalize to match ENUM values
+    db_conn.commit()
+
+    cursor.close()
+
+    return render_template('company_list_or_history.html')  # Replace with the actual URL
+
 
 @app.route("/assignsupervisor", methods=['GET', 'POST'])
 def assignsupervisor():
