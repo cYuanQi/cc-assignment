@@ -109,7 +109,7 @@
         <div class="row">
           <div class="col-lg-6 mb-5">
             <h2 class="mb-4">Sign Up To JobBoard</h2>
-            <form action="/adduser" method="POST" class="p-4 border rounded" onsubmit="return showAlert('{{ show_msg }}')">
+            <form action="/adduser" method="POST" class="p-4 border rounded" onsubmit="showAlert('{{ show_msg }}')">
 
               <div class="row form-group">
                 <div class="col-md-12 mb-3 mb-md-0">
@@ -147,7 +147,7 @@
           </div>
           <div class="col-lg-6">
             <h2 class="mb-4">Log In To JobBoard</h2>
-            <form id="loginForm" action="/userlogin" method="POST" class="p-4 border rounded" onsubmit="return showAlert('{{ show_msg }}')">
+            <form id="loginForm" action="/userlogin" method="POST" class="p-4 border rounded" onsubmit="showAlert('{{ show_msg }}')">
               <div class="row form-group">
                 <div class="col-md-12 mb-3 mb-md-0">
                   <label class="text-black" for="loginEmail">Email</label>
@@ -273,22 +273,28 @@
       }
     </script> -->
 
-  <script>
-    function showAlert(showMsg) {
-      // Call the function to display the confirmation message with the passed showMsg
-      displayMessage(true, showMsg);
-      return true;  // Continue with the form submission
-    }
-  </script>
- 
-    <script>
-      function displayMessage(isShow, showMessage) {
-        if (isShow) {
-          alert(showMessage);
+    <!-- ||| WRONG ||| -->
+    <!-- <script>
+      function showAlert(showMsg) {
+        // Check if showMsg is not empty
+        if (showMsg) {
+          // Call the function to display the confirmation message with the passed showMsg
+          displayMessage(true, showMsg);
+          return true;  // Continue with the form submission
+        } else {
+          return false;  // Prevent form submission
         }
       }
-    </script> 
+    </script> -->
 
+    <script>
+      function showAlert(showMsg) {
+        if (showMsg) {
+          alert(showMsg);  // Display the message using alert
+        }
+      }
+    </script>
+    
    <script src="static/js/login.js"></script>
 
   </body>
