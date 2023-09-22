@@ -49,6 +49,9 @@ def AddUser():
         user_role = "admin"
     elif user_email.endswith('@lecturer.com'):
         user_role = "lecturer"
+    else:
+        return render_template('login.html', show_msg="Email format invalid!")
+
 
     insert_sql = "INSERT INTO login VALUES (%s, %s, %s, %s)"
     cursor = db_conn.cursor()
