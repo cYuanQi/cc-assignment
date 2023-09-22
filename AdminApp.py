@@ -123,7 +123,6 @@ def generate_company_id(length=8):
 
 @app.route("/approve_or_reject_company", methods=['POST'])
 def approve_or_reject_company():
-    company_name = request.form['company_name']
     action = request.form['action']  # 'approve' or 'reject'
 
     cursor = db_conn.cursor()
