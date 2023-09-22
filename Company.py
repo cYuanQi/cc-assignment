@@ -16,7 +16,7 @@ db_conn = pymysql.connect(
     port=3306,
     user=customuser,
     password=custompass,
-    db=customdb
+    db=customdb ,
     charset='utf8mb4',
     cursorclass=pymysql.cursors.DictCursor
 )
