@@ -68,8 +68,8 @@ def AddUser():
     finally:
         cursor.close()
 
-    print("all modification done...")
-    return render_template('login.html', show_msg="Signup successful!")
+    #print("all modification done...")
+    return render_template('login.html', show_msg="Sign Up successful! You can login now!~")
 
 # Login
 @app.route("/userlogin", methods=['POST'])
