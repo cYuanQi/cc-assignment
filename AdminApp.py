@@ -90,7 +90,8 @@ def addAdminProcess():
     finally:
         cursor.close()
 
-    return render_template('admin_list.html')
+    # After obtaining adm_image_file_name
+    return render_template('admin_list.html', adm_image_file_name=adm_image_file_name, adminData=adminData)
 
     
 @app.route("/admin_list")
