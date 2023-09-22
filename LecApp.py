@@ -42,18 +42,19 @@ def evaluate_report(user_email):
         
     if report_data:
         # Assuming student_data[4] contains the resume file name in S3
-        report_file_name_in_s3 = report_data[0]
+        report_name = report_data[0]
+        student_name = report_data[1]
 
         # Retrieve the resume file from S3
         s3 = boto3.client('s3')
         try:
-            s3_object = s3.get_object(Bucket=custombucket, Key=report_file_name_in_s3)
+            s3_object = s3.get_object(Bucket=custombucket, Key=report_name)
             report_file_data = s3_object['Body'].read()
         except Exception as e:
             return str(e)  # Handle S3 retrieval error
 
         # You can now pass the resume_data to your template for download
-        return render_template('EvaluateReport.html', report_data=report_data, report_file_data=report_file_data)
+        return render_template('EvaluateReport.html', report_data=report_data, report_name=report_name)
     else:
         return "Report not found"  # Handle student not found error
 
@@ -121,7 +122,7 @@ def gradereport():
 
         flash("Reports graded and data updated in the database.", "success")
         return redirect(url_for('grade'))
-        
+
     reports = fetch_reports()
     return render_template('Grade.html', reports=reports)
 
