@@ -24,6 +24,11 @@ db_conn = connections.Connection(
 def home():
     return render_template('CompanyConfStudApp.html')
 
+
+@app.route("/company", methods=['GET', 'POST'])
+def company():
+    return render_template('company.html')
+
 # Route for approving a student and inserting into the database
 @app.route("/approve_student", methods=["POST"])
 def approve_student():
