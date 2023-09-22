@@ -100,16 +100,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Replace this with dynamic data from your server -->
+                    <!-- Loop through the data from HeidiSQL and populate the table -->
+                    {% for row in rows %}
                     <tr>
-                        <td>Company A</td>
-                        <td>Background of Company A</td>
+                      <td>{{ row[0] }}</td>
+                      <td>{{ row[1] }}</td>
                         <td>
                           <button type="submit" name="action" value="approve" class="btn btn-success btn-md">Approve</button>
                           <button type="submit" name="action" value="reject" class="btn btn-danger btn-md">Reject</button>
                         </td>
-                    </tr>
-                    <!-- Repeat the above row structure for each company -->
+                      </tr>
+                      {% endfor %}
                 </tbody>
             </table>
         </div>
