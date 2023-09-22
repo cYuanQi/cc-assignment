@@ -143,7 +143,7 @@ def approve_or_reject_company():
 
     # Insert the approval/rejection record into the history table with the generated company ID
     insert_sql = "INSERT INTO company_approval_history (company_name, approval_status, timestamp, company_id) VALUES (%s, %s, NOW(), %s)"
-    cursor.execute(insert_sql, (comp_name, action.capitalize(), comp_background))
+    cursor.execute(insert_sql, (comp_name, action.capitalize(), company_id))
     db_conn.commit()
 
     # Delete the company information from testing_company
@@ -151,9 +151,12 @@ def approve_or_reject_company():
     cursor.execute(delete_sql, (comp_name,))
     db_conn.commit()
 
+    cursor.execute('SELECT * FROM company_approval_history')
+    rows = cursor.fetchall()
+    
     cursor.close()
 
-    return render_template('company_list_or_history.html')  # Replace with the actual URL
+    return render_template('company_list_or_history.html', rows=rows)  # Replace with the actual URL
 
 @app.route("/assignsupervisor", methods=['GET', 'POST'])
 def assignsupervisor():
