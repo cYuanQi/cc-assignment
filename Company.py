@@ -36,9 +36,6 @@ def home():
 def company():
     return render_template('company.html')
 
-@app.route("/postjob", methods=['GET','POST'])
-def postjob():
-    return render_template('post-job.html')
 
 @app.route("/postjobprocess", methods=['POST'])
 def postjobprocess():
