@@ -114,10 +114,18 @@ def submit_job_application():
         cursor.execute(insert_sql, (student_name, student_email, student_programme, student_skills, resume_file, job_title, company_name))
         db_conn.commit()
         cursor.close()
+
+        return redirect(url_for('job_single', message='Job application submitted successfully!'))
     else:
-        return "Please enter valid student details."
+        return jsonify({'error': 'Please enter valid student details.'})
 
-
+@app.route("/job-single")
+def job_single():
+    # Retrieve the message query parameter from the URL
+    message = request.args.get('message')
+    
+    # Render the job-single.html template with the message
+    return render_template('job-single.html', message=message)
 # Route to download the student's resume
 @app.route("/download_resume/<filename>", methods=['GET'])
 def download_resume(filename):
