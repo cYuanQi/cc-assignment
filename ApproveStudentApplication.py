@@ -1,239 +1,139 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JobBoard — Website Template by Colorlib</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom-bs.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.fancybox.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-select.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='fonts/icomoon/style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='fonts/line-icons/style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/owl.carousel.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/animate.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/quill.snow.css') }}">
+## Import additional modules
+from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory
+from pymysql import connections
+import os
+import boto3
+from config import *
 
-    <!-- MAIN CSS -->
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body id="top">
-    <div id="overlayer"></div>
-    <div class="loader">
-        <div class="spinner-border text-primary" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-    </div>
+app = Flask(__name__)
 
-    <div class="site-wrap">
-        <div class="site-mobile-menu site-navbar-target">
-            <div class="site-mobile-menu-header">
-                <div class="site-mobile-menu-close mt-3">
-                    <span class="icon-close2 js-menu-toggle"></span>
-                </div>
-            </div>
-            <div class="site-mobile-menu-body"></div>
-        </div> <!-- .site-mobile-menu -->
+bucket = custombucket
+region = customregion
 
-        <!-- NAVBAR -->
-        <header class="site-navbar mt-3">
-            <div class="container-fluid">
-                <div class="row align-items-center">
-                    <div class="site-logo col-6"><a href="{{url_for('company')}}">JobBoard</a></div>
-                    <nav class="mx-auto site-navigation">
-                        <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
-                            <li><a href="{{url_for('company')}}" class="nav-link active">Home</a></li>
-                            <li class="has-children">
-                                <a href="{{url_for('joblistings')}}">Job Listings</a>
-                                <ul class="dropdown">
-                                    <li><a href="{{url_for('jobsingle')}}">Job Single</a></li>
-                                    <li><a href="{{url_for('postjob')}}">Post a Job</a></li>
-                                </ul>
-                            </li>
-                            <li class="has-children">
-                                <a href="services.html">Pages</a>
-                                <ul class="dropdown">
-                                    <li><a href="{{url_for('services')}}">Services</a></li>
-                                    <li><a href="{{url_for('servicesingle')}}">Service Single</a></li>
-                                    <li><a href="{{url_for('blogsingle')}}">Blog Single</a></li>
-                                    <li><a href="{{url_for('portfolio')}}">Portfolio</a></li>
-                                    <li><a href="{{url_for('portfoliosingle')}}">Portfolio Single</a></li>
-                                    <li><a href="{{url_for('testimonials')}}">Testimonials</a></li>
-                                    <li><a href="{{url_for('faq')}}">Frequently Ask Questions</a></li>
-                                    <li><a href="{{url_for('gallery')}}">Gallery</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="{{url_for('blogsingle')}}">Blog</a></li>
-                            <li><a href="{{url_for('contact')}}">Contact</a></li>
-                            <li><a href="{{url_for('CompanyConfStudApp')}}">Student Application List</a></li>
-                            <li class="d-lg-none"><a href="{{url_for('postjob')}}"><span class="mr-2">+</span> Post a Job</a></li>
-                            <li class="d-lg-none"><a href="{{url_for('nologin')}}">Log Out</a></li>
-                        </ul>
-                    </nav>
-                    <div class="right-cta-menu text-right d-flex align-items-center col-6">
-                        <div class="ml-auto">
-                            <a href="{{url_for('postjob')}}" class="btn btn-outline-white border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-add"></span>Post a Job</a>
-                            <a href="{{url_for('nologin')}}" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-lock_outline"></span>Log Out</a>
-                        </div>
-                        <a href="#" class="site-menu-toggle js-menu-toggle d-inline-block d-xl-none mt-lg-2 ml-3"><span class="icon-menu h3 m-0 p-0 mt-2"></span></a>
-                    </div>
-                </div>
-            </div>
-        </header>
+# MySQL database connection setup
+db_conn = connections.Connection(
+    host=customhost,
+    port=3306,
+    user=customuser,
+    password=custompass,
+    db=customdb
+)
 
-        <!-- HOME -->
-        <section class="section-hero overlay inner-page bg-image" style="background-image: url('images/hero_1.jpg');" id="home-section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-7">
-                        <h1 class="text-white font-weight-bold">Student Job applications</h1>
-                        <div class="custom-breadcrumbs">
-                            <a href="#">Home</a> <span class="mx-2 slash">/</span>
-                            <span class="text-white"><strong>Student Job applications</strong></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+@app.route("/", methods=['GET', 'POST'])
+def home():
+    return render_template('CompanyConfStudApp.html')
 
-        <section class="site-section">
-            <div class="container">
-                <div class="row mb-5">
-                    <div class="col-12 text-center" data-aos="fade">
-                        <h2 class="section-title mb-3">Student Job Applications List</h2>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Student ID</th>
-                                    <th>Student Name</th>
-                                    <th>Field of Study</th>
-                                    <th>Level of Study</th>
-                                    <th>Resume</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Sample Row 1 -->
-                                <tr>
-                                    <form action="{{url_for('approve_student')}}" method="POST">
-                                        <input type="hidden" name="student_id" value="1">
-                                        <input type="hidden" name="student_name" value="Student 1">
-                                        <input type="hidden" name="field_of_study" value="Computer Science">
-                                        <input type="hidden" name="level_of_study" value="Degree">
-                                        <td>1</td>
-                                        <td>Student 1</td>
-                                        <td>Computer Science</td>
-                                        <td>Degree</td>
-                                        <td><a href="resume1.pdf" target="_blank">View Resume</a></td>
-                                        <td>
-                                            <button type="submit" name="action" value="approve" class="btn btn-success">Approve</button>
-                                            <button type="submit" name="action" value="reject" class="btn btn-danger">Reject</button>
-                                        </td>
-                                        
-                                    </form>
-                                </tr>
-                                <!-- Sample Row 2 (Add more rows as needed) -->
-                                <tr>
-                                    <form action="{{url_for('approve_student')}}" method="POST">
-                                        <input type="hidden" name="student_id" value="2">
-                                        <input type="hidden" name="student_name" value="Student 2">
-                                        <input type="hidden" name="field_of_study" value="Engineering">
-                                        <input type="hidden" name="level_of_study" value="Diploma">
-                                        <td>2</td>
-                                        <td>Student 2</td>
-                                        <td>Engineering</td>
-                                        <td>Diploma</td>
-                                        <td><a href="resume2.pdf" target="_blank">View Resume</a></td>
-                                        <td>
-                                            <button type="submit" name="action" value="approve" class="btn btn-success">Approve</button>
-                                            <button type="submit" name="action" value="reject" class="btn btn-danger">Reject</button>
-                                        </td>
-                                    </form>
-                                </tr>
-                                <!-- Add more rows as needed -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <footer class="site-footer">
-            <a href="#top" class="smoothscroll scroll-top">
-                <span class="icon-keyboard_arrow_up"></span>
-            </a>
-            <div class="container">
-                <div class="row mb-5">
-                    <div class="col-6 col-md-3 mb-4 mb-md-0">
-                        <h3>Search Trending</h3>
-                        <ul class="list-unstyled">
-                            <li><a href="#">Web Design</a></li>
-                            <li><a href="#">Graphic Design</a></li>
-                            <li><a href="#">Web Developers</a></li>
-                            <li><a href="#">Python</a></li>
-                            <li><a href="#">HTML5</a></li>
-                            <li><a href="#">CSS3</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-6 col-md-3 mb-4 mb-md-0">
-                        <h3>Company</h3>
-                        <ul class="list-unstyled">
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="#">Career</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">Resources</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-6 col-md-3 mb-4 mb-md-0">
-                        <h3>Support</h3>
-                        <ul class="list-unstyled">
-                            <li><a href="#">Support</a></li>
-                            <li><a href="#">Privacy</a></li>
-                            <li><a href="#">Terms of Service</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-6 col-md-3 mb-4 mb-md-0">
-                        <h3>Contact Us</h3>
-                        <div class="footer-social">
-                            <a href="#"><span class="icon-facebook"></span></a>
-                            <a href="#"><span class="icon-twitter"></span></a>
-                            <a href="#"><span class="icon-instagram"></span></a>
-                            <a href="#"><span class="icon-linkedin"></span></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="row text-center">
-                    <div class="col-12">
-                        <p class="copyright"><small>
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                            Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-                            All rights reserved | This template is made with <i class="icon-heart text-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        </small></p>
-                    </div>
-                </div>
-            </div>
-        </footer>
-    </div>
+@app.route("/CompanyConfStudApp", methods=['GET', 'POST'])
+def CompanyConfStudApp():
+    return render_template('CompanyConfStudApp.html')
 
-    <!-- SCRIPTS -->
-    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/isotope.pkgd.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/stickyfill.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/jquery.fancybox.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/jquery.easing.1.3.js') }}"></script>
+@app.route("/company", methods=['GET', 'POST'])
+def company():
+    return render_template('company.html')
+
+# Route for approving a student and inserting into the database
+@app.route("/approve_student", methods=["POST"])
+def approve_student():
+    # Predefined values for student
+    student_id = 1  # You can set the student_id to the appropriate value
+    student_name = "Student 1"
+    field_of_study = "Computer Science"
+    level_of_study = "Degree"
+
+    # Insert the student's details into the database (e.g., approved_students table)
+    cursor = db_conn.cursor()
+    insert_sql = "INSERT INTO approved_students(student_id, student_name, field_of_study, level_of_study) VALUES (%s, %s, %s, %s)"
+    cursor.execute(insert_sql, (student_id, student_name, field_of_study, level_of_study))
+    db_conn.commit()
+    cursor.close()
+
+ 
+    flash("Student approved successfully!", "success")
+
+    # Render the same template with the success message
+    return render_template('CompanyConfStudApp.html')
+
+@app.route("/display_approved_student/<student_id>")
+def display_approved_student(student_id):
+    # Query the database to get the approved student's information
+    cursor = db_conn.cursor()
+    select_sql = "SELECT * FROM approved_students WHERE student_id=%s"
+    cursor.execute(select_sql, student_id)
+    student_info = cursor.fetchone()
+    cursor.close()
+
+    # Render a template to display the approved student's details
+    return render_template("approved_student_template.html", student=student_info)
+
+
+@app.route("/nologin")
+def nologin():
+    return render_template('no_login.html')
     
-    <script src="{{ url_for('static', filename='js/jquery.waypoints.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/jquery.animateNumber.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/owl.carousel.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/quill.min.js') }}"></script>
-    
-    <script src="{{ url_for('static', filename='js/bootstrap-select.min.js') }}"></script>
-    
-    <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
-</body>
-</html>
+@app.route("/about")
+def about():
+    return render_template('about.html')
+
+@app.route("/joblistings")
+def joblistings():
+    return render_template('job-listings.html')
+
+@app.route("/jobsingle")
+def jobsingle():
+    return render_template('job-single.html')
+
+@app.route("/services")
+def services():
+    return render_template('services.html')
+
+@app.route("/servicesingle")
+def servicesingle():
+    return render_template('service-single.html')
+
+@app.route("/blog")
+def blog():
+    return render_template('blog.html')
+
+@app.route("/blogsingle")
+def blogsingle():
+    return render_template('blog-single.html')
+
+@app.route("/portfolio")
+def portfolio():
+    return render_template('portfolio.html')
+
+@app.route("/portfoliosingle")
+def portfoliosingle():
+    return render_template('portfolio-single.html')
+
+@app.route("/testimonials")
+def testimonials():
+    return render_template('testimonials.html')
+
+@app.route("/faq")
+def faq():
+    return render_template('faq.html')
+
+@app.route("/gallery")
+def gallery():
+    return render_template('gallery.html')
+
+@app.route("/contact")
+def contact():
+    return render_template('contact.html')
+
+@app.route("/login")
+def login():
+    return render_template('login.html')
+
+
+
+
+@app.route("/postjob")
+def postjob():
+    return render_template('post-job.html')
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=80, debug=True)
