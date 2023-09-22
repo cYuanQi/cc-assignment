@@ -89,8 +89,9 @@ def postjob():
                     facebook_username, twitter_username, linkedin_username, featured_image_url, logo_url
             ))
             db_conn.commit()
+            return redirect(url_for('success'))
     # If it's not a POST request, render the form
-            return render_template('post-job.html')
+        return render_template('post-job.html')
 
 
 # Define a route for the success page
