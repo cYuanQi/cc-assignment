@@ -136,8 +136,10 @@
                 <form action="/submit_job_application" method="POST" id="jobApplicationForm">
                   <label for="email">Email:</label>
                   <input type="email" id="student_email" name="student_email" required>
+                  <input type="hidden" id="jobTitleInput" name="jobTitleInput">
+                  <input type="hidden" id="companyNameInput" name="companyNameInput">
                   <br>
-                  <button type="submit"class="btn btn-block btn-primary btn-md" >Submit Application</button>
+                  <button type="submit" class="btn btn-block btn-primary btn-md">Submit Application</button>
                 </form>
               </div>
             </div>
@@ -530,30 +532,22 @@
     <script src="static/js/bootstrap-select.min.js"></script>
     
     <script src="static/js/custom.js"></script>
+    
     <script>
-      document.getElementById("applyNowButton").addEventListener("click", function() {
-        // Capture the job title and company name
+      // Function to set the job title and company name in hidden form fields
+      function setJobData() {
         var jobTitle = document.getElementById("jobTitle").textContent;
         var companyName = document.getElementById("companyName").textContent;
+        document.getElementById("jobTitleInput").value = jobTitle;
+        document.getElementById("companyNameInput").value = companyName;
+      }
     
-        // Send the data to the server using AJAX
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "/submit_job_application", true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.send(JSON.stringify({ jobTitle: jobTitle, companyName: companyName }));
-    
-        xhr.onreadystatechange = function() {
-          if (xhr.readyState == 4 && xhr.status == 200) {
-            // Handle the server's response if needed
-            console.log(xhr.responseText);
-          }
-        };
-      });
-    </script>
-    <script>
-     document.getElementById("applyNowButton").addEventListener("click", function() {
-    // Show the application form
-    document.getElementById("applicationForm").style.display = "block";
+      // Add an event listener to the "Submit Application" button
+      document.getElementById("applyNowButton").addEventListener("click", function () {
+        // Show the application form
+        document.getElementById("applicationForm").style.display = "block";
+        // Set job data in hidden form fields
+        setJobData();
       });
     </script>
 
