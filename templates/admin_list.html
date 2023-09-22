@@ -94,18 +94,18 @@
                   <h3 class="u-add-bottom">Edit Administrator Profile</h3>
                 <br>
                 <br>
-                  <form action="/addAdminProcess" method="POST" enctype="multipart/form-data">
+                  <form action="/addAdminProcess" method="POST" enctype="multipart/form-data" >
                       <div class="form-group">
                           <label for="adm_id">Administrator ID</label>
-                          <input class="form-control" type="text" id="adm_id" name="adm_id">
+                          <input class="form-control" type="text" id="adm_id" name="adm_id" value="{{ person_data[0] if person_data[0] else '' }}">
                       </div>
                       <div class="form-group">
                           <label for="adm_name">Administrator Name</label>
-                          <input class="form-control" type="text" id="adm_name" name="adm_name">
+                          <input class="form-control" type="text" id="adm_name" name="adm_name" value="{{ person_data[1] if person_data[1] else '' }}">
                       </div>
                       <div class="form-group">
                           <label for="adm_gender">Administrator Gender</label>
-                          <select class="form-control" id="adm_gender" name="adm_gender">
+                          <select class="form-control" id="adm_gender" name="adm_gender" value="{{ person_data[2] if person_data[2] else '' }}">
                               <option value="Male">Male</option>
                               <option value="Female">Female</option>
                               <option value="Other">Other</option>
@@ -113,43 +113,24 @@
                       </div>
                       <div class="form-group">
                           <label for="adm_dob">Date of Birth</label>
-                          <input class="form-control" type="date" id="adm_dob" name="adm_dob">
+                          <input class="form-control" type="date" id="adm_dob" name="adm_dob" value="{{ person_data[3] if person_data[3] else '' }}">>
                       </div>
                       <div class="form-group">
                           <label for="adm_address">Address</label>
-                          <textarea class="form-control" id="address" name="adm_address"></textarea>
+                          <textarea class="form-control" id="address" name="adm_address" value="{{ person_data[4] if person_data[4] else '' }}"></textarea>
                       </div>
                       <div class="form-group">
                           <label for="adm_email">Email</label>
-                          <input class="form-control" type="email" id="adm_email" name="adm_email">
+                          <input class="form-control" type="email" id="adm_email" name="adm_email" value="{{ person_data[5] if person_data[5] else '' }}">
                       </div>
                       <div class="form-group">
                           <label for="adm_phone">Phone Number</label>
-                          <input class="form-control" type="tel" id="adm_phone" name="adm_phone">
+                          <input class="form-control" type="tel" id="adm_phone" name="adm_phone" value="{{ person_data[6] if person_data[6] else '' }}">
                       </div>
-                      <div>
-                        <label for="adm_img">Administrator Image </label>
-                        <div class="custom-file">
-                          <input type="file" class="custom-file-input" id="adm_img" name="adm_img" onchange="updateFileName(this)">
-                          <label class="custom-file-label" for="adm_img">Choose file</label>
-                        </div>
-                      </div>
-                      
-                      <script>
-                        function updateFileName(input) {
-                          // Get the selected file name from the input
-                          const fileName = input.files[0].name;
-                      
-                          // Update the label text with the selected file name
-                          const label = input.nextElementSibling; // Get the next sibling, which is the label
-                          label.innerText = fileName;
-                        }
-                      </script>
-                      
                       <br>
                       <br>
                       <div class="text-center">
-                          <button type="submit" class="btn btn-primary btn-md">Save Changes</button>
+                          <a href="{{url_for('admin_list')}}" class="btn btn-block btn-primary btn-md">Save</a>
                       </div>
                     <br>
                 
