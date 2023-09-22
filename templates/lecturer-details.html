@@ -88,6 +88,9 @@
           <!-- Display email and name -->
         <div><span>Name: {{ data[0] }}</span></div>
         <div><span>Email: {{ data[1] }}</span></div>
+        <div><span>{{ data[2] }}</span></div>
+        <div><span>{{ data[3] }}</span></div>
+        <div><span>{{ data[4] }}</span></div>
         <!-- Lecturer Details Section -->
         <div class="row">
           <div class="col-lg-6 offset-lg-3">
@@ -109,19 +112,19 @@
               <div class="row form-group">
                 <div class="col-md-12 mb-3 mb-md-0">
                   <label class="text-black" for="lecturerFaculty">Faculty</label>
-                  <input type="text" id="lecturerFaculty" name="lecturerFaculty" class="form-control" placeholder="Lecturer Faculty" value="{{ data[2] if data else '' }}">
+                  <input type="text" id="lecturerFaculty" name="lecturerFaculty" class="form-control" placeholder="Lecturer Faculty" value="{{ data[2] if data[2] else '' }}">
                 </div>
               </div>
               <div class="row form-group">
                 <div class="col-md-12 mb-3 mb-md-0">
                   <label class="text-black" for="lecturerDepartement">Departement</label>
-                  <input type="text" id="lecturerDepartement" name="lecturerDepartement" class="form-control" placeholder="Lecturer Departement" value="{{ data[3] if data else '' }}">
+                  <input type="text" id="lecturerDepartement" name="lecturerDepartement" class="form-control" placeholder="Lecturer Departement" value="{{ data[3] if data[3] else '' }}">
                 </div>
               </div>
               <div class="row form-group">
                 <div class="col-md-12 mb-3 mb-md-0">
                   <label class="text-black" for="lecturerPosition">Position</label>
-                  <input type="text" id="lecturerPosition" name="lecturerPosition" class="form-control" placeholder="Lecturer Position" value="{{ data[4] if data else '' }}">
+                  <input type="text" id="lecturerPosition" name="lecturerPosition" class="form-control" placeholder="Lecturer Position" value="{{ data[4] if data[4] else '' }}">
                 </div>
               </div>
 
