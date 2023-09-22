@@ -97,26 +97,24 @@ def addAdminProcess():
         cursor.close()
 
 @app.route("/admin_list/<adm_email>", methods=['GET', 'POST'])
-def admin_list():
-    adm_id = request.args.get('adm_email')  # Get the adm_id from the request query parameters
-
+def admin_list(adm_email):
+    # Use 'adm_email' from the route parameter
     cursor = db_conn.cursor()
-    cursor.execute('SELECT * FROM adm_profile WHERE adm_email = %s', (adm_emai,))
+    cursor.execute('SELECT * FROM adm_profile WHERE adm_email = %s', (adm_email,))
     person_data = cursor.fetchone()
     cursor.close()
 
     # Initialize person_data to an empty dictionary if it's None
     person_data = person_data or {}
 
-    # Check if person_data is not empty, which means a person with that adm_id was found
+    # Check if person_data is not empty, which means a person with that adm_email was found
     if person_data:
-        # person_data should contain the person's information based on the adm_id
+        # person_data should contain the person's information based on the adm_email
         # Pass person_data to the template
         return render_template('admin_list.html', person_data=person_data)
     else:
-        # Handle the case where no person with the provided adm_id was found
+        # Handle the case where no person with the provided adm_email was found
         return "Person not found"
-
 
 @app.route("/companylistadm", methods=['GET', 'POST'])
 def companylistadm():
