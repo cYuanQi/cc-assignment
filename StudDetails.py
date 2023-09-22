@@ -180,7 +180,36 @@ def submit_student_report():
         cursor.close()  # Close the cursor in the finally block
 
     return render_template('Student_report.html')
+    
+@app.route("/submit_job_application", methods=['POST'])
+def submit_job_application():
+    student_email = request.form['student_email']  # Retrieve student_email from the form
+    job_title = request.form['jobTitleInput']
+    company_name = request.form['companyNameInput']
+    cursor = db_conn.cursor()
+    
+    # Modify your SQL query to select the desired student details based on email
+    select_sql = "SELECT student_name, student_programme, student_skills, resume_file FROM student_detail WHERE student_email = %s"
+    cursor.execute(select_sql, (student_email,))
+    student_data = cursor.fetchone()
+    cursor.close()
 
+    if student_data:
+        student_name = student_data[0]  # Access the first element (student_name)
+        student_programme = student_data[1]  # Access the second element (student_programme)
+        student_skills = student_data[2]  # Access the third element (student_skills)
+        resume_file = student_data[3]  # Access the fourth element (resume_file)
+
+        # Insert the job application data into the database
+        cursor = db_conn.cursor()
+        insert_sql = "INSERT INTO job_applications (student_name, student_email, student_programme, student_skills, student_resume, job_title, company_name) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+        cursor.execute(insert_sql, (student_name, student_email, student_programme, student_skills, resume_file, job_title, company_name))
+        db_conn.commit()
+        cursor.close()
+
+        return redirect(url_for('job_single', message='Job application submitted successfully!'))
+    else:
+        return jsonify({'error': 'Please enter valid student details.'})
 
 
 @app.route("/nologin", methods=['GET', 'POST'])
