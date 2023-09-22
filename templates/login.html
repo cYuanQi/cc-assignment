@@ -264,7 +264,8 @@
 
     {% if show_msg %}
       <script>
-        alert('{{ show_msg }}');
+        // alert('{{ show_msg }}');
+        displayConfirmationMessage(true, show_msg);
         // Clear the show_msg to avoid displaying it on page reload
         {% set show_msg = None %}
       </script>
@@ -277,7 +278,15 @@
         show_msg = null;  // Clear the show_msg to avoid displaying it on page reload
       }
     </script> -->
-   
+
+    <script>
+      function displayConfirmationMessage(isShow, showMessage) {
+        if (isShow) {
+          alert(showMessage);
+        }
+      }
+    </script>    
+
    <script src="static/js/login.js"></script>
 
   </body>
