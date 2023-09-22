@@ -246,10 +246,10 @@ def lecturerdetails(user_email):
     cursor.close()
 
     # Determine which data to pass based on whether lecturer exists
-    if lecturer:
-        return render_template('lecturer-details.html', data=lecturer)
+    if lecturer == {}:
+        return render_template('lecturer-details.html', data=lecturer) # Pass 'lecturer' as 'data' - full details - lecturer_details
     else:
-        return render_template('lecturer-details.html', data=user)
+        return render_template('lecturer-details.html', data=user) # Pass 'user' as 'data' - email, name - login
 
 @app.route("/evaluatereport", methods=['GET', 'POST'])
 def evaluatereport():
