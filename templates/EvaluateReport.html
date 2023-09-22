@@ -52,7 +52,7 @@
           <nav class="mx-auto site-navigation">
             <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
               <li><a href="{{url_for('lecturer', user_email=user_email)}}" class="nav-link active">Home</a></li>
-              <li><a href="{{url_for('lecturerdetails', user_email=user_email)}}">Lecturer Details</a></li>
+              <li><a href="{{url_for('lecturerdetails')}}">Lecturer Details</a></li>
               <li><a href="{{url_for('evaluatereport')}}">Report Evaluation</a></li>
               <li><a href="{{url_for('grade')}}">Grading</a></li>
 
@@ -95,7 +95,7 @@
         <div class="row">
           <div class="col-lg-12">
             <h2 class="section-title">Evaluate Internship Reports</h2>
-            <form method="GET" action="{{url_for('evaluatereport')}}">
+            <form method="GET" action="{{url_for('evaluatereport', user_email=user_email)}}">
               <table class="table table-bordered">
                 <thead>
                   <tr>
@@ -110,7 +110,7 @@
                     <td>{{ report.student_name }}</td>
                     <td>{{ report.report_name }}</td>
                     <td>
-                      <button class="btn btn-primary" href="{{url_for('downloadreport')}}">Evaluate</button>
+                      <button class="btn btn-primary" href="{{url_for('downloadreport', report_name=report_name)}}">Evaluate</button>
                     </td>
                   </tr>
                   {% endfor %}
