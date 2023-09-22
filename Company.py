@@ -23,6 +23,10 @@ db_conn = pymysql.connect(
 def home():
     return render_template('company.html')
 
+@app.route("/company")
+def company():
+    return render_template('company.html')
+
 @app.route("/postjob", methods=['POST'])
 def postjob():
     try:
@@ -164,8 +168,6 @@ def login():
 @app.route("/studentApplication")
 def student_application():
     return render_template('CompanyConfStudApp.html')
-
-
 
 
 if __name__ == '__main__':
