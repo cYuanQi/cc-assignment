@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
+import pymysql 
 from pymysql import connections
 import os
 import boto3
@@ -182,10 +183,6 @@ def grade():
 @app.route("/company", methods=['GET', 'POST'])
 def company():
     return render_template('company.html')
-
-@app.route("/postjob", methods=['GET', 'POST'])
-def postjob():
-    return render_template('post-job.html')
 
 @app.route("/studentapplyjobs", methods=['GET', 'POST'])
 def studentapplyjobs():
