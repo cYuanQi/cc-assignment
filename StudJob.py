@@ -110,7 +110,7 @@ def submit_job_application():
 
         # Insert the job application data into the database
         cursor = db_conn.cursor()
-        insert_sql = "INSERT INTO job_applications (student_name, student_email, student_programme, student_skills, resume_file, job_title, company_name) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+        insert_sql = "INSERT INTO job_applications (student_name, student_email, student_programme, student_skills, student_resume, job_title, company_name) VALUES (%s, %s, %s, %s, %s, %s, %s)"
         cursor.execute(insert_sql, (student_name, student_email, student_programme, student_skills, resume_file, job_title, company_name))
         db_conn.commit()
         cursor.close()
