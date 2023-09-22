@@ -98,11 +98,22 @@ def addAdminProcess():
 
 @app.route("/admin_list")
 def admin_list():
+    adm_id = request.args.get('adm_id')  # Get the adm_id from the request query parameters
+
     cursor = db_conn.cursor()
-    cursor.execute('SELECT * FROM adm_profile')
-    rows = cursor.fetchall()
+    cursor.execute('SELECT * FROM adm_profile WHERE adm_id = %s', (adm_id,))
+    person_data = cursor.fetchone()
     cursor.close()
-    return render_template('admin_list.html', rows=rows)
+
+    # Check if person_data is not None, which means a person with that adm_id was found
+    if person_data:
+        # person_data should contain the person's information based on the adm_id
+        # Pass person_data to the template
+        return render_template('admin_list.html', person_data=person_data)
+    else:
+        # Handle the case where no person with the provided adm_id was found
+        return "Person not found"
+
 
 
 @app.route("/companylistadm", methods=['GET', 'POST'])
