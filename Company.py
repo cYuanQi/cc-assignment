@@ -101,118 +101,72 @@ def postjob():
 def success():
     return "Job data submitted successfully!"
 
-if __name__ == "__main__":
-    app.run(debug=True)
-
-
-@app.route("/nologin", methods=['GET', 'POST'])
+@app.route("/nologin")
 def nologin():
     return render_template('no_login.html')
-
     
-@app.route("/about", methods=['GET', 'POST'])
+@app.route("/about")
 def about():
     return render_template('about.html')
 
-@app.route("/joblistings", methods=['GET', 'POST'])
+@app.route("/joblistings")
 def joblistings():
     return render_template('job-listings.html')
 
-@app.route("/jobsingle", methods=['GET', 'POST'])
+@app.route("/jobsingle")
 def jobsingle():
     return render_template('job-single.html')
 
-@app.route("/services", methods=['GET', 'POST'])
+@app.route("/services")
 def services():
     return render_template('services.html')
 
-@app.route("/servicesingle", methods=['GET', 'POST'])
+@app.route("/servicesingle")
 def servicesingle():
     return render_template('service-single.html')
 
-@app.route("/blog", methods=['GET', 'POST'])
+@app.route("/blog")
 def blog():
     return render_template('blog.html')
 
-@app.route("/blogsingle", methods=['GET', 'POST'])
+@app.route("/blogsingle")
 def blogsingle():
     return render_template('blog-single.html')
 
-@app.route("/portfolio", methods=['GET', 'POST'])
+@app.route("/portfolio")
 def portfolio():
     return render_template('portfolio.html')
 
-@app.route("/portfoliosingle", methods=['GET', 'POST'])
+@app.route("/portfoliosingle")
 def portfoliosingle():
     return render_template('portfolio-single.html')
 
-@app.route("/testimonials", methods=['GET', 'POST'])
+@app.route("/testimonials")
 def testimonials():
     return render_template('testimonials.html')
 
-@app.route("/faq", methods=['GET', 'POST'])
+@app.route("/faq")
 def faq():
     return render_template('faq.html')
 
-@app.route("/gallery", methods=['GET', 'POST'])
+@app.route("/gallery")
 def gallery():
     return render_template('gallery.html')
 
-@app.route("/contact", methods=['GET', 'POST'])
+@app.route("/contact")
 def contact():
     return render_template('contact.html')
 
-@app.route("/login", methods=['GET', 'POST'])
+@app.route("/login")
 def login():
     return render_template('login.html')
 
-@app.route("/lecture", methods=['GET', 'POST'])
-def lecture():
-    return render_template('lecture.html')
+@app.route("/studentApplication")
+def student_application():
+    return render_template('CompanyConfStudApp.html')
 
-@app.route("/lecturerdetails", methods=['GET', 'POST'])
-def lecturerdetails():
-    return render_template('lecturer-details.html')
 
-@app.route("/evaluatereport", methods=['GET', 'POST'])
-def evaluatereport():
-    return render_template('EvaluateReport.html')
 
-@app.route("/grade", methods=['GET', 'POST'])
-def grade():
-    return render_template('Grade.html')
 
-@app.route("/company", methods=['GET', 'POST'])
-def company():
-    return render_template('company.html')
-
-@app.route("/studentapplyjobs", methods=['GET', 'POST'])
-def studentapplyjobs():
-    return render_template('StudentApplyJobs.html')
-
-@app.route("/companylistadm", methods=['GET', 'POST'])
-def companylistadm():
-    return render_template('company_list_adm.html')
-
-@app.route("/assignsupervisor", methods=['GET', 'POST'])
-def assignsupervisor():
-    return render_template('assign-supervisor')
-
-@app.route("/studentreport", methods=['GET', 'POST'])
-def studentreport():
-    return render_template('Student_report.html')
-
-@app.route("/studentdetails", methods=['GET', 'POST'])
-def studentdetails():
-    return render_template('student-details.html')
-
-@app.route("/userpage", methods=['GET', 'POST'])
-def userpage():
-    return render_template('user_page.html')
-
-@app.route("/admin", methods=['GET', 'POST'])
-def admin():
-    return render_template('admin.html')
-
-if __name__ == "__main__":
-    app.run(debug=True)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=80, debug=True)
