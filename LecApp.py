@@ -98,20 +98,19 @@ def gradereport():
     if request.method == 'POST':
         reports = fetchreports()  # Implement this function to fetch reports
 
-        # Check if any reports were found
+         # Check if any reports were found
         if not reports:
             return "No reports found to grade."
 
         for report in reports:
             report_name = report[0]  # Assuming the report_id is in the first column of your report table
-            student_name = report[1]
             student_score = request.form.get(f'student_score_{report_name}')
 
             if student_score is not None:
                 cursor = db_conn.cursor()
                 try:
                     # Update the student_score for the specified report_id
-                    update_sql = "UPDATE report SET student_score = %s WHERE report_id = %s"
+                    update_sql = "UPDATE report SET student_score = %s WHERE report_name = %s"
                     cursor.execute(update_sql, (student_score, report_name))
                     db_conn.commit()
                     cursor.close()
@@ -120,7 +119,9 @@ def gradereport():
                     print(f"Error updating student_score: {e}")
                     return "An error occurred while updating the student_score."
 
-        return "Reports graded and data updated in the database."
+        flash("Reports graded and data updated in the database.", "success")
+        return redirect(url_for('grade'))
+        
     reports = fetch_reports()
     return render_template('Grade.html', reports=reports)
 
