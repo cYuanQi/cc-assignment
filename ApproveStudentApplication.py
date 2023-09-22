@@ -43,20 +43,10 @@ def approve_student():
     db_conn.commit()
     cursor.close()
 
+    flash("Student approved successfully!", "success")
     # Redirect to the page where you want to display the approved student's details
-    return redirect(url_for("display_approved_student", student_id=student_id))
+    return render_template('CompanyConfStudApp.html')
 
-@app.route("/display_approved_student/<student_id>")
-def display_approved_student(student_id):
-    # Query the database to get the approved student's information
-    cursor = db_conn.cursor()
-    select_sql = "SELECT * FROM approved_students WHERE student_id=%s"
-    cursor.execute(select_sql, student_id)
-    student_info = cursor.fetchone()
-    cursor.close()
-
-    # Render a template to display the approved student's details
-    return render_template("approved_student_template.html", student=student_info)
 
 
 @app.route("/nologin")
