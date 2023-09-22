@@ -1,5 +1,5 @@
 # Import additional modules
-from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory
+from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory, jsonify
 from pymysql import connections
 import os
 import boto3
