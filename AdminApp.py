@@ -131,7 +131,7 @@ def approve_or_reject_company():
     company_id = generate_company_id()
 
     # Retrieve the comp_id and comp_background from testing_company
-    cursor.execute("SELECT comp_id, comp_background FROM testing_company WHERE company_name = %s", (comp_name,))
+    cursor.execute("SELECT comp_name, comp_background FROM testing_company WHERE company_name = %s", (comp_name,))
     company_info = cursor.fetchone()  # Assuming only one row matches
 
     if company_info:
