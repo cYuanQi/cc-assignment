@@ -28,13 +28,9 @@ def home():
 def company():
     return render_template('company.html')
 
-@app.route("/postjob", methods=['POST'])
+@app.route("/postjob", methods=['GET'])
 def postjob():
         
-
-        if request.method == 'POST':
-        # Debugging: Print the entire request data
-            print(request.form)
  
             # Get data from the form
             email = request.form['email']
