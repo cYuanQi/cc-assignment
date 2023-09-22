@@ -86,8 +86,8 @@
 
     <section class="site-section">    
           <!-- Display email and name -->
-        <div><span>Email: {{ data.user_email }}</span></div>
-        <div><span>Name: {{ data.user_name }}</span></div>    
+        <div><span>Email: {{ data['user_email'] }}</span></div>
+        <div><span>Name: {{ data['user_name'] }}</span></div>    
         <!-- Lecturer Details Section -->
         <div class="row">
           <div class="col-lg-6 offset-lg-3">
@@ -97,31 +97,31 @@
               <div class="row form-group">
                 <div class="col-md-12 mb-3 mb-md-0">
                   <label class="text-black" for="lecturerName">Lecturer Name</label>
-                  <input type="text" id="lecturerName" name="lecturerName" class="form-control" placeholder="Lecturer Name" value="{{ data.lecturer_name if data.lecturer_name else data.user_name }}">
+                  <input type="text" id="lecturerName" name="lecturerName" class="form-control" placeholder="Lecturer Name" value="{{ data['lecturer_name'] if data['lecturer_name'] else data['user_name'] }}">
                 </div>
               </div>
               <div class="row form-group">
                 <div class="col-md-12 mb-3 mb-md-0">
                   <label class="text-black" for="lecturerEmail">Lecturer Email</label>
-                  <input type="text" id="lecturerEmail" name="lecturerEmail" class="form-control" placeholder="Lecturer Email" value="{{ data.lecturer_email if data.lecturer_email else data.user_email }}">
+                  <input type="text" id="lecturerEmail" name="lecturerEmail" class="form-control" placeholder="Lecturer Email" value="{{ data['lecturer_email'] if data['lecturer_email'] else data['user_email'] }}">
                 </div>
               </div>
               <div class="row form-group">
                 <div class="col-md-12 mb-3 mb-md-0">
                   <label class="text-black" for="lecturerFaculty">Faculty</label>
-                  <input type="text" id="lecturerFaculty" name="lecturerFaculty" class="form-control" placeholder="Lecturer Faculty" value="{{ data.lecturer_faculty if data else '' }}">
+                  <input type="text" id="lecturerFaculty" name="lecturerFaculty" class="form-control" placeholder="Lecturer Faculty" value="{{ data['lecturer_faculty'] if data else '' }}">
                 </div>
               </div>
               <div class="row form-group">
                 <div class="col-md-12 mb-3 mb-md-0">
                   <label class="text-black" for="lecturerDepartement">Departement</label>
-                  <input type="text" id="lecturerDepartement" name="lecturerDepartement" class="form-control" placeholder="Lecturer Departement" value="{{ data.lecturer_department if data else '' }}">
+                  <input type="text" id="lecturerDepartement" name="lecturerDepartement" class="form-control" placeholder="Lecturer Departement" value="{{ data['lecturer_department'] if data else '' }}">
                 </div>
               </div>
               <div class="row form-group">
                 <div class="col-md-12 mb-3 mb-md-0">
                   <label class="text-black" for="lecturerPosition">Position</label>
-                  <input type="text" id="lecturerPosition" name="lecturerPosition" class="form-control" placeholder="Lecturer Position" value="{{ data.lecturer_position if data else '' }}">
+                  <input type="text" id="lecturerPosition" name="lecturerPosition" class="form-control" placeholder="Lecturer Position" value="{{ data['lecturer_position'] if data else '' }}">
                 </div>
               </div>
 
