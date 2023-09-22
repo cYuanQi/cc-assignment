@@ -127,9 +127,7 @@ def contact():
 def login():
     return render_template('login.html')
 
-@app.route("/studentApplication")
-def student_application():
-    return render_template('CompanyConfStudApp.html')
+
 
 
 @app.route("/postjob")
