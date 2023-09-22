@@ -43,7 +43,7 @@ def approve_student():
 
     # Insert the student's details into the database (e.g., approved_students table)
     cursor = db_conn.cursor()
-    insert_sql = "INSERT INTO approved_students (student_id, student_name, field_of_study, level_of_study) VALUES (%s, %s, %s, %s)"
+    insert_sql = "INSERT INTO approved_students(student_id, student_name, field_of_study, level_of_study) VALUES (%s, %s, %s, %s)"
     cursor.execute(insert_sql, (student_id, student_name, field_of_study, level_of_study))
     db_conn.commit()
     cursor.close()
@@ -135,6 +135,10 @@ def student_application():
 @app.route("/postjob")
 def postjob():
     return render_template('post-job.html')
+
+@app.route("/CompanyConfStudApp", methods=['GET', 'POST'])
+def CompanyConfStudApp():
+    return render_template('CompanyConfStudApp.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
