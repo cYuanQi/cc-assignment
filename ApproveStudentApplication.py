@@ -4,10 +4,9 @@ import boto3
 
 app = Flask(__name__)
 
-# Replace with your S3 credentials and bucket name
-
 bucket = custombucket
 region = customregion
+
 
 # Configure your MySQL database connection
 db_conn = connections.Connection(
