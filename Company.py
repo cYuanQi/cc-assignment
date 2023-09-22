@@ -47,9 +47,9 @@ def postjob():
             company_tagline = request.form['company_tagline']
             company_description = request.form['company_description']
             company_website = request.form['company_website']
-            facebook_username = request.form['company_website_fb']
-            twitter_username = request.form['company_website_tw']
-            linkedin_username = request.form['company_website_li']
+            facebook_username = request.form['twitter_username']
+            twitter_username = request.form['twitter_username']
+            linkedin_username = request.form['linkedin_username']
 
             # Get the uploaded files
             featured_image = request.files['featured_image']
