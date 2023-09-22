@@ -115,27 +115,39 @@
                             <tbody>
                                 <!-- Sample Row 1 -->
                                 <tr>
-                                    <td>1</td>
-                                    <td>Student 1</td>
-                                    <td>Computer Science</td>
-                                    <td>Degree</td>
-                                    <td><a href="resume1.pdf" target="_blank">View Resume</a></td>
-                                    <td>
-                                        <button class="btn btn-success">Approve</button>
-                                        <button class="btn btn-danger">Reject</button>
-                                    </td>
+                                    <form action="{{url_for('approve_student')}}" method="POST">
+                                        <input type="hidden" name="student_id" value="1">
+                                        <input type="hidden" name="student_name" value="Student 1">
+                                        <input type="hidden" name="field_of_study" value="Computer Science">
+                                        <input type="hidden" name="level_of_study" value="Degree">
+                                        <td>1</td>
+                                        <td>Student 1</td>
+                                        <td>Computer Science</td>
+                                        <td>Degree</td>
+                                        <td><a href="resume1.pdf" target="_blank">View Resume</a></td>
+                                        <td>
+                                            <button type="submit" name="action" value="approve" class="btn btn-success">Approve</button>
+                                            <button type="submit" name="action" value="reject" class="btn btn-danger">Reject</button>
+                                        </td>
+                                    </form>
                                 </tr>
                                 <!-- Sample Row 2 (Add more rows as needed) -->
                                 <tr>
-                                    <td>2</td>
-                                    <td>Student 2</td>
-                                    <td>Engineering</td>
-                                    <td>Diploma</td>
-                                    <td><a href="resume2.pdf" target="_blank">View Resume</a></td>
-                                    <td>
-                                        <button class="btn btn-success">Approve</button>
-                                        <button class="btn btn-danger">Reject</button>
-                                    </td>
+                                    <form action="{{url_for('approve_student')}}" method="POST">
+                                        <input type="hidden" name="student_id" value="2">
+                                        <input type="hidden" name="student_name" value="Student 2">
+                                        <input type="hidden" name="field_of_study" value="Engineering">
+                                        <input type="hidden" name="level_of_study" value="Diploma">
+                                        <td>2</td>
+                                        <td>Student 2</td>
+                                        <td>Engineering</td>
+                                        <td>Diploma</td>
+                                        <td><a href="resume2.pdf" target="_blank">View Resume</a></td>
+                                        <td>
+                                            <button type="submit" name="action" value="approve" class="btn btn-success">Approve</button>
+                                            <button type="submit" name="action" value="reject" class="btn btn-danger">Reject</button>
+                                        </td>
+                                    </form>
                                 </tr>
                                 <!-- Add more rows as needed -->
                             </tbody>
