@@ -10,16 +10,17 @@ bucket = custombucket
 region = customregion
 
 # Configure your MySQL database connection
-db_conn = pymysql.connect(
+db_conn = connections.Connection(
     host=customhost,
     port=3306,
     user=customuser,
     password=custompass,
     db=customdb
-    charset='utf8mb4',
-    cursorclass=pymysql.cursors.DictCursor
 )
 
+@app.route("/", methods=['GET', 'POST'])
+def home():
+    return render_template('CompanyConfStudApp.html')
 
 # Route for updating student information and retrieving resumes
 @app.route("/update_student", methods=["POST"])
