@@ -57,7 +57,7 @@ def AddUser():
         return "Please check your password!"
 
     try:
-        cursor.execute(insert_sql, (user_role, user_name, user_email, user_password))
+        cursor.execute(insert_sql, (user_name, user_email, user_password, user_role))
         db_conn.commit()
 
     except Exception as e:
@@ -128,7 +128,7 @@ def submitlecdetails(user_email):
         update_sql = "UPDATE lecturer SET lecturer_name = %s, lecturer_faculty = %s, lecturer_department = %s, lecturer_position = %s WHERE lecturer_email = %s"
         
         try:
-            cursor.execute(update_sql, (lecturer_name, lecturer_faculty, lecturer_department, lecturer_position, lecturer_email))
+            cursor.execute(update_sql, (lecturer_name, lecturer_email, lecturer_faculty, lecturer_department, lecturer_position))
             db_conn.commit()
         except Exception as e:
             return str(e)
