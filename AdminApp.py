@@ -84,16 +84,18 @@ def addAdminProcess():
             cursor.execute(update_sql, (adm_file_name_in_s3, adm_id))
             db_conn.commit()
 
+            # Now, define and pass adm_image_file_name and adminData
+            adm_image_file_name = adm_file_name_in_s3
+            adminData = [adm_id, adm_name, adm_gender, adm_dob, adm_address, adm_email, adm_phone, adm_img]  # Replace this with actual data
+
+            return render_template('admin_list.html', adm_image_file_name=adm_image_file_name, adminData=adminData)
+
         except Exception as e:
             return str(e)
 
     finally:
         cursor.close()
 
-    # After obtaining adm_image_file_name
-    return render_template('admin_list.html', adm_image_file_name=adm_image_file_name, adminData=adminData)
-
-    
 @app.route("/admin_list")
 def admin_list():
     cursor = db_conn.cursor()
