@@ -100,14 +100,6 @@ def submit_job_application():
         student_skills = student_data[2]  # Access the third element (student_skills)
         resume_file = student_data[3]  # Access the fourth element (resume_file)
 
-    #     s3 = boto3.client('s3')
-    # try:
-    #     s3_object = s3.get_object(Bucket=custombucket, Key=resume_file)
-    #     resume_data = s3_object['Body'].read()
-    # except Exception as e:
-    #     return str(e)  # Handle S3 retrieval error
-
-
         # Insert the job application data into the database
         cursor = db_conn.cursor()
         insert_sql = "INSERT INTO job_applications (student_name, student_email, student_programme, student_skills, student_resume, job_title, company_name) VALUES (%s, %s, %s, %s, %s, %s, %s)"
