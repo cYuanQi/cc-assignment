@@ -101,7 +101,7 @@ def submitlecdetails(user_email):
 
     # email = session.get('email')
 
-    select_sql = "SELECT * FROM lecturer WHERE lecturer_email = %s"
+    select_sql = "SELECT * FROM lecturer_details WHERE lecturer_email = %s"
     cursor = db_conn.cursor()
     cursor.execute(select_sql, (user_email,))
     lecturer = cursor.fetchone()
@@ -114,7 +114,7 @@ def submitlecdetails(user_email):
     lecturer_position = request.form['lecturerPosition']
 
     if not lecturer:
-        insert_sql = "INSERT INTO lecturer VALUES (%s, %s, %s, %s, %s)"
+        insert_sql = "INSERT INTO lecturer_details VALUES (%s, %s, %s, %s, %s)"
 
         try:
             cursor.execute(insert_sql, (lecturer_name, lecturer_email, lecturer_faculty, lecturer_department, lecturer_position))
@@ -125,7 +125,7 @@ def submitlecdetails(user_email):
         finally:
             cursor.close()
     else:
-        update_sql = "UPDATE lecturer SET lecturer_name = %s, lecturer_faculty = %s, lecturer_department = %s, lecturer_position = %s WHERE lecturer_email = %s"
+        update_sql = "UPDATE lecturer_details SET lecturer_name = %s, lecturer_faculty = %s, lecturer_department = %s, lecturer_position = %s WHERE lecturer_email = %s"
         
         try:
             cursor.execute(update_sql, (lecturer_name, lecturer_email, lecturer_faculty, lecturer_department, lecturer_position))
