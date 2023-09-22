@@ -30,6 +30,11 @@ def company():
 
 @app.route("/postjob", methods=['GET','POST'])
 def postjob():
+        
+
+        if request.method == 'POST':
+        # Debugging: Print the entire request data
+            print(request.form)
  
             # Get data from the form
             email = request.form['email']
