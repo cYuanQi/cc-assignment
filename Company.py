@@ -20,8 +20,12 @@ db_conn = connections.Connection(
 )
 
 
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def home():
+    return render_template('company.html')
+
+@app.route("/company", methods=['GET', 'POST'])
+def company():
     return render_template('company.html')
 
 @app.route("/postjob", methods=['GET','POST'])
@@ -178,10 +182,6 @@ def evaluatereport():
 @app.route("/grade", methods=['GET', 'POST'])
 def grade():
     return render_template('Grade.html')
-
-@app.route("/company", methods=['GET', 'POST'])
-def company():
-    return render_template('company.html')
 
 
 @app.route("/studentapplyjobs", methods=['GET', 'POST'])
