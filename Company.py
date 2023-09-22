@@ -42,10 +42,10 @@ def postjob():
             job_location = request.form['job_location']
             job_region = request.form['job_region']
             job_type = request.form['job_type']
-            job_description = request.form['job_description']
+         
             company_name = request.form['company_name']
             company_tagline = request.form['company_tagline']
-            company_description = request.form['company_description']
+         
             company_website = request.form['company_website']
             facebook_username = request.form['twitter_username']
             twitter_username = request.form['twitter_username']
