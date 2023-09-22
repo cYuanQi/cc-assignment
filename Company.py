@@ -19,6 +19,7 @@ db_conn = pymysql.connect(
     cursorclass=pymysql.cursors.DictCursor
 )
 
+
 @app.route("/", methods=['GET', 'POST'])
 def home():
     return render_template('company.html')
