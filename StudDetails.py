@@ -211,7 +211,14 @@ def submit_job_application():
     else:
         return jsonify({'error': 'Please enter valid student details.'})
 
-
+@app.route("/job-single")
+def job_single():
+    # Retrieve the message query parameter from the URL
+    message = request.args.get('message')
+    
+    # Render the job-single.html template with the message
+    return render_template('job-single.html', message=message)
+    
 @app.route("/nologin", methods=['GET', 'POST'])
 def nologin():
     return render_template('no_login.html')
