@@ -24,7 +24,6 @@ db_conn = connections.Connection(
 def home():
     return render_template('CompanyConfStudApp.html')
 
-
 @app.route("/company", methods=['GET', 'POST'])
 def company():
     return render_template('company.html')
@@ -40,7 +39,7 @@ def approve_student():
 
     # Insert the student's details into the database (e.g., approved_students table)
     cursor = db_conn.cursor()
-    insert_sql = "INSERT INTO approved_students (student_id, student_name, field_of_study, level_of_study) VALUES (%s, %s, %s, %s)"
+    insert_sql = "INSERT INTO approval_student (student_id, student_name, field_of_study, level_of_study) VALUES (%s, %s, %s, %s)"
     cursor.execute(insert_sql, (student_id, student_name, field_of_study, level_of_study))
     db_conn.commit()
     cursor.close()
@@ -60,7 +59,6 @@ def display_approved_student(student_id):
 
     # Render a template to display the approved student's details
     return render_template("approved_student_template.html", student=student_info)
-
 
 
 
