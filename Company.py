@@ -22,7 +22,7 @@ db_conn = connections.Connection(
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
-    return render_template('company.html')
+    return render_template('post-job.html')
 
 @app.route("/postjob", methods=['POST'])
 def postjob():
