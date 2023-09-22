@@ -96,12 +96,12 @@ def addAdminProcess():
     finally:
         cursor.close()
 
-@app.route("/admin_list")
+@app.route("/admin_list/<adm_email>", methods=['GET', 'POST'])
 def admin_list():
-    adm_id = request.args.get('adm_id')  # Get the adm_id from the request query parameters
+    adm_id = request.args.get('adm_email')  # Get the adm_id from the request query parameters
 
     cursor = db_conn.cursor()
-    cursor.execute('SELECT * FROM adm_profile WHERE adm_id = %s', (adm_id,))
+    cursor.execute('SELECT * FROM adm_profile WHERE adm_email = %s', (adm_emai,))
     person_data = cursor.fetchone()
     cursor.close()
 
