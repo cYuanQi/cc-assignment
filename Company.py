@@ -42,10 +42,10 @@ def postjob():
             job_location = request.form['job_location']
             job_region = request.form['job_region']
             job_type = request.form['job_type']
-         
+            job_description = request.form['job_description']
             company_name = request.form['company_name']
             company_tagline = request.form['company_tagline']
-         
+            company_description = request.form['company_description']
             company_website = request.form['company_website']
             facebook_username = request.form['twitter_username']
             twitter_username = request.form['twitter_username']
@@ -58,7 +58,7 @@ def postjob():
             cursor = db_conn.cursor()
 
             # Insert job data into the job table
-            insert_sql = "INSERT INTO job_table (email, job_title, job_location, job_region, job_type, job_description,company_name, company_tagline, company_description, company_website,facebook_username, twitter_username, linkedin_username, featured_image_url, logo_url) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+            insert_sql = "INSERT INTO job_table (email, job_title, job_location, job_region, job_type, job_description,company_name, company_tagline, company_decription, company_website,facebook_username, twitter_username, linkedin_username) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
 
             if featured_image.filename == "":
                 cursor.close()
