@@ -38,6 +38,9 @@ def admin():
 def AddAdmin():
     return render_template('addadmin.html')
 
+# Import the necessary modules
+from flask import session, redirect, url_for
+
 @app.route("/addAdminProcess", methods=['POST'])
 def addAdminProcess():
     adm_id = request.form['adm_id']
@@ -84,13 +87,21 @@ def addAdminProcess():
             cursor.execute(update_sql, (adm_file_name_in_s3, adm_id))
             db_conn.commit()
 
-            # Now, define and pass adm_image_file_name and adminData
-            adm_image_file_name = adm_file_name_in_s3
-            adminData = [adm_id, adm_name, adm_gender, adm_dob, adm_address, adm_email, adm_phone, adm_img]  # Replace this with actual data
+            # Now, store the admin data in the session
+            admin_data = {
+                'adm_id': adm_id,
+                'adm_name': adm_name,
+                'adm_gender': adm_gender,
+                'adm_dob': adm_dob,
+                'adm_address': adm_address,
+                'adm_email': adm_email,
+                'adm_phone': adm_phone,
+                'adm_img_url': object_url  # Store the URL of the uploaded image
+            }
+            session['admin_data'] = admin_data
 
-            adm_image_file_name = session.get('adm_image_file_name')
-            adminData = session.get('adminData')
-            return render_template('admin_list.html', adm_image_file_name=adm_image_file_name, adminData=adminData)
+            # Redirect to the admin_list route
+            return redirect(url_for('admin_list'))
 
         except Exception as e:
             return str(e)
@@ -98,20 +109,18 @@ def addAdminProcess():
     finally:
         cursor.close()
 
-from flask import session
-
+# In the admin_list route, retrieve the admin data from the session
 @app.route("/admin_list", methods=['GET'])
 def admin_list():
-    # Retrieve data from the session
-    adm_image_file_name = session.get('adm_image_file_name')
-    adminData = session.get('adminData')
+    # Retrieve the admin data from the session
+    admin_data = session.get('admin_data')
 
-    # Check if the data is available in the session
-    if adm_image_file_name and adminData:
-        return render_template('admin_list.html', adm_image_file_name=adm_image_file_name, adminData=adminData)
+    if admin_data:
+        return render_template('admin_list.html', admin_data=admin_data)
     else:
-        # Handle the case where data is not available
-        return "Data not found"
+        # Handle the case where admin data is not available
+        return "Admin data not found"
+
 
 
 @app.route("/companylistadm", methods=['GET', 'POST'])
