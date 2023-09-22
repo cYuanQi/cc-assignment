@@ -136,9 +136,6 @@ def student_application():
 def postjob():
     return render_template('post-job.html')
 
-@app.route("/CompanyConfStudApp", methods=['GET', 'POST'])
-def CompanyConfStudApp():
-    return render_template('CompanyConfStudApp.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
