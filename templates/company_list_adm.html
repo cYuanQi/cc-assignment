@@ -106,6 +106,7 @@
                       <td>{{ row[0] }}</td>
                       <td>{{ row[1] }}</td>
                         <td>
+                          <input type="hidden" name="company_name" value="{{ row[0] }}">
                           <button type="submit" name="action" value="approve" class="btn btn-success btn-md">Approve</button>
                           <button type="submit" name="action" value="reject" class="btn btn-danger btn-md">Reject</button>
                         </td>
