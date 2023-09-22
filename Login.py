@@ -203,53 +203,29 @@ def login():
 def lecturer(user_email):
     return render_template('lecture.html', user_email=user_email)
 
-# @app.route("/lecturerdetails/<user_email>", methods=['GET', 'POST'])
-# def lecturerdetails(user_email):
-#     # email = session.get('email')
-
-#     select_sql = "SELECT * FROM lecturer_details WHERE lecturer_email = %s"
-#     cursor = db_conn.cursor()
-#     cursor.execute(select_sql, (user_email,))
-#     lecturer = cursor.fetchone()
-    
-#     # Initialize lecturer as an empty dictionary if it's None
-#     lecturer = lecturer or {}
-    
-#     if lecturer:
-#         cursor.close()
-        
-#         return render_template('lecturer-details.html', lecturer = lecturer)
-#     else:
-#         select_sql = "SELECT * FROM login WHERE user_email = %s"
-#         cursor.execute(select_sql, (user_email,))
-#         user = cursor.fetchone()
-#         cursor.close()
-
-#         return render_template('lecturer-details.html', user = user)
-
 @app.route("/lecturerdetails/<user_email>", methods=['GET', 'POST'])
 def lecturerdetails(user_email):
-    # email = session.get('email')
-
+    # Fetch the lecturer details based on the user_email
     select_sql = "SELECT * FROM lecturer_details WHERE lecturer_email = %s"
     cursor = db_conn.cursor()
     cursor.execute(select_sql, (user_email,))
     lecturer = cursor.fetchone()
-
+    
     # Initialize lecturer as an empty dictionary if it's None
     lecturer = lecturer or {}
 
-    select_sql = "SELECT * FROM login WHERE user_email = %s"
-    cursor.execute(select_sql, (user_email,))
+    # Fetch the user details based on the user_email
+    select_user_sql = "SELECT * FROM login WHERE user_email = %s"
+    cursor.execute(select_user_sql, (user_email,))
     user = cursor.fetchone()
 
     cursor.close()
 
     # Determine which data to pass based on whether lecturer exists
     if lecturer == {}:
-        return render_template('lecturer-details.html', data=lecturer) # Pass 'lecturer' as 'data' - full details - lecturer_details
+        return render_template('lecturer-details.html', data=user)  # Pass 'user' data
     else:
-        return render_template('lecturer-details.html', data=user) # Pass 'user' as 'data' - email, name - login
+        return render_template('lecturer-details.html', data=lecturer)  # Pass 'lecturer' data
 
 @app.route("/evaluatereport", methods=['GET', 'POST'])
 def evaluatereport():
