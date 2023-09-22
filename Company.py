@@ -30,7 +30,7 @@ def allowed_file(filename):
 
 @app.route("/postjob", methods=['GET', 'POST'])
 def home():
-    return render_template('company.html')
+    return render_template('post-job.html')
 
 @app.route("/company", methods=['GET', 'POST'])
 def company():
