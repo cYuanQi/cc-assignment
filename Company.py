@@ -18,7 +18,8 @@ db_conn = connections.Connection(
     password=custompass,
     db=customdb
 )
-
+output = {}
+table = 'job_table'
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
