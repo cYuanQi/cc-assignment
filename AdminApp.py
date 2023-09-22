@@ -131,14 +131,26 @@ def approve_or_reject_company():
     # Generate a unique company ID
     company_id = generate_company_id()
 
+    # Retrieve the comp_id and comp_background from testing_company
+    cursor.execute("SELECT comp_id, comp_background FROM testing_company WHERE company_name = %s", (company_name,))
+    company_info = cursor.fetchone()  # Assuming only one row matches
+
+    if company_info:
+        comp_id, comp_background = company_info
+    else:
+        # Handle the case where company_info is not found
+        comp_id = None
+        comp_background = None
+
     # Insert the approval/rejection record into the history table with the generated company ID
-    insert_sql = "INSERT INTO company_approval_history (company_name, approval_status, timestamp, company_id) VALUES (%s, %s, NOW(), %s)"
-    cursor.execute(insert_sql, (company_id, company_name, action.capitalize()))  # Capitalize to match ENUM values
+    insert_sql = "INSERT INTO company_approval_history (company_id, company_name, approval_status, timestamp, comp_id, comp_background) VALUES (%s, %s, %s, NOW(), %s, %s)"
+    cursor.execute(insert_sql, (company_id, company_name, action.capitalize(), comp_id, comp_background))
     db_conn.commit()
 
     cursor.close()
 
     return render_template('company_list_or_history.html')  # Replace with the actual URL
+
 
 
 @app.route("/assignsupervisor", methods=['GET', 'POST'])
