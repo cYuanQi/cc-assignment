@@ -539,7 +539,7 @@
         // Send the data to the server using AJAX
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "/submit_job_application", true);
-        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhr.setRequestHeader("Content-Type", "application/json");
         xhr.send(JSON.stringify({ jobTitle: jobTitle, companyName: companyName }));
     
         xhr.onreadystatechange = function() {
