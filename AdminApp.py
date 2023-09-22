@@ -82,12 +82,7 @@ def addAdminProcess():
                 custombucket,
                 adm_file_name_in_s3)
 
-            # Update the image file name in the database
-            update_sql = "UPDATE adm_profile SET adm_img = %s WHERE adm_id = %s"
-            cursor.execute(update_sql, (adm_file_name_in_s3, adm_id))
-            db_conn.commit()
-
-            # Now, store the admin data in the session
+            # Now, store the admin data in a dictionary
             admin_data = {
                 'adm_id': adm_id,
                 'adm_name': adm_name,
@@ -98,10 +93,9 @@ def addAdminProcess():
                 'adm_phone': adm_phone,
                 'adm_img_url': object_url  # Store the URL of the uploaded image
             }
-            session['admin_data'] = admin_data
 
-            # Redirect to the admin_list route
-            return redirect(url_for('admin_list'))
+            # Redirect to the admin_list route with admin data as query parameters
+            return redirect(url_for('admin_list', **admin_data))
 
         except Exception as e:
             return str(e)
@@ -109,17 +103,21 @@ def addAdminProcess():
     finally:
         cursor.close()
 
-# In the admin_list route, retrieve the admin data from the session
 @app.route("/admin_list", methods=['GET'])
 def admin_list():
-    # Retrieve the admin data from the session
-    admin_data = session.get('admin_data')
+    # Retrieve the admin data from query parameters
+    admin_data = {
+        'adm_id': request.args.get('adm_id'),
+        'adm_name': request.args.get('adm_name'),
+        'adm_gender': request.args.get('adm_gender'),
+        'adm_dob': request.args.get('adm_dob'),
+        'adm_address': request.args.get('adm_address'),
+        'adm_email': request.args.get('adm_email'),
+        'adm_phone': request.args.get('adm_phone'),
+        'adm_img_url': request.args.get('adm_img_url')
+    }
 
-    if admin_data:
-        return render_template('admin_list.html', admin_data=admin_data)
-    else:
-        # Handle the case where admin data is not available
-        return "Admin data not found"
+    return render_template('admin_list.html', admin_data=admin_data)
 
 
 
