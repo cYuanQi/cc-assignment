@@ -101,9 +101,14 @@ def admin_list():
     cursor.close()
     return render_template('admin_list.html', rows=rows)
 
+
 @app.route("/companylistadm", methods=['GET', 'POST'])
 def companylistadm():
-    return render_template('company_list_adm.html')
+    cursor = db_conn.cursor()
+    cursor.execute('SELECT * FROM testing_company')
+    rows = cursor.fetchall()
+    cursor.close()
+    return render_template('company_list_adm.html', rows=rows)
 
 import random
 import string
