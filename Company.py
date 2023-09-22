@@ -59,35 +59,6 @@ def postjob():
 
             # Insert job data into the job table
             insert_sql = "INSERT INTO job_table (email, job_title, job_location, job_region, job_type, job_description,company_name, company_tagline, company_decription, company_website,facebook_username, twitter_username, linkedin_username) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-
-            if featured_image.filename == "":
-                cursor.close()
-                return "Please select a featured image"
-
-            if logo.filename == "":
-                cursor.close()
-                return "Please select a logo"
-
-         
-                # Upload featured image and logo to S3
-            if featured_image.filename != "":
-                    s3 = boto3.client('s3')
-                    featured_image_name_in_s3 = "featured_" + featured_image.filename
-                    s3.upload_fileobj(featured_image, custombucket, featured_image_name_in_s3)
-                    featured_image_url = f"https://{custombucket}.s3.amazonaws.com/{featured_image_name_in_s3}"
-
-            if logo.filename != "":
-                    s3 = boto3.client('s3')
-                    logo_image_name_in_s3 = "logo_" + logo.filename
-                    s3.upload_fileobj(logo, custombucket, logo_image_name_in_s3)
-                    logo_url = f"https://{custombucket}.s3.amazonaws.com/{logo_image_name_in_s3}"
-
-                # After successfully storing in S3, store job details in the MySQL database
-            cursor.execute(insert_sql, (
-                    email, job_title, job_location, job_region, job_type, job_description,
-                    company_name, company_tagline, company_description, company_website,
-                    facebook_username, twitter_username, linkedin_username, featured_image_url, logo_url
-            ))
             db_conn.commit()
             return redirect(url_for('success'))
     # If it's not a POST request, render the form
