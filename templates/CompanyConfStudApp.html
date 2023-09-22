@@ -131,8 +131,46 @@
                                         <td>
                                             <button type="submit" name="action" value="approve" class="btn btn-success">Approve</button>
                                             <button type="submit" name="action" value="reject" class="btn btn-danger">Reject</button>
+                                            
                                         </td>
+                                     
+                                        </div>
+                                        
                                     </form>
+                                    <tbody>
+                                        <!-- Sample Row 1 -->
+                                        <tr>
+                                            <form action="{{url_for('approve_student')}}" method="POST">
+                                                <input type="hidden" name="student_id" value="1">
+                                                <input type="hidden" name="student_name" value="Student 1">
+                                                <input type="hidden" name="field_of_study" value="Computer Science">
+                                                <input type="hidden" name="level_of_study" value="Degree">
+                                                <td>1</td>
+                                                <td>Student 1</td>
+                                                <td>Computer Science</td>
+                                                <td>Degree</td>
+                                                <td><a href="resume1.pdf" target="_blank">View Resume</a></td>
+                                                <td>
+                                                    <button type="submit" name="action" value="approve" class="btn btn-success">Approve</button>
+                                                    <button type="submit" name="action" value="reject" class="btn btn-danger">Reject</button>
+                                                </td>
+                                             
+                                                </div>
+                                                
+                                            </form>
+                                            <td id="flash-messages" colspan="6">
+                                                {% with messages = get_flashed_messages() %}
+                                                    {% if messages %}
+                                                        <ul class="flash">
+                                                            {% for message in messages %}
+                                                                <li>{{ message }}</li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    {% endif %}
+                                                {% endwith %}
+                                            </td>
+                                        </tr>
+                                    
                                 </tr>
                                 <!-- Sample Row 2 (Add more rows as needed) -->
                                 <tr>
