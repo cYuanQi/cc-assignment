@@ -255,20 +255,14 @@
     <script src="static/js/bootstrap-select.min.js"></script>
     
     <script src="static/js/custom.js"></script>
-    
-    <!-- <script>
-      function displayConfirmationMessage() {
-        alert("Your registration was successful. Please wait for admin approval.");
-      }
-    </script> -->
 
     {% if show_msg %}
-      <script>
-        // alert('{{ show_msg }}');
-        displayConfirmationMessage(true, show_msg);
-        // Clear the show_msg to avoid displaying it on page reload
-        {% set show_msg = None %}
-      </script>
+    <script>
+      // Call the function to display the confirmation message
+      displayConfirmationMessage(true, "{{ show_msg }}");
+      // Clear the show_msg to avoid displaying it on page reload
+      {% set show_msg = None %}
+    </script>
     {% endif %}
     
     <!-- <script>
