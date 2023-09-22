@@ -5,6 +5,9 @@ from config import *
 
 app = Flask(__name__)
 
+bucket = custombucket
+region = customregion
+
 # Configure your MySQL database connection
 db_conn = pymysql.connect(
     host=customhost,
