@@ -108,7 +108,6 @@ def submitlecdetails(user_email):
     
     # details of form
     lecturer_name = request.form['lecturerName']
-    lecturer_email = request.form['lecturerEmail']
     lecturer_faculty = request.form['lecturerFaculty']
     lecturer_department = request.form['lecturerDepartement']
     lecturer_position = request.form['lecturerPosition']
@@ -117,7 +116,7 @@ def submitlecdetails(user_email):
         insert_sql = "INSERT INTO lecturer_details VALUES (%s, %s, %s, %s, %s)"
 
         try:
-            cursor.execute(insert_sql, (lecturer_name, lecturer_email, lecturer_faculty, lecturer_department, lecturer_position))
+            cursor.execute(insert_sql, (lecturer_name, user_email, lecturer_faculty, lecturer_department, lecturer_position))
             db_conn.commit()
         
         except Exception as e:
@@ -128,7 +127,7 @@ def submitlecdetails(user_email):
         update_sql = "UPDATE lecturer_details SET lecturer_name = %s, lecturer_faculty = %s, lecturer_department = %s, lecturer_position = %s WHERE lecturer_email = %s"
         
         try:
-            cursor.execute(update_sql, (lecturer_name, lecturer_email, lecturer_faculty, lecturer_department, lecturer_position))
+            cursor.execute(update_sql, (lecturer_name, lecturer_faculty, lecturer_department, lecturer_position, user_email))
             db_conn.commit()
         except Exception as e:
             return str(e)
