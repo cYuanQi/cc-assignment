@@ -273,18 +273,13 @@
       }
     </script> -->
 
-    <script>
-      function showAlert(showMsg) {
-        // Check if showMsg is not empty
-        if (showMsg) {
-          // Call the function to display the confirmation message with the passed showMsg
-          displayMessage(true, showMsg);
-          return true;  // Continue with the form submission
-        } else {
-          return false;  // Prevent form submission
-        }
-      }
-    </script>
+  <script>
+    function showAlert(showMsg) {
+      // Call the function to display the confirmation message with the passed showMsg
+      displayMessage(true, showMsg);
+      return true;  // Continue with the form submission
+    }
+  </script>
  
     <script>
       function displayMessage(isShow, showMessage) {
