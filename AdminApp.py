@@ -127,7 +127,7 @@ def approve_or_reject_company():
     company_id = generate_company_id()
 
     # Insert the approval/rejection record into the history table with the generated company ID
-    insert_sql = "INSERT INTO company_approval_history (company_id, company_name, approval_status, timestamp) VALUES (%s, %s, %s, NOW())"
+    insert_sql = "INSERT INTO company_approval_history (company_name, approval_status, timestamp, company_id) VALUES (%s, %s, NOW(), %s)"
     cursor.execute(insert_sql, (company_id, company_name, action.capitalize()))  # Capitalize to match ENUM values
     db_conn.commit()
 
