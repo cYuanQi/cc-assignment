@@ -18,52 +18,44 @@ db_conn = connections.Connection(
     password=custompass,
     db=customdb
 )
+
+
 @app.route("/", methods=['GET', 'POST'])
 def home():
     return render_template('CompanyConfStudApp.html')
 
-# Route for updating student information and retrieving resumes
-@app.route("/update_student", methods=["POST"])
-def update_student():
+# Route for approving a student and inserting into the database
+@app.route("/approve_student", methods=["POST"])
+def approve_student():
     # Get student information from the form
     student_id = request.form["student_id"]
     student_name = request.form["student_name"]
     field_of_study = request.form["field_of_study"]
     level_of_study = request.form["level_of_study"]
 
-    # Update the student information in the database
+    # Insert the student's details into the database (e.g., approved_students table)
     cursor = db_conn.cursor()
-    update_sql = "UPDATE student_table SET student_name=%s, field_of_study=%s, level_of_study=%s WHERE student_id=%s"
-    cursor.execute(update_sql, (student_name, field_of_study, level_of_study, student_id))
+    insert_sql = "INSERT INTO approved_students (student_id, student_name, field_of_study, level_of_study) VALUES (%s, %s, %s, %s)"
+    cursor.execute(insert_sql, (student_id, student_name, field_of_study, level_of_study))
     db_conn.commit()
     cursor.close()
 
-    # Retrieve the resume from Amazon S3
-    # Retrieve the resume from Amazon S3
-    resume_file_name = f"resume{student_id}.pdf"
-    s3 = boto3.client('s3')
-    try:
-        s3_object = s3.get_object(Bucket=bucket, Key=resume_file_name)  # Use the 'bucket' variable
-        resume_data = s3_object['Body'].read()
-    except Exception as e:
-        return str(e)  # Handle S3 retrieval error
+    # Redirect to the page where you want to display the approved student's details
+    return redirect(url_for("display_approved_student", student_id=student_id))
 
-
-    # Redirect to the page where you display the updated student information and resume
-    return redirect(url_for("display_student", student_id=student_id))
-
-# Route for displaying the student information and resume
-@app.route("/display_student/<student_id>")
-def display_student(student_id):
-    # Query the database to get the student information
+# Route for displaying the approved student's details
+@app.route("/display_approved_student/<student_id>")
+def display_approved_student(student_id):
+    # Query the database to get the approved student's information
     cursor = db_conn.cursor()
-    select_sql = "SELECT * FROM student_table WHERE student_id=%s"
+    select_sql = "SELECT * FROM approved_students WHERE student_id=%s"
     cursor.execute(select_sql, student_id)
     student_info = cursor.fetchone()
     cursor.close()
 
-    # Render a template to display the student information and resume
-    return render_template("student_template.html", student=student_info)
+    # Render a template to display the approved student's details
+    return render_template("approved_student_template.html", student=student_info)
+
 
 
 
