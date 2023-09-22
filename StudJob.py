@@ -95,10 +95,10 @@ def submit_job_application():
     cursor.close()
 
     if student_data:
-        student_name = student_data['student_name']  # Replace with the actual column name from your database
-        student_programme = student_data['student_programme']  # Replace with the actual column name
-        student_skills = student_data['student_skills']
-        resume_file = student_data['resume_file']
+        student_name = student_data[0]  # Access the first element (student_name)
+        student_programme = student_data[1]  # Access the second element (student_programme)
+        student_skills = student_data[2]  # Access the third element (student_skills)
+        resume_file = student_data[3]  # Access the fourth element (resume_file)
 
     #     s3 = boto3.client('s3')
     # try:
