@@ -98,10 +98,9 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Student Name</th>
-                                <th>Student ID</th>
-                                <th>Supervisor Name</th>
-                                <th>Supervisor ID</th>
+                                <th>Company Name</th>
+                                <th>Action</th>
+                                <th>Time Stamp</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -111,7 +110,6 @@
                                 <td>{{ row[0] }}</td>
                                 <td>{{ row[1] }}</td>
                                 <td>{{ row[2] }}</td>
-                                <td>{{ row[3] }}</td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -125,7 +123,7 @@
                     <div class="col-6">
                       <br>
                       <br>
-                        <a href="{{url_for('assignsupervisor')}}" class="btn btn-block btn-primary btn-md">Add More</a>
+                        <a href="{{url_for('companylistadm')}}" class="btn btn-block btn-primary btn-md">Add More</a>
                     </div>
                   <br>
                   <br>
