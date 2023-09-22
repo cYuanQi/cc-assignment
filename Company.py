@@ -19,7 +19,6 @@ db_conn = connections.Connection(
     db=customdb
 )
 
-
 @app.route("/", methods=['GET', 'POST'])
 def home():
     return render_template('company.html')
