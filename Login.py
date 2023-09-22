@@ -50,14 +50,14 @@ def AddUser():
     elif user_email.endswith('@lecturer.com'):
         user_role = "lecturer"
     else:
+        # return render_template('login.html', show_msg="User does not exist")
         return render_template('login.html', show_msg="Email format invalid!")
-
 
     insert_sql = "INSERT INTO login VALUES (%s, %s, %s, %s)"
     cursor = db_conn.cursor()
 
     if user_password != user_repassword:
-        return "Please check your password!"
+        return render_template('login.html', show_msg="Please check your password!")
 
     try:
         cursor.execute(insert_sql, (user_name, user_email, user_password, user_role))
