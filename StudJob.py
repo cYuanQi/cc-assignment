@@ -84,6 +84,8 @@ def submit_student():
 @app.route("/submit_job_application", methods=['POST'])
 def submit_job_application():
     student_email = request.form['student_email']  # Retrieve student_email from the form
+    job_title = request.form['jobTitleInput']
+    company_name = request.form['companyNameInput']
     cursor = db_conn.cursor()
     
     # Modify your SQL query to select the desired student details based on email
@@ -93,13 +95,10 @@ def submit_job_application():
     cursor.close()
 
     if student_data:
-        data = request.get_json(force=True)  # Accept other content types
-        job_title = data.get('jobTitle')  # Extract the job title
-        company_name = data.get('companyName')  # Extract the company name
         student_name = student_data['student_name']  # Replace with the actual column name from your database
         student_programme = student_data['student_programme']  # Replace with the actual column name
         student_skills = student_data['student_skills']
-        resume_file = student_data['student_resume']
+        resume_file = student_data['resume_file']
 
     #     s3 = boto3.client('s3')
     # try:
@@ -111,7 +110,7 @@ def submit_job_application():
 
         # Insert the job application data into the database
         cursor = db_conn.cursor()
-        insert_sql = "INSERT INTO job_applications (student_name, student_email, student_programme, student_skills, student_resume, job_title, company_name) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+        insert_sql = "INSERT INTO job_applications (student_name, student_email, student_programme, student_skills, resume_file, job_title, company_name) VALUES (%s, %s, %s, %s, %s, %s, %s)"
         cursor.execute(insert_sql, (student_name, student_email, student_programme, student_skills, resume_file, job_title, company_name))
         db_conn.commit()
         cursor.close()
