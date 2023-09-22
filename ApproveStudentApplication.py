@@ -1,11 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for
 import pymysql
 import boto3
+from config import *
 
 app = Flask(__name__)
 
-bucket = custombucket
-region = customregion
+
 
 
 # Configure your MySQL database connection
