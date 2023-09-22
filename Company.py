@@ -28,7 +28,7 @@ def home():
 def company():
     return render_template('company.html')
 
-@app.route("/postjob", methods=['GET','POST'])
+@app.route("/postjob", methods=['POST'])
 def postjob():
         
 
