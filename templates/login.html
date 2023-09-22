@@ -251,19 +251,19 @@
     <script src="static/js/owl.carousel.min.js"></script>
     <script src="static/js/quill.min.js"></script>
     
+    
     <script src="static/js/bootstrap-select.min.js"></script>
     
     <script src="static/js/custom.js"></script>
-
-    {% if show_msg %}
-    <script>
-      // Call the function to display the confirmation message
-      displayMessage(true, "{{ show_msg }}");
-      // Clear the show_msg to avoid displaying it on page reload
-      {% set show_msg = None %}
-    </script>
-    {% endif %}
     
+    {% if show_msg %}
+      <script>
+        alert('{{ show_msg }}');
+        // Clear the show_msg to avoid displaying it on page reload
+        {% set show_msg = None %}
+      </script>
+    {% endif %}
+   
    <script src="static/js/login.js"></script>
 
   </body>
