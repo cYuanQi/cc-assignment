@@ -64,11 +64,55 @@ def postjob():
     # If it's not a POST request, render the form
     return render_template('post-job.html')
 
+
+
+
+@app.route("/approve_student", methods=["POST"])
+def approve_student():
+    # Predefined values for student
+    student_id = 1  # You can set the student_id to the appropriate value
+    student_name = "Student 1"
+    field_of_study = "Computer Science"
+    level_of_study = "Degree"
+
+    # Insert the student's details into the database (e.g., approved_students table)
+    cursor = db_conn.cursor()
+    insert_sql = "INSERT INTO approved_students(student_id, student_name, field_of_study, level_of_study) VALUES (%s, %s, %s, %s)"
+    cursor.execute(insert_sql, (student_id, student_name, field_of_study, level_of_study))
+    db_conn.commit()
+    cursor.close()
+
+ 
+    flash("Student approved successfully!", "success")
+
+    # Render the same template with the success message
+    return render_template('CompanyConfStudApp.html')
+
+@app.route("/display_approved_student/<student_id>")
+def display_approved_student(student_id):
+    # Query the database to get the approved student's information
+    cursor = db_conn.cursor()
+    select_sql = "SELECT * FROM approved_students WHERE student_id=%s"
+    cursor.execute(select_sql, student_id)
+    student_info = cursor.fetchone()
+    cursor.close()
+
+    # Render a template to display the approved student's details
+    return render_template("approved_student_template.html", student=student_info)
+
+
+
+
+
 # Define a route for the success page
 @app.route("/success")
 def success():
     return "Job data submitted successfully!"
 
+
+@app.route("/CompanyConfStudApp", methods=['GET', 'POST'])
+def CompanyConfStudApp():
+    return render_template('CompanyConfStudApp.html')
 
 @app.route("/nologin", methods=['GET', 'POST'])
 def nologin():
@@ -176,9 +220,7 @@ def userpage():
 def admin():
     return render_template('admin.html')
 
-@app.route("/CompanyConfStudApp", methods=['GET', 'POST'])
-def CompanyConfStudApp():
-    return render_template('CompanyConfStudApp.html')
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
