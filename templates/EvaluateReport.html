@@ -47,11 +47,11 @@
     <header class="site-navbar mt-3">
       <div class="container-fluid">
         <div class="row align-items-center">
-          <div class="site-logo col-6"><a href="{{url_for('lecturer')}}">JobBoard</a></div>
+          <div class="site-logo col-6"><a href="{{url_for('lecturer', user_email=user_email)}}">JobBoard</a></div>
 
           <nav class="mx-auto site-navigation">
             <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
-              <li><a href="{{url_for('lecturer')}}" class="nav-link active">Home</a></li>
+              <li><a href="{{url_for('lecturer', user_email=user_email)}}" class="nav-link active">Home</a></li>
               <li><a href="{{url_for('lecturerdetails')}}">Lecturer Details</a></li>
               <li><a href="{{url_for('evaluatereport')}}">Report Evaluation</a></li>
               <li><a href="{{url_for('grade')}}">Grading</a></li>
