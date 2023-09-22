@@ -142,7 +142,7 @@ def approve_or_reject_company():
         comp_background = None
 
     # Insert the approval/rejection record into the history table with the generated company ID
-    insert_sql = "INSERT INTO company_approval_history (company_name, approval_status, timestamp, comp_background) VALUES (%s, %s, NOW(), %s)"
+    insert_sql = "INSERT INTO company_approval_history (company_name, approval_status, timestamp, comp_background) VALUES (%s, %s, str(SYSDATE()), %s)"
     cursor.execute(insert_sql, (company_id, comp_name, action.capitalize(), comp_background))
     db_conn.commit()
 
