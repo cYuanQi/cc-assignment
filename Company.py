@@ -20,25 +20,13 @@ db_conn = connections.Connection(
 )
 output = {}
 
-# Allowed file extensions for resume uploads
-ALLOWED_EXTENSIONS = {'jpg'}
 
-# Function to check if a filename has an allowed extension
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-    
-
-@app.route("/postjob", methods=['GET', 'POST'])
+@app.route("/", methods=['GET', 'POST'])
 def home():
     return render_template('post-job.html')
 
-@app.route("/company", methods=['GET', 'POST'])
-def company():
-    return render_template('company.html')
-
-
-@app.route("/postjobprocess", methods=['POST'])
-def postjobprocess():
+@app.route("/postjob", methods=['POST'])
+def postjob():
     try:
         # Get data from the form
         email = request.form['email']
@@ -63,7 +51,6 @@ def postjobprocess():
 
         # Insert job data into the job table
         insert_sql = "INSERT INTO job_table (email, job_title, job_location, job_region, job_type, job_description,company_name, company_tagline, company_description, company_website,facebook_username, twitter_username, linkedin_username, featured_image_url, logo_url) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-      
 
         if featured_image.filename == "":
             cursor.close()
@@ -104,7 +91,6 @@ def postjobprocess():
 
     except Exception as e:
         return str(e)
-    
 
 # Define a route for the success page
 @app.route("/success")
