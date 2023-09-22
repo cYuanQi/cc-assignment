@@ -77,7 +77,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h2 class="mb-4">Grade Student Reports</h2>
-                    <form method="POST" action="{{url_for('gradereport')}}">
+                    <form method="POST" action="{{url_for('downloadreport')}}">
                       <table class="table table-bordered">
                           <thead>
                               <tr>
@@ -102,7 +102,7 @@
                                       </td>
                                       <td>{{ report.report_name }}</td>
                                       <td>
-                                          <button type="submit" class="btn btn-primary" name="report_id" value="{{ report.report_id }}">Grade</button>
+                                          <button type="submit" class="btn btn-primary" name="report_name" value="{{ report.report_name }}" href="{{url_for('gradereport')}}">Grade</button>
                                       </td>
                                   </tr>
                               {% endfor %}
