@@ -96,7 +96,7 @@ def addAdminProcess():
     finally:
         cursor.close()
 
-@app.route("/admin_list")
+@app.route("/admin_list", methods=['GET'])
 def admin_list():
     adm_id = request.args.get('adm_id')  # Get the adm_id from the request query parameters
 
@@ -105,7 +105,10 @@ def admin_list():
     person_data = cursor.fetchone()
     cursor.close()
 
-    # Check if person_data is not None, which means a person with that adm_id was found
+    # Initialize person_data to an empty dictionary if it's None
+    person_data = person_data or {}
+
+    # Check if person_data is not empty, which means a person with that adm_id was found
     if person_data:
         # person_data should contain the person's information based on the adm_id
         # Pass person_data to the template
@@ -113,6 +116,7 @@ def admin_list():
     else:
         # Handle the case where no person with the provided adm_id was found
         return "Person not found"
+
 
 
 
