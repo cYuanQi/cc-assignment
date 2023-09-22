@@ -21,6 +21,9 @@ db_conn = pymysql.connect(
     charset='utf8mb4',
     cursorclass=pymysql.cursors.DictCursor
 )
+@app.route("/", methods=['GET', 'POST'])
+def home():
+    return render_template('company.html')
 
 @app.route("/postjob", methods=['POST'])
 def postjob():
