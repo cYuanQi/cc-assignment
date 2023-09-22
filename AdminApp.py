@@ -38,9 +38,6 @@ def admin():
 def AddAdmin():
     return render_template('addadmin.html')
 
-# Import the necessary modules
-from flask import session, redirect, url_for
-
 @app.route("/addAdminProcess", methods=['POST'])
 def addAdminProcess():
     adm_id = request.form['adm_id']
@@ -55,53 +52,54 @@ def addAdminProcess():
     cursor = db_conn.cursor()
     insert_sql = "INSERT INTO adm_profile(adm_id, adm_name, adm_gender, adm_dob, adm_address, adm_email, adm_phone, adm_img) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
 
-    if adm_img == "":
+    if not adm_img:
         return "Please select an image"
 
     try:
-        cursor.execute(insert_sql, (adm_id, adm_name, adm_gender, adm_dob, adm_address, adm_email, adm_phone, ""))
-        db_conn.commit()
-
-        # Upload image file to S3
+        # Save the image file to S3
         adm_file_name_in_s3 = "adm-id-" + str(adm_id) + "_image_file"
         s3 = boto3.resource('s3')
 
-        try:
-            print("Data inserted in MySQL RDS... uploading image to S3...")
-            s3.Bucket(custombucket).put_object(Key=adm_file_name_in_s3, Body=adm_img)
-            bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
-            s3_location = (bucket_location['LocationConstraint'])
+        print("Data inserted in MySQL RDS... uploading image to S3...")
+        s3.Bucket(custombucket).put_object(Key=adm_file_name_in_s3, Body=adm_img)
+        bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
+        s3_location = (bucket_location['LocationConstraint'])
 
-            if s3_location is None:
-                s3_location = ''
-            else:
-                s3_location = '-' + s3_location
+        if s3_location is None:
+            s3_location = ''
+        else:
+            s3_location = '-' + s3_location
 
-            object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
-                s3_location,
-                custombucket,
-                adm_file_name_in_s3)
+        object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+            s3_location,
+            custombucket,
+            adm_file_name_in_s3)
 
-            # Now, store the admin data in a dictionary
-            admin_data = {
-                'adm_id': adm_id,
-                'adm_name': adm_name,
-                'adm_gender': adm_gender,
-                'adm_dob': adm_dob,
-                'adm_address': adm_address,
-                'adm_email': adm_email,
-                'adm_phone': adm_phone,
-                'adm_img_url': object_url  # Store the URL of the uploaded image
-            }
+        # Execute the SQL statement to insert data into MySQL database
+        cursor.execute(insert_sql, (adm_id, adm_name, adm_gender, adm_dob, adm_address, adm_email, adm_phone, object_url))
+        db_conn.commit()
 
-            # Redirect to the admin_list route with admin data as query parameters
-            return redirect(url_for('admin_list', **admin_data))
+        # Now, store the admin data in a dictionary
+        admin_data = {
+            'adm_id': adm_id,
+            'adm_name': adm_name,
+            'adm_gender': adm_gender,
+            'adm_dob': adm_dob,
+            'adm_address': adm_address,
+            'adm_email': adm_email,
+            'adm_phone': adm_phone,
+            'adm_img_url': object_url  # Store the URL of the uploaded image
+        }
 
-        except Exception as e:
-            return str(e)
+        # Redirect to the admin_list route with admin data as query parameters
+        return redirect(url_for('admin_list', **admin_data))
+
+    except Exception as e:
+        return str(e)
 
     finally:
         cursor.close()
+
 
 @app.route("/admin_list", methods=['GET'])
 def admin_list():
