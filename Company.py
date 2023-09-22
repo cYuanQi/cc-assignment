@@ -176,5 +176,9 @@ def userpage():
 def admin():
     return render_template('admin.html')
 
+@app.route("/CompanyConfStudApp", methods=['GET', 'POST'])
+def CompanyConfStudApp():
+    return render_template('CompanyConfStudApp.html')
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
