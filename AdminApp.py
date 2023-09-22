@@ -87,25 +87,6 @@ def addAdminProcess():
             # Now, define and pass adm_image_file_name and adminData
             adm_image_file_name = adm_file_name_in_s3
             adminData = [adm_id, adm_name, adm_gender, adm_dob, adm_address, adm_email, adm_phone, adm_img]  # Replace this with actual data
-
-             adm_id = request.args.get('adm_id')  # Get the adm_id from the request query parameters
-
-            cursor = db_conn.cursor()
-            cursor.execute('SELECT * FROM adm_profile WHERE adm_id = %s', (adm_id,))
-            person_data = cursor.fetchone()
-            cursor.close()
-        
-            # Initialize person_data to an empty dictionary if it's None
-            person_data = person_data or {}
-        
-            # Check if person_data is not empty, which means a person with that adm_id was found
-            if person_data:
-                # person_data should contain the person's information based on the adm_id
-                # Pass person_data to the template
-                return render_template('admin_list.html', person_data=person_data)
-            else:
-                # Handle the case where no person with the provided adm_id was found
-                return "Person not found"
         
             return render_template('admin_list.html', adm_image_file_name=adm_image_file_name, adminData=adminData)
 
@@ -115,6 +96,26 @@ def addAdminProcess():
     finally:
         cursor.close()
 
+@app.route("/admin_list")
+def admin_list():
+    adm_id = request.args.get('adm_id')  # Get the adm_id from the request query parameters
+
+    cursor = db_conn.cursor()
+    cursor.execute('SELECT * FROM adm_profile WHERE adm_id = %s', (adm_id,))
+    person_data = cursor.fetchone()
+    cursor.close()
+
+    # Initialize person_data to an empty dictionary if it's None
+    person_data = person_data or {}
+
+    # Check if person_data is not empty, which means a person with that adm_id was found
+    if person_data:
+        # person_data should contain the person's information based on the adm_id
+        # Pass person_data to the template
+        return render_template('admin_list.html', person_data=person_data)
+    else:
+        # Handle the case where no person with the provided adm_id was found
+        return "Person not found"
 
 
 @app.route("/companylistadm", methods=['GET', 'POST'])
