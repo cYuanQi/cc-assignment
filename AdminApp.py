@@ -131,14 +131,14 @@ def approve_or_reject_company():
     company_id = generate_company_id()
 
     # Retrieve the comp_id and comp_background from testing_company
-    cursor.execute("SELECT comp_name, comp_background FROM testing_company WHERE company_name = %s", (comp_name,))
+    cursor.execute("SELECT comp_name, comp_background FROM testing_company WHERE comp_name = %s", (comp_name,))
     company_info = cursor.fetchone()  # Assuming only one row matches
 
     if company_info:
-        comp_id, comp_background = company_info
+        comp_name, comp_background = company_info
     else:
         # Handle the case where company_info is not found
-        comp_id = None
+        comp_name = None
         comp_background = None
 
     # Insert the approval/rejection record into the history table with the generated company ID
@@ -147,15 +147,13 @@ def approve_or_reject_company():
     db_conn.commit()
 
     # Delete the company information from testing_company
-    delete_sql = "DELETE FROM testing_company WHERE company_name = %s"
+    delete_sql = "DELETE FROM testing_company WHERE comp_name = %s"
     cursor.execute(delete_sql, (comp_name,))
     db_conn.commit()
 
     cursor.close()
 
     return render_template('company_list_or_history.html')  # Replace with the actual URL
-
-
 
 
 @app.route("/assignsupervisor", methods=['GET', 'POST'])
