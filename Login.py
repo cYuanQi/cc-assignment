@@ -215,7 +215,7 @@ def lecturerdetails(user_email):
     lecturer = lecturer or {}
 
     # Fetch the user details based on the user_email
-    select_user_sql = "SELECT * FROM login WHERE user_email = %s"
+    select_user_sql = "SELECT user_name, user_email FROM login WHERE user_email = %s"
     cursor.execute(select_user_sql, (user_email,))
     user = cursor.fetchone()
 
