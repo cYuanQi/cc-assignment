@@ -89,6 +89,7 @@
         
     
     <section class="site-section services-section bg-light block__62849" id="next-section">
+      <form action="/assignsupervisorProcess" method="POST" enctype="multipart/form-data">
         <div class="container">
             <table class="table">
                 <thead>
@@ -104,14 +105,15 @@
                         <td>Company A</td>
                         <td>Background of Company A</td>
                         <td>
-                            <button type="submit" name="action" value="approve" class="btn btn-success btn-md">Approve</button>
-                            <button type="submit" name="action" value="reject" class="btn btn-danger btn-md">Reject</button>
+                          <button type="submit" name="action" value="approve" class="btn btn-success btn-md">Approve</button>
+                          <button type="submit" name="action" value="reject" class="btn btn-danger btn-md">Reject</button>
                         </td>
                     </tr>
                     <!-- Repeat the above row structure for each company -->
                 </tbody>
             </table>
         </div>
+        </form>
     </section>
       
     
