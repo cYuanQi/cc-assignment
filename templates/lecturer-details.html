@@ -94,13 +94,13 @@
               <div class="row form-group">
                 <div class="col-md-12 mb-3 mb-md-0">
                   <label class="text-black" for="lecturerName">Lecturer Name</label>
-                  <input type="text" id="lecturerName" name="lecturerName" class="form-control" placeholder="Lecturer Name" value="{{ data.lecturer_name if data.lecturer_name else data.user_name }}">
+                  <input type="text" id="lecturerName" name="lecturerName" class="form-control" placeholder="Lecturer Name" value="{{ data.user_name if not data.lecturer_name else data.lecturer_name }}">
                 </div>
               </div>
               <div class="row form-group">
                 <div class="col-md-12 mb-3 mb-md-0">
                   <label class="text-black" for="lecturerEmail">Lecturer Email</label>
-                  <input type="text" id="lecturerEmail" name="lecturerEmail" class="form-control" placeholder="Lecturer Email" value="{{ data.lecturer_email if data.lecturer_email else data.user_email }}">
+                  <input type="text" id="lecturerEmail" name="lecturerEmail" class="form-control" placeholder="Lecturer Email" value="{{ data.user_email if not data.lecturer_email else data.lecturer_email }}">
                 </div>
               </div>
               <div class="row form-group">
