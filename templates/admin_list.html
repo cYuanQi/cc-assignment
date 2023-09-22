@@ -97,15 +97,15 @@
                   <form action="/addAdminProcess" method="POST" enctype="multipart/form-data" >
                       <div class="form-group">
                           <label for="adm_id">Administrator ID</label>
-                          <input class="form-control" type="text" id="adm_id" name="adm_id" value="{{ person_data[0] if person_data[0] else '' }}">
+                          <input class="form-control" type="text" id="adm_id" name="adm_id" value="{{ adminData[0] if adminData[0] else '' }}">
                       </div>
                       <div class="form-group">
                           <label for="adm_name">Administrator Name</label>
-                          <input class="form-control" type="text" id="adm_name" name="adm_name" value="{{ person_data[1] if person_data[1] else '' }}">
+                          <input class="form-control" type="text" id="adm_name" name="adm_name" value="{{ adminData[1] if adminData[1] else '' }}">
                       </div>
                       <div class="form-group">
                           <label for="adm_gender">Administrator Gender</label>
-                          <select class="form-control" id="adm_gender" name="adm_gender" value="{{ person_data[2] if person_data[2] else '' }}">
+                          <select class="form-control" id="adm_gender" name="adm_gender" value="{{ adminData[2] if adminData[2] else '' }}">
                               <option value="Male">Male</option>
                               <option value="Female">Female</option>
                               <option value="Other">Other</option>
@@ -113,19 +113,19 @@
                       </div>
                       <div class="form-group">
                           <label for="adm_dob">Date of Birth</label>
-                          <input class="form-control" type="date" id="adm_dob" name="adm_dob" value="{{ person_data[3] if person_data[3] else '' }}">
+                          <input class="form-control" type="date" id="adm_dob" name="adm_dob" value="{{ adminData[3] if adminData[3] else '' }}">
                       </div>
                       <div class="form-group">
                           <label for="adm_address">Address</label>
-                          <textarea class="form-control" id="address" name="adm_address" value="{{ person_data[4] if person_data[4] else '' }}"></textarea>
+                          <textarea class="form-control" id="address" name="adm_address" value="{{ adminData[4] if adminData[4] else '' }}"></textarea>
                       </div>
                       <div class="form-group">
                           <label for="adm_email">Email</label>
-                          <input class="form-control" type="email" id="adm_email" name="adm_email" value="{{ person_data[5] if person_data[5] else '' }}">
+                          <input class="form-control" type="email" id="adm_email" name="adm_email" value="{{ adminData[5] if adminData[5] else '' }}">
                       </div>
                       <div class="form-group">
                           <label for="adm_phone">Phone Number</label>
-                          <input class="form-control" type="tel" id="adm_phone" name="adm_phone" value="{{ person_data[6] if person_data[6] else '' }}">
+                          <input class="form-control" type="tel" id="adm_phone" name="adm_phone" value="{{ adminData[6] if adminData[6] else '' }}">
                       </div>
                       <br>
                       <br>
