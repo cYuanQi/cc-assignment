@@ -86,61 +86,60 @@
 
     <!-- PAGE CONTENT -->
     <section class="s-pagecontent pagecontent">
-      <div class="container">
-          <div class="row justify-content-center">
-              <div class="col-md-8">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
                 <br>
                 <br>
-                  <h3 class="u-add-bottom">Edit Administrator Profile</h3>
+                <h3 class="u-add-bottom">Edit Administrator Profile</h3>
                 <br>
                 <br>
-                  <form action="/addAdminProcess" method="POST" enctype="multipart/form-data" >
-                      <div class="form-group">
-                          <label for="adm_id">Administrator ID</label>
-                          <input class="form-control" type="text" id="adm_id" name="adm_id" value="{{ admin_data[0] if admin_data[0] else '' }}">
-                      </div>
-                      <div class="form-group">
-                          <label for="adm_name">Administrator Name</label>
-                          <input class="form-control" type="text" id="adm_name" name="adm_name" value="{{ admin_data[1] if admin_data[1] else '' }}">
-                      </div>
-                      <div class="form-group">
-                          <label for="adm_gender">Administrator Gender</label>
-                          <select class="form-control" id="adm_gender" name="adm_gender" value="{{ admin_data[2] if admin_data[2] else '' }}">
-                              <option value="Male">Male</option>
-                              <option value="Female">Female</option>
-                              <option value="Other">Other</option>
-                          </select>
-                      </div>
-                      <div class="form-group">
-                          <label for="adm_dob">Date of Birth</label>
-                          <input class="form-control" type="date" id="adm_dob" name="adm_dob" value="{{ admin_data[3] if admin_data[3] else '' }}">
-                      </div>
-                      <div class="form-group">
-                          <label for="adm_address">Address</label>
-                          <textarea class="form-control" id="address" name="adm_address" value="{{ admin_data[4] if admin_data[4] else '' }}"></textarea>
-                      </div>
-                      <div class="form-group">
-                          <label for="adm_email">Email</label>
-                          <input class="form-control" type="email" id="adm_email" name="adm_email" value="{{ admin_data[5] if admin_data[5] else '' }}">
-                      </div>
-                      <div class="form-group">
-                          <label for="adm_phone">Phone Number</label>
-                          <input class="form-control" type="tel" id="adm_phone" name="adm_phone" value="{{ admin_data[6] if admin_data[6] else '' }}">
-                      </div>
-                      <br>
-                      <br>
-                      <div class="text-center">
-                          <a href="{{url_for('admin_list')}}" class="btn btn-block btn-primary btn-md">Save</a>
-                      </div>
+                <form action="/addAdminProcess" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="adm_id">Administrator ID</label>
+                        <input class="form-control" type="text" id="adm_id" name="adm_id" value="{{ admin_data['adm_id'] if admin_data['adm_id'] else '' }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="adm_name">Administrator Name</label>
+                        <input class="form-control" type="text" id="adm_name" name="adm_name" value="{{ admin_data['adm_name'] if admin_data['adm_name'] else '' }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="adm_gender">Administrator Gender</label>
+                        <select class="form-control" id="adm_gender" name="adm_gender">
+                            <option value="Male" {{ 'selected' if admin_data['adm_gender'] == 'Male' else '' }}>Male</option>
+                            <option value="Female" {{ 'selected' if admin_data['adm_gender'] == 'Female' else '' }}>Female</option>
+                            <option value="Other" {{ 'selected' if admin_data['adm_gender'] == 'Other' else '' }}>Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="adm_dob">Date of Birth</label>
+                        <input class="form-control" type="date" id="adm_dob" name="adm_dob" value="{{ admin_data['adm_dob'] if admin_data['adm_dob'] else '' }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="adm_address">Address</label>
+                        <textarea class="form-control" id="address" name="adm_address">{{ admin_data['adm_address'] if admin_data['adm_address'] else '' }}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="adm_email">Email</label>
+                        <input class="form-control" type="email" id="adm_email" name="adm_email" value="{{ admin_data['adm_email'] if admin_data['adm_email'] else '' }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="adm_phone">Phone Number</label>
+                        <input class="form-control" type="tel" id="adm_phone" name="adm_phone" value="{{ admin_data['adm_phone'] if admin_data['adm_phone'] else '' }}">
+                    </div>
                     <br>
-                
                     <br>
-                    
-                  </form>
-              </div>
-          </div>
-      </div>
-  </section>
+                    <div class="text-center">
+                        <a href="{{url_for('admin_list')}}" class="btn btn-block btn-primary btn-md">Save</a>
+                    </div>
+                    <br>
+                    <br>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
 
 
     <!-- FOOTER -->
