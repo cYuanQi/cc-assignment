@@ -119,10 +119,10 @@ def generate_company_id(length=8):
 
     return company_id
 
-# Modify your `approve_or_reject_company` function to include the company ID generation:
 
 @app.route("/approve_or_reject_company", methods=['POST'])
 def approve_or_reject_company():
+    comp_name = request.form['company_name']
     action = request.form['action']  # 'approve' or 'reject'
 
     cursor = db_conn.cursor()
@@ -131,7 +131,7 @@ def approve_or_reject_company():
     company_id = generate_company_id()
 
     # Retrieve the comp_id and comp_background from testing_company
-    cursor.execute("SELECT comp_id, comp_background FROM testing_company WHERE company_name = %s", (company_name,))
+    cursor.execute("SELECT comp_id, comp_background FROM testing_company WHERE company_name = %s", (comp_name,))
     company_info = cursor.fetchone()  # Assuming only one row matches
 
     if company_info:
@@ -143,12 +143,18 @@ def approve_or_reject_company():
 
     # Insert the approval/rejection record into the history table with the generated company ID
     insert_sql = "INSERT INTO company_approval_history (company_id, company_name, approval_status, timestamp, comp_id, comp_background) VALUES (%s, %s, %s, NOW(), %s, %s)"
-    cursor.execute(insert_sql, (company_id, company_name, action.capitalize(), comp_id, comp_background))
+    cursor.execute(insert_sql, (company_id, comp_name, action.capitalize(), comp_id, comp_background))
+    db_conn.commit()
+
+    # Delete the company information from testing_company
+    delete_sql = "DELETE FROM testing_company WHERE company_name = %s"
+    cursor.execute(delete_sql, (comp_name,))
     db_conn.commit()
 
     cursor.close()
 
     return render_template('company_list_or_history.html')  # Replace with the actual URL
+
 
 
 
