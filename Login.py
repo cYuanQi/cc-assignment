@@ -349,11 +349,11 @@ def gradereport(user_email):
                 return "No reports found to grade."
 
             for report in reports:
-                report_name = report[0]  # Assuming the report_id is in the first column of your report table
+                report_name = report[0]  # Assuming the report_name is in the first column
                 student_score = request.form.get(f'student_score_{report_name}')
 
                 if student_score is not None:
-                    # Update the student_score for the specified report_id
+                    # Update the student_score for the specified report_name
                     update_sql = "UPDATE report SET student_score = %s WHERE report_name = %s"
                     cursor.execute(update_sql, (student_score, report_name))
                     db_conn.commit()
@@ -371,14 +371,15 @@ def gradereport(user_email):
             return render_template('Grade.html', reports=reports)
 
     except Exception as e:
-        cursor.close()
+        # Log the error for debugging
         print(f"Error: {e}")
-        return "An error occurred."
+
+        # You can also flash an error message to display to the user
+        flash("An error occurred while processing the request. Please try again later.", "error")
+        return redirect(url_for('grade'))
 
     finally:
         cursor.close()
-
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
