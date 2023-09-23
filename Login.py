@@ -376,7 +376,7 @@ def gradereport(user_email):
 
         # You can also flash an error message to display to the user
         flash("An error occurred while processing the request. Please try again later.", "error")
-        return redirect(url_for('grade'))
+        return redirect(url_for('gradereport'))
 
     finally:
         cursor.close()
