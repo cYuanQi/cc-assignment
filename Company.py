@@ -62,7 +62,7 @@ def postjob():
         cursor = db_conn.cursor()
 
         # Insert job data into the job table
-        insert_sql = "INSERT INTO job_table (email, job_title, job_location, job_region, job_type, job_description, company_name, company_tagline, company_description, company_website, facebook_username, twitter_username, linkedin_username,featured_image,logo) VALUES (%s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s,%s)"
+        insert_sql = "INSERT INTO job_table (email, job_title, job_location, job_region, job_type, job_description, company_name, company_tagline, company_description, company_website, facebook_username, twitter_username, linkedin_username) VALUES (%s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, )"
         
         if featured_image.filename == "":
             cursor.close()  # Close the cursor before returning
@@ -105,7 +105,7 @@ def postjob():
                 cursor.close()  # Close the cursor before returning
                 return str(e)
             
-            cursor.execute(insert_sql, (email, job_title, job_location, job_region, job_type,  job_description, company_name, company_tagline, company_description,  company_website, facebook_username, twitter_username, linkedin_username,featured_image_file_name_in_s3,logo_file_name_in_s3 ))
+            cursor.execute(insert_sql, (email, job_title, job_location, job_region, job_type,  job_description, company_name, company_tagline, company_description,  company_website, facebook_username, twitter_username, linkedin_username ))
             db_conn.commit()
         finally:
             cursor.close()  # Close the cursor in the finally block
