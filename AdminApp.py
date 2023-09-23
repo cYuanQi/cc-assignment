@@ -93,7 +93,8 @@ def addAdminProcess():
 
 
         # Redirect to the admin_list route with admin data as query parameters
-        return redirect(url_for('admin_list', **admin_data))
+        return redirect(url_for('admin_list', adm_id=adm_id, adm_name=adm_name, adm_gender=adm_gender, adm_dob=adm_dob,
+                            adm_address=adm_address, adm_email=adm_email, adm_phone=adm_phone, adm_img_url=object_url))
 
     except Exception as e:
         return str(e)
@@ -124,7 +125,7 @@ def admin_history():
     rows = cursor.fetchall()
     cursor.close()
 
-    return render_template('company_list_adm.html', rows=rows)
+    return render_template('admin_history.html', rows=rows)
 
 
 @app.route("/companylistadm", methods=['GET', 'POST'])
