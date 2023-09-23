@@ -325,7 +325,7 @@ def downloadreport(report_name):
         return str(e)
 
 
-@app.route("/gradereportreport/<user_email>", methods=['GET', 'POST'])
+@app.route("/gradereport/<user_email>", methods=['GET', 'POST'])
 def gradereport(user_email):
     cursor = db_conn.cursor()
 
