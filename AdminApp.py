@@ -91,6 +91,7 @@ def addAdminProcess():
             'adm_img_url': object_url  # Store the URL of the uploaded image
         }
 
+
         # Redirect to the admin_list route with admin data as query parameters
         return redirect(url_for('admin_list', **admin_data))
 
@@ -104,18 +105,14 @@ def addAdminProcess():
 @app.route("/admin_list", methods=['GET'])
 def admin_list():
     # Retrieve the admin data from query parameters
-    admin_data = {
-        'adm_id': request.args.get('adm_id'),
-        'adm_name': request.args.get('adm_name'),
-        'adm_gender': request.args.get('adm_gender'),
-        'adm_dob': request.args.get('adm_dob'),
-        'adm_address': request.args.get('adm_address'),
-        'adm_email': request.args.get('adm_email'),
-        'adm_phone': request.args.get('adm_phone'),
-        'adm_img_url': request.args.get('adm_img_url')
-    }
+    
+ 
+    cursor = db_conn.cursor()
+    cursor.execute('SELECT * FROM admin_profile')
+    rows = cursor.fetchall()
+    cursor.close()
 
-    return render_template('admin_list.html', admin_data=admin_data)
+    return render_template('company_list_adm.html', rows=rows)
 
 
 
