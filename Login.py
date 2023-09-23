@@ -290,46 +290,37 @@ def evaluatereport(user_email):
     cursor = db_conn.cursor()
 
     try:
-        if request.method == 'POST':
-            # Execute a SELECT query to fetch the report
+        if request.method == 'GET':
+            # Execute a SELECT query to fetch the reports
             select_sql = "SELECT * FROM report WHERE sup_email = %s"
             cursor.execute(select_sql, (user_email,))
-            report_data = cursor.fetchall()
+            reports = cursor.fetchall()
 
-            # Check if the report was found
-            if not report_data:
-                return "Report not found."
+            return render_template('EvaluateReport.html', reports=reports)
 
-            report_name = report_data[0]
-            student_name = report_data[1]
+        elif request.method == 'POST':
+            report_name = request.form.get('report_name')  # Assuming you have an input field for report_name in your HTML form
 
-            # Retrieve the report file from S3
-            s3 = boto3.client('s3')
-            try:
-                s3_object = s3.get_object(Bucket=custombucket, Key=report_name)
-                report_file_data = s3_object['Body'].read()
-            except Exception as e:
-                return str(e)  # Handle S3 retrieval error
+            if report_name:
+                # Specify the S3 bucket name
+                s3_bucket_name = custombucket
 
-            # You can now pass the report_data and report_file_data to your template
-            return render_template('EvaluateReport.html', report_data=report_data, report_file_data=report_file_data)
-        
-        else:
-            # Handle GET request to display the form
-            # Execute a SELECT query to fetch the report
-            select_sql = "SELECT * FROM report WHERE sup_email = %s"
-            cursor.execute(select_sql, (user_email,))
-            report_data = cursor.cursor.fetchall()
+                # Create a new S3 client
+                s3 = boto3.client('s3')
 
-            # Check if the report was found
-            if not report_data:
-                return "Report not found."
+                # Generate a pre-signed URL for the S3 object
+                url = s3.generate_presigned_url(
+                    'get_object',
+                    Params={'Bucket': s3_bucket_name, 'Key': report_name},
+                    ExpiresIn=3600  # URL expiration time in seconds (adjust as needed)
+                )
 
-            report_name = report_data[0]
-            student_name = report_data[1]
-
-            # You can now pass the report_data to your template
-            return render_template('EvaluateReport.html', report_data=report_data)
+                # Redirect the user to the pre-signed URL, which will trigger the file download
+                return redirect(url)
+            else:
+                # Handle the case where report_name is not provided
+                flash("Report name is missing.", "error")
+                return redirect(url_for('evaluatereport', user_email=user_email))
 
     except Exception as e:
         # Log the error for debugging
@@ -341,27 +332,6 @@ def evaluatereport(user_email):
 
     finally:
         cursor.close()
-
-@app.route("/download_report/<report_name>", methods=['GET', 'POST'])
-def downloadreport(report_name):
-    # Specify the S3 bucket name
-    s3_bucket_name = custombucket
-
-    # Create a new S3 client
-    s3 = boto3.client('s3')
-
-    try:
-        # Generate a pre-signed URL for the S3 object
-        url = s3.generate_presigned_url(
-            'get_object',
-            Params={'Bucket': s3_bucket_name, 'Key': report_name},
-            ExpiresIn=3600  # URL expiration time in seconds (adjust as needed)
-        )
-
-        # Redirect the user to the pre-signed URL, which will trigger the file download
-        return redirect(url)
-    except Exception as e:
-        return str(e)
 
 @app.route("/gradereport/<user_email>", methods=['GET', 'POST'])
 def gradereport(user_email):
