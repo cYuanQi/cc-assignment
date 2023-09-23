@@ -67,22 +67,22 @@ def postjob():
 
 @app.route("/approve_student", methods=["POST"])
 def approve_student():
+    if request.method == 'POST': 
     # Predefined values for student
-    student_id = 1  # You can set the student_id to the appropriate value
-    student_name = "Student 1"
-    field_of_study = "Computer Science"
-    level_of_study = "Degree"
+        student_id = 1  # You can set the student_id to the appropriate value
+        student_name = "Student 1"
+        field_of_study = "Computer Science"
+        level_of_study = "Degree"
 
-    # Insert the student's details into the database (e.g., approved_students table)
-    cursor = db_conn.cursor()
-    insert_sql = "INSERT INTO approved_students(student_id, student_name, field_of_study, level_of_study) VALUES (%s, %s, %s, %s)"
-    cursor.execute(insert_sql, (student_id, student_name, field_of_study, level_of_study))
-    db_conn.commit()
-    cursor.close()
+        # Insert the student's details into the database (e.g., approved_students table)
+        cursor = db_conn.cursor()
+        insert_sql = "INSERT INTO approved_students(student_id, student_name, field_of_study, level_of_study) VALUES (%s, %s, %s, %s)"
+        cursor.execute(insert_sql, (student_id, student_name, field_of_study, level_of_study))
+        db_conn.commit()
+        cursor.close()
+        return redirect(url_for('approve_student1', message='Student have successfully approve'))
     
- 
-    return redirect(url_for('approve_student1', message='Student have successfully approve'))
-
+    return render_template('CompanyConfStudApp.html')
 
 
 @app.route("/post-job")
