@@ -324,36 +324,13 @@ def downloadreport(report_name):
     except Exception as e:
         return str(e)
 
-@app.route("/gradereport/<user_email>/<report_name>", methods=['GET', 'POST'])
-def gradereport(user_email, report_name):
+
+@app.route("/gradereportreport/<user_email>", methods=['GET', 'POST'])
+def gradereportreport(user_email):
     cursor = db_conn.cursor()
 
     try:
-        if request.method == 'POST':
-            # Execute a SELECT query to fetch the reports
-            select_sql = "SELECT * FROM report WHERE sup_email = %s"
-            cursor.execute(select_sql, (user_email,))
-            reports = cursor.fetchall()
-
-            # Check if any reports were found
-            if not reports:
-                return "No reports found to grade."
-
-            for report in reports:
-                report_name = report[0]  # Assuming the report_name is in the first column
-                student_score = request.form.get(f'student_score_{report_name}')
-
-                if student_score is not None:
-                    # Update the student_score for the specified report_name
-                    update_sql = "UPDATE report SET student_score = %s WHERE report_name = %s"
-                    cursor.execute(update_sql, (student_score, report_name))
-                    db_conn.commit()
-
-            flash("Reports graded and data updated in the database.", "success")
-            return redirect(url_for('gradereport', user_email=user_email))
-
-        else:
-            # Handle GET request to display the form
+        if request.method == 'GET':
             # Execute a SELECT query to fetch the reports
             select_sql = "SELECT * FROM report WHERE sup_email = %s"
             cursor.execute(select_sql, (user_email,))
@@ -361,16 +338,42 @@ def gradereport(user_email, report_name):
 
             return render_template('Grade.html', reports=reports)
 
+    finally:
+        cursor.close()
+        
+
+@app.route("/updatescore/<user_email>/<report_name>", methods=['GET'])
+def updatescore(user_email, report_name):
+    cursor = db_conn.cursor()
+
+    try:
+        # Check if a grade is selected in the URL query parameters
+        student_score = request.args.get('grade')
+
+        if student_score is not None:
+            # Update the student_score for the specified report_name
+            update_sql = "UPDATE report SET student_score = %s WHERE report_name = %s"
+            cursor.execute(update_sql, (student_score, report_name))
+            db_conn.commit()
+
+            flash("Report graded and data updated in the database.", "success")
+        else:
+            flash("Please select a grade to update the score.", "error")
+
     except Exception as e:
         # Log the error for debugging
         print(f"Error: {e}")
 
         # You can also flash an error message to display to the user
         flash("An error occurred while processing the request. Please try again later.", "error")
-        return redirect(url_for('gradereport', user_email=user_email))
 
     finally:
         cursor.close()
+
+    # Redirect back to the grading page
+    return redirect(url_for('gradereport', user_email=user_email))
+
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
