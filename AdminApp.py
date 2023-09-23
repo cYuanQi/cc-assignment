@@ -106,6 +106,16 @@ def addAdminProcess():
 @app.route("/admin_list", methods=['GET'])
 def admin_list():
     # Retrieve the admin data from query parameters
+    adm_id = request.args.get('adm_id')
+    adm_name = request.args.get('adm_name')
+    adm_gender = request.args.get('adm_gender')
+    adm_dob = request.args.get('adm_dob')
+    adm_address = request.args.get('adm_address')
+    adm_email = request.args.get('adm_email')
+    adm_phone = request.args.get('adm_phone')
+    adm_img_url = request.args.get('adm_img_url')
+    
+    # Retrieve the admin data from query parameters
     admin_data = {
             'adm_id': adm_id,
             'adm_name': adm_name,
