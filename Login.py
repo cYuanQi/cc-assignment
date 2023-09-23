@@ -287,15 +287,15 @@ def portfoliosinglejd():
 def portfoliosinglebx():
     return render_template('portfolio-single-bx.html')
 
-@app.route("/portfolio_single_janet", methods=['GET'])
+@app.route("/portfolio_single_janet", methods=['GET', 'POST'])
 def portfolio_single_janet():
     return render_template('portfolio-single-Janet.html')
 
-@app.route("/portfoliosingleken", methods=['GET', 'POST'])
-def portfoliosingleken():
+@app.route("/portfolio_single_ken", methods=['GET', 'POST'])
+def portfolio_single_ken():
     return render_template('portfolio-single-ken.html')
     
-@app.route("/portfolio_single_duwee", methods=['GET'])
+@app.route("/portfolio_single_duwee", methods=['GET', 'POST'])
 def portfolio_single_duwee():
     return render_template('portfolio-single-duwee.html')
 
