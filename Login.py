@@ -291,6 +291,10 @@ def portfoliosinglebx():
 def portfolio_single_janet():
     return render_template('portfolio-single-Janet.html')
 
+@app.route("/portfoliosingleken", methods=['GET', 'POST'])
+def portfoliosingleken():
+    return render_template('portfolio-single-ken.html')
+
 # -----------------------BO XIN------------------------------------
 
 table = 'lecturer'
