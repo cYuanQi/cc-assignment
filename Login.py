@@ -294,6 +294,10 @@ def portfolio_single_janet():
 @app.route("/portfoliosingleken", methods=['GET', 'POST'])
 def portfoliosingleken():
     return render_template('portfolio-single-ken.html')
+    
+@app.route("/portfolio_single_duwee", methods=['GET'])
+def portfolio_single_duwee():
+    return render_template('portfolio-single-duwee.html')
 
 # -----------------------BO XIN------------------------------------
 
