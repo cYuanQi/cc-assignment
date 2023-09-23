@@ -355,7 +355,7 @@ def gradereport(user_email):
         
 
 @app.route("/updatescore/<report_name>", methods=['POST', 'GET'])
-def updatescore(report_name):
+def updatescore(report_name, user_name):
     cursor = db_conn.cursor()
     try:
         select_sql = "SELECT * FROM report WHERE sup_email = %s"
