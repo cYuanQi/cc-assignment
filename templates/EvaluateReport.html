@@ -90,36 +90,35 @@
     </section>
 
     <section class="site-section bg-light">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12">
-            <h2 class="section-title">Evaluate Internship Reports</h2>
-            <form method="GET" action="{{url_for('evaluatereport', user_email=user_email)}}">
-              <table class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th>Student Name</th>
-                    <th>Student Report</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for report in reports %}
-                  <tr>
-                    <td>{{ report[1] }}</td>
-                    <td>{{ report[0] }}</td>
-                    <td>
-                      <button class="btn btn-primary" a href="{{ url_for('downloadreport', report_name=report[0]) }}">Evaluate</button>
-                    </td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-            </form>
-            </table>
-          </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="section-title">Evaluate Internship Reports</h2>
+                    <form method="POST" action="{{ url_for('evaluatereport', user_email=user_email) }}">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Student Name</th>
+                                    <th>Student Report</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for report in reports %}
+                                <tr>
+                                    <td>{{ report[1] }}</td>
+                                    <td>{{ report[0] }}</td>
+                                    <td>
+                                        <button class="btn btn-primary" name="report_name" value="{{ report[0] }}">Evaluate</button>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>
         </div>
-      </div>
     </section>
   </div>
   </div>
