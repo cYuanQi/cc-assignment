@@ -342,7 +342,7 @@ def gradereport(user_email):
         cursor.close()
         
 
-@app.route("/updatescore/<user_email>/<report_name>", methods=['GET'])
+@app.route("/updatescore/<user_email>/<report_name>", methods=['POST', 'GET'])
 def updatescore(user_email, report_name):
     cursor = db_conn.cursor()
 
