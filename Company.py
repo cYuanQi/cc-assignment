@@ -32,36 +32,72 @@ def company():
 def postjob():
     message = request.args.get('message')
     if request.method == 'POST': 
- 
-            # Get data from the form
-            email = request.form['email']
-            job_title = request.form['job_title']
-            job_location = request.form['job_location']
-            job_region = request.form['job_region']
-            job_type = request.form['job_type']
-            job_description = request.form['job_description']
-            company_name = request.form['company_name']
-            company_tagline = request.form['company_tagline']
-            company_description = request.form['company_description']
-            company_website = request.form['company_website']
-            facebook_username = request.form['twitter_username']
-            twitter_username = request.form['twitter_username']
-            linkedin_username = request.form['linkedin_username']
+        # Get data from the form
+        email = request.form['email']
+        job_title = request.form['job_title']
+        job_location = request.form['job_location']
+        job_region = request.form['job_region']
+        job_type = request.form['job_type']
+        job_description = request.form['job_description']
+        company_name = request.form['company_name']
+        company_tagline = request.form['company_tagline']
+        company_description = request.form['company_description']
+        company_website = request.form['company_website']
+        facebook_username = request.form['twitter_username']
+        twitter_username = request.form['twitter_username']
+        linkedin_username = request.form['linkedin_username']
 
-            # Get the uploaded files
-            featured_image = request.files['featured_image']
-            logo = request.files['logo']
+        # Get the uploaded files
+        featured_image = request.files['featured_image']
+        logo = request.files['logo']
 
-            cursor = db_conn.cursor()
+        cursor = db_conn.cursor()
 
-            # Insert job data into the job table
-            insert_sql = "INSERT INTO job_table (email, job_title, job_location, job_region, job_type, job_description, company_name, company_tagline, company_description, company_website, facebook_username, twitter_username, linkedin_username) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s)"
+        # Insert job data into the job table
+        insert_sql = "INSERT INTO job_table (email, job_title, job_location, job_region, job_type, job_description, company_name, company_tagline, company_description, company_website, facebook_username, twitter_username, linkedin_username,featured_image,logo) VALUES (%s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s,%s)"
+        
+        if featured_image.filename == "":
+            cursor.close()  # Close the cursor before returning
+            return "Please select a file"
 
-            cursor.execute(insert_sql, (email, job_title, job_location, job_region, job_type,  job_description, company_name, company_tagline, company_description,  company_website, facebook_username, twitter_username, linkedin_username))
-          
+        if logo.filename == "":
+            cursor.close()  # Close the cursor before returning
+            return "Please select a file"
+           
+        try:
+            # Upload resume file to S3
+            featured_image_file_name_in_s3 = str(company_name) + "_image_file"
+            logo_file_name_in_s3 = str(company_name) + "_logo"
+            s3 = boto3.resource('s3')
+            
+            try:
+                print("Data inserted in MySQL RDS... uploading image to S3...")
+                s3.Bucket(custombucket).put_object(Key=featured_image_file_name_in_s3, Body=featured_image)
+                s3.Bucket(custombucket).put_object(Key=logo_file_name_in_s3, Body=logo)
+                bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
+                s3_location = (bucket_location['LocationConstraint'])
+
+                if s3_location is None:
+                    s3_location = ''
+                else:
+                    s3_location = '-' + s3_location
+
+                object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+                    s3_location,
+                    custombucket,
+                    logo_file_name_in_s3,
+                    resume_file_name_in_s3)
+            except Exception as e:
+                cursor.close()  # Close the cursor before returning
+                return str(e)
+            
+            cursor.execute(insert_sql, (email, job_title, job_location, job_region, job_type,  job_description, company_name, company_tagline, company_description,  company_website, facebook_username, twitter_username, linkedin_username,featured_image_file_name_in_s3,logo_file_name_in_s3 ))
             db_conn.commit()
-            flash("Job posted successfully!", "success")
-            return redirect(url_for('postjob', message='success'))
+        finally:
+            cursor.close()  # Close the cursor in the finally block
+
+        flash("Job posted successfully!", "success")
+        return redirect(url_for('postjob', message='success'))
 
     # If it's not a POST request, render the form
     return render_template('post-job.html')
