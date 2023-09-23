@@ -63,8 +63,6 @@ def postjob():
         if not logo:
             return "Please select an image"
 
-        object_url = None  # Define object_url before the try block
-        
         try:
             # Upload featured image file to S3
             logo_file_name_in_s3 = str(company_name) + "_logo"
@@ -89,24 +87,58 @@ def postjob():
             cursor.execute(insert_sql, (email, job_title, job_location, job_region, job_type,  job_description, company_name, company_tagline, company_description,  company_website, facebook_username, twitter_username, linkedin_username, object_url))
             db_conn.commit()
 
+            company_data = {
+                'email': email,
+                'job_title': job_title,
+                'job_location': job_location,
+                'job_region': job_region,
+                'job_type': job_type,
+                'job_description': job_description,
+                'company_name': company_name,
+                'company_tagline': company_tagline,
+                'company_description': company_description,
+                'company_website': company_website,
+                'facebook_username': facebook_username,
+                'twitter_username': twitter_username,
+                'linkedin_username': linkedin_username,
+                'logo_url' : object_url
+            }
+            return redirect(url_for('company_data',
+                    email= email,
+                    job_title= job_title,
+                    job_location= job_location,
+                    job_region= job_region,
+                    job_type= job_type,
+                    job_description= job_description,
+                    company_name= company_name,
+                    company_tagline= company_tagline,
+                    company_description = company_description,
+                    company_website= company_website,
+                    facebook_username= facebook_username,
+                    twitter_username= twitter_username,
+                    linkedin_username= linkedin_username,
+                    logo_url =object_url))
+        
         except Exception as e:
-            cursor.close()  # Close the cursor before returning
-            return str(e)
+             return str(e)
       
         finally:
             cursor.close()  # Close the cursor in the finally block
 
-        return redirect(url_for('postjob1', message='Job have successfully posted'))
-
-    # If it's not a POST request, render the form
-    return render_template('post-job.html')
+    return redirect(url_for('postjob1', message='Job has been successfully posted'))
 
 
 
 
 
 
+@app.route("/post-job")
+def postjob1():
+    # Retrieve the message query parameter from the URL
+    message = request.args.get('message')
 
+     #Render the job-single.html template with the message
+    return render_template('post-job.html', message=message)
 
 
 
