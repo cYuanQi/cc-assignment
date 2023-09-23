@@ -32,7 +32,7 @@ ALLOWED_EXTENSIONS = {'pdf'}
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.route("/evaluatereport/<user_email>", methods=['GET'])
+@app.route("/evaluatereport/<user_email>", methods=['GET', 'POST'])
 def evaluate_report(user_email):
     cursor = db_conn.cursor()
     select_sql = "SELECT * FROM report WHERE sup_email = %s"
