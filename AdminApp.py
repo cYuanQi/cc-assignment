@@ -93,7 +93,7 @@ def addAdminProcess():
 
 
         # Redirect to the admin_list route with admin data as query parameters
-         return redirect(url_for('admin_list',
+        return redirect(url_for('admin_list',
                             adm_id=adm_id,
                             adm_name=adm_name,
                             adm_gender=adm_gender,
