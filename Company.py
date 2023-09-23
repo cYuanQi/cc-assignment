@@ -142,7 +142,7 @@
 
 
 
-    @app.route("/CompanyConfStudApp", methods=["POST"])
+    @app.route("/approve_student1", methods=["POST"])
     def  approve_student1():
         # Retrieve the message query parameter from the URL
         message = request.args.get('message')
