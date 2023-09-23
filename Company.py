@@ -98,7 +98,7 @@ def postjob1():
 @app.route("/CompanyConfStudApp")
 def  approve_student1():
     # Retrieve the message query parameter from the URL
-    
+    message = request.args.get('message')
 
     #Render the job-single.html template with the message
     return render_template('CompanyConfStudApp.html', message=message)
