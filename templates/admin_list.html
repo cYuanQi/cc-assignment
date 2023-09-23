@@ -130,20 +130,27 @@
                     <div>
                         <label for="adm_img">Administrator Image</label>
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="adm_img" name="adm_img" onchange="updateFileName(this)" value="{{ admin_data['adm_img'] if admin_data['adm_img'] else '' }}">
-                            <label class="custom-file-label" for="adm_img" id="adm_img_label"></label>
+                            <input type="file" class="custom-file-input" id="adm_img" name="adm_img" onchange="updateFileName(this)">
+                            <label class="custom-file-label" for="adm_img" id="adm_img_label">Choose file</label>
                         </div>
                     </div>
+                    <div>
+                        <label>Selected File: <span id="selected_filename"></span></label>
+                    </div>
                     <script>
-                          function updateFileName(input) {
-                              var label = document.getElementById("adm_img_label");
-                              if (input.files.length > 0) {
-                                  label.textContent = input.files[0].name;
-                              } else {
-                                  label.textContent = "Choose file";
-                              }
-                          }
-                      </script>
+                        function updateFileName(input) {
+                            var label = document.getElementById("adm_img_label");
+                            var selectedFilename = document.getElementById("selected_filename");
+                            if (input.files.length > 0) {
+                                label.textContent = input.files[0].name;
+                                selectedFilename.textContent = input.files[0].name; // Display selected filename separately
+                            } else {
+                                label.textContent = "Choose file";
+                                selectedFilename.textContent = ""; // Clear the selected filename
+                            }
+                        }
+                    </script>
+
 
 
                     <br>
