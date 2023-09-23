@@ -110,8 +110,8 @@
                     <td>{{ report[1] }}</td>
                     <td>{{ report[0] }}</td>
                     <td>
-                      <button class="btn btn-primary" a
-                        href="{{ url_for('evaluatereport', report_name=report[0]) }}">Evaluate</button>
+                      <button type="submit" class="btn btn-primary" name="report_name"
+                      value="{{ report[0] }}">Evaluate</button>Evaluate</button>
                     </td>
                   </tr>
                   {% endfor %}
