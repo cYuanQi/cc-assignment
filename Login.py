@@ -88,7 +88,7 @@ def UserLogin():
         if user_email.endswith('@student.com'):
             return render_template('user_page.html', user_email=user_email)
         elif user_email.endswith('@admin.com'):
-            return render_template('admin.html', user_email=user_email)
+            return redirect(url_for('admin', user_email=user_email))
         elif user_email.endswith('@lecturer.com'):
             return redirect(url_for('lecturer', user_email=user_email))
         elif user_email.endswith('@company.com'):
