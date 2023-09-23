@@ -286,6 +286,7 @@
 </div>
 
 <!-- SCRIPTS -->
+
 <script src="static/js/jquery.min.js"></script>
 <script src="static/js/bootstrap.bundle.min.js"></script>
 <script src="static/js/isotope.pkgd.min.js"></script>
@@ -298,5 +299,15 @@
 <script src="static/js/quill.min.js"></script>
 <script src="static/js/bootstrap-select.min.js"></script>
 <script src="static/js/custom.js"></script>
+
+<script>
+  // Check if the message query parameter is present
+  var message = "{{ get_flashed_messages()[0] if get_flashed_messages() else '' }}";
+  if (message) {
+      // Display the message in a popup or alert box
+      alert(message);
+  }
+</script>
+
 </body>
 </html>
