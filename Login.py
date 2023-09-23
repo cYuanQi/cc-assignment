@@ -363,13 +363,9 @@ def gradereport(user_email):
         
 
 @app.route("/updatescore/<report_name>", methods=['POST', 'GET'])
-def updatescore(report_name, user_name):
+def updatescore(report_name):
     cursor = db_conn.cursor()
     try:
-        select_sql = "SELECT * FROM report WHERE sup_email = %s"
-        cursor.execute(select_sql, (user_email,))
-        report_details = cursor.fetchall()
-
         # Check if a grade is selected in the URL query parameters
         student_score = request.args.get('grade')
 
