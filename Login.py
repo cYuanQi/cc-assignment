@@ -371,7 +371,7 @@ def updatescore(report_name):
         cursor.close()
 
     # Redirect back to the grading page
-    return redirect(url_for('gradereport', user_email=user_email))
+    return render_template('Grade.html', reports=reports)
 
 
 
