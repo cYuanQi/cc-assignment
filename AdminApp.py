@@ -29,6 +29,10 @@ def allowed_file(filename):
 @app.route("/")
 def home():
     return render_template('admin.html')
+
+@app.route("/portfolio-single-janet", methods=['GET'])
+def portfolio-single-janet():
+    return render_template('portfolio-single-janet.html')
     
 @app.route("/admin", methods=['GET', 'POST'])
 def admin():
