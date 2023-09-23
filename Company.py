@@ -107,18 +107,21 @@ def postjob():
         cursor.execute(insert_sql, (email, job_title, job_location, job_region, job_type,  job_description, company_name, company_tagline, company_description,  company_website, facebook_username, twitter_username, linkedin_username,featured_image_file_name_in_s3,logo_file_name_in_s3,featured_image_file_name_in_s3,logo_file_name_in_s3  ))
         db_conn.commit()
   
-        flash("Job posted successfully!", "success")
-        return redirect(url_for('postjob1', message='success'))
+        return redirect(url_for('postjob1', message='Job have succesfully posted'))
 
     # If it's not a POST request, render the form
     return render_template('post-job.html')
 
+
+@app.route("/postjob")
 def postjob1():
     # Retrieve the message query parameter from the URL
     message = request.args.get('message')
 
      #Render the job-single.html template with the message
     return render_template('post-job.html', message=message)
+
+
 
 
 
@@ -139,7 +142,7 @@ def approve_student():
 
  
    
-    return redirect(url_for('approve_student1', message='success'))
+    return redirect(url_for('approve_student1', message='Student have successfully approve'))
 
 
 
