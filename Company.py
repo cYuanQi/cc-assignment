@@ -59,7 +59,8 @@ def postjob():
             cursor.execute(insert_sql, (email, job_title, job_location, job_region, job_type,  job_description, company_name, company_tagline, company_description,  company_website, facebook_username, twitter_username, linkedin_username))
           
             db_conn.commit()
-            return render_template('success.html')
+            flash("Job posted successfully!", "success")
+            return redirect(url_for('postjob'))
          
     # If it's not a POST request, render the form
     return render_template('post-job.html')
