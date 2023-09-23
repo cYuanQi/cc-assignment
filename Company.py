@@ -20,13 +20,6 @@ db_conn = connections.Connection(
 )
 
 
-
-
-
-# Function to check if a filename has an allowed extension
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
 @app.route("/", methods=['GET', 'POST'])
 def home():
     return render_template('company.html')
@@ -37,111 +30,39 @@ def company():
 
 @app.route("/postjob", methods=['GET', 'POST'])
 def postjob():
-    message = request.args.get('message')
     if request.method == 'POST': 
-        # Get data from the form
-        email = request.form['email']
-        job_title = request.form['job_title']
-        job_location = request.form['job_location']
-        job_region = request.form['job_region']  
-        job_type = request.form['job_type']
-        job_description = request.form['job_description']
-        company_name = request.form['company_name']
-        company_tagline = request.form['company_tagline']
-        company_description = request.form['company_description']
-        company_website = request.form['company_website']
-        facebook_username = request.form['twitter_username']
-        twitter_username = request.form['twitter_username']
-        linkedin_username = request.form['linkedin_username']
+ 
+            # Get data from the form
+            email = request.form['email']
+            job_title = request.form['job_title']
+            job_location = request.form['job_location']
+            job_region = request.form['job_region']
+            job_type = request.form['job_type']
+            job_description = request.form['job_description']
+            company_name = request.form['company_name']
+            company_tagline = request.form['company_tagline']
+            company_description = request.form['company_description']
+            company_website = request.form['company_website']
+            facebook_username = request.form['twitter_username']
+            twitter_username = request.form['twitter_username']
+            linkedin_username = request.form['linkedin_username']
 
-        # Get the uploaded files
-        logo = request.files['logo']
+            # Get the uploaded files
+            featured_image = request.files['featured_image']
+            logo = request.files['logo']
 
-        cursor = db_conn.cursor()
-        insert_sql = "INSERT INTO job_table (email, job_title, job_location, job_region, job_type, job_description, company_name, company_tagline, company_description, company_website, facebook_username, twitter_username, linkedin_username ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s,%s)"
-        cursor.execute(insert_sql, (email, job_title, job_location, job_region, job_type,  job_description, company_name, company_tagline, company_description,  company_website, facebook_username, twitter_username, linkedin_username))
-        db_conn.commit()
-     
-        
-        
-        try:
-            # Upload featured image file to S3
-            logo_file_name_in_s3 = str(company_name) + "_logo"
-            s3 = boto3.resource('s3')
-            
-            print("Data inserted in MySQL RDS... uploading image to S3...")
-            s3.Bucket(custombucket).put_object(Key=logo_file_name_in_s3, Body=logo)
-            bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
-            s3_location = (bucket_location['LocationConstraint'])
-           
-            # Upload logo file to S3
-            if s3_location is None:
-                s3_location = ''
-            else:
-                s3_location = '-' + s3_location
+            cursor = db_conn.cursor()
 
-            object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
-                s3_location,
-                custombucket,
-                logo_file_name_in_s3)
+            # Insert job data into the job table
+            insert_sql = "INSERT INTO job_table (email, job_title, job_location, job_region, job_type, job_description, company_name, company_tagline, company_description, company_website, facebook_username, twitter_username, linkedin_username) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s)"
 
-           # cursor.execute(insert_sql, (email, job_title, job_location, job_region, job_type,  job_description, company_name, company_tagline, company_description,  company_website, facebook_username, twitter_username, linkedin_username, object_url))
+            cursor.execute(insert_sql, (email, job_title, job_location, job_region, job_type,  job_description, company_name, company_tagline, company_description,  company_website, facebook_username, twitter_username, linkedin_username))
+          
             db_conn.commit()
-
-            company_data = {
-                'email': email,
-                'job_title': job_title,
-                'job_location': job_location,
-                'job_region': job_region,
-                'job_type': job_type,
-                'job_description': job_description,
-                'company_name': company_name,
-                'company_tagline': company_tagline,
-                'company_description': company_description,
-                'company_website': company_website,
-                'facebook_username': facebook_username,
-                'twitter_username': twitter_username,
-                'linkedin_username': linkedin_username,
-                'logo_url' : object_url
-            }
-            return redirect(url_for('company_data',
-                    email= email,
-                    job_title= job_title,
-                    job_location= job_location,
-                    job_region= job_region,
-                    job_type= job_type,
-                    job_description= job_description,
-                    company_name= company_name,
-                    company_tagline= company_tagline,
-                    company_description = company_description,
-                    company_website= company_website,
-                    facebook_username= facebook_username,
-                    twitter_username= twitter_username,
-                    linkedin_username= linkedin_username,
-                    logo_url =object_url))
-        
-        except Exception as e:
-             return str(e)
-      
-        finally:
-            cursor.close()  # Close the cursor in the finally block
-
-    #return redirect(url_for('postjob1', message='Job has been successfully posted'))
-
+            return render_template('success.html')
+         
     # If it's not a POST request, render the form
     return render_template('post-job.html')
-
-
-
-
-
-@app.route("/post-job")
-def postjob1():
-    # Retrieve the message query parameter from the URL
-    message = request.args.get('message')
-
-     #Render the job-single.html template with the message
-    return render_template('post-job.html', message=message)
 
 
 
@@ -162,9 +83,7 @@ def approve_student():
     cursor.close()
 
  
-   
     return redirect(url_for('approve_student1', message='Student have successfully approve'))
-
 
 
 @app.route("/CompanyConfStudApp")
@@ -174,6 +93,7 @@ def  approve_student1():
 
     #Render the job-single.html template with the message
     return render_template('CompanyConfStudApp.html', message=message)
+
 
 
 
