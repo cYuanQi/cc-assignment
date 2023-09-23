@@ -270,7 +270,7 @@ def userpage():
     return render_template('user_page.html')
 
 @app.route("/admin/<user_email>", methods=['GET', 'POST'])
-def lecturer(user_email):
+def admin(user_email):
     return render_template('admin.html', user_email=user_email)
 
 if __name__ == '__main__':
