@@ -272,7 +272,7 @@ def userpage():
 
 @app.route("/admin/<user_email>", methods=['GET', 'POST'])
 def admin(user_email):
-    return render_template('admin.html', user_email=user_email)
+    return render_template('admin1.html', user_email=user_email)
 
 @app.route("/AddAdmin", methods=['GET', 'POST'])
 def AddAdmin():
