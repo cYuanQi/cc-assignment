@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory
 # , session
 from pymysql import connections
 import os
@@ -20,8 +20,9 @@ db_conn = connections.Connection(
 output = {}
 table = 'login'
 
-# How to keep email that user used to login
+# -----------------------------------------------------------------
 
+# How to keep email that user used to login
 @app.route("/", methods=['GET', 'POST'])
 def home():
     # return render_template('login.html')
@@ -229,13 +230,13 @@ def lecturerdetails(user_email):
     else:
         return render_template('lecturer-details.html', data=lecturer)  # Pass 'lecturer' data
 
-@app.route("/evaluatereport", methods=['GET', 'POST'])
-def evaluatereport():
-    return render_template('EvaluateReport.html')
+# @app.route("/evaluatereport", methods=['GET', 'POST'])
+# def evaluatereport():
+#     return render_template('EvaluateReport.html')
 
-@app.route("/grade", methods=['GET', 'POST'])
-def grade():
-    return render_template('Grade.html')
+# @app.route("/gradereport", methods=['GET', 'POST'])
+# def gradereport():
+#     return render_template('Grade.html')
 
 @app.route("/company", methods=['GET', 'POST'])
 def company():
@@ -276,6 +277,108 @@ def admin(user_email):
 @app.route("/AddAdmin", methods=['GET', 'POST'])
 def AddAdmin():
     return render_template('addadmin.html')
+
+# -----------------------BO XIN------------------------------------
+
+table = 'lecturer'
+
+# Allowed file extensions for resume uploads
+ALLOWED_EXTENSIONS = {'pdf'}
+
+@app.route("/evaluatereport/<user_email>", methods=['GET', 'POST'])
+def evaluate_report(user_email):
+    cursor = db_conn.cursor()
+    select_sql = "SELECT * FROM report WHERE sup_email = %s"
+    cursor.execute(select_sql, (user_email,))
+    report_data = cursor.fetchone()
+    cursor.close()
+        
+    if report_data:
+        # Assuming student_data[4] contains the resume file name in S3
+        report_name = report_data[0]
+        student_name = report_data[1]
+
+        # Retrieve the resume file from S3
+        s3 = boto3.client('s3')
+        try:
+            s3_object = s3.get_object(Bucket=custombucket, Key=report_name)
+            report_file_data = s3_object['Body'].read()
+        except Exception as e:
+            return str(e)  # Handle S3 retrieval error
+
+        # You can now pass the resume_data to your template for download
+        return redirect(url_for('evaluatereport', user_email=user_email, report=report))
+    else:
+        return "Report not found"  # Handle student not found error
+
+def fetchreports(user_email):
+    cursor = db_conn.cursor()
+    try:
+        # Execute a SELECT query to fetch the reports
+        select_sql = "SELECT * FROM report WHERE sup_email = %s"
+        cursor.execute(select_sql)
+        reports = cursor.fetchall()
+        cursor.close()
+        return reports
+    except Exception as e:
+        cursor.close()
+        print(f"Error fetching reports: {e}")
+        return []  # Return an empty list in case of an error
+
+
+@app.route("/download_report/<report_name>", methods=['GET', 'POST'])
+def downloadreport(report_name):
+    # Specify the S3 bucket name
+    s3_bucket_name = custombucket
+
+    # Create a new S3 client
+    s3 = boto3.client('s3')
+
+    try:
+        # Generate a pre-signed URL for the S3 object
+        url = s3.generate_presigned_url(
+            'get_object',
+            Params={'Bucket': s3_bucket_name, 'Key': report_name},
+            ExpiresIn=3600  # URL expiration time in seconds (adjust as needed)
+        )
+
+        # Redirect the user to the pre-signed URL, which will trigger the file download
+        return redirect(url)
+    except Exception as e:
+        return str(e)
+
+@app.route("/gradereport/<user_email>", methods=['GET', 'POST'])
+def gradereport():
+    if request.method == 'POST':
+        reports = fetchreports()  # Implement this function to fetch reports
+
+         # Check if any reports were found
+        if not reports:
+            return "No reports found to grade."
+
+        for report in reports:
+            report_name = report[0]  # Assuming the report_id is in the first column of your report table
+            student_score = request.form.get(f'student_score_{{ report.report_name }}')
+
+            if student_score is not None:
+                cursor = db_conn.cursor()
+                try:
+                    # Update the student_score for the specified report_id
+                    update_sql = "UPDATE report SET student_score = %s WHERE report_name = %s"
+                    cursor.execute(update_sql, (student_score, report_name))
+                    db_conn.commit()
+                    cursor.close()
+                except Exception as e:
+                    cursor.close()
+                    print(f"Error updating student_score: {e}")
+                    return "An error occurred while updating the student_score."
+
+        flash("Reports graded and data updated in the database.", "success")
+        return redirect(url_for('grade'))
+
+    reports = fetch_reports()
+    return render_template('Grade.html', reports=reports)
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
