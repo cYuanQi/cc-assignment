@@ -110,7 +110,7 @@
                     <td>{{ report[1] }}</td>
                     <td>{{ report[0] }}</td>
                     <td>
-                       <a href="{{ url_for('evaluatereport', report_name=report[0]) }}" class="btn btn-primary btn-md">Evaluate</a>
+                       <a href="{{ url_for('downloadreport', report_name=report[0]) }}" class="btn btn-primary btn-md">Evaluate</a>
                     </td>
                   </tr>
                   {% endfor %}
