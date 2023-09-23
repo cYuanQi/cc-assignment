@@ -128,23 +128,29 @@
                         <input class="form-control" type="tel" id="adm_phone" name="adm_phone" value="{{ admin_data['adm_phone'] if admin_data['adm_phone'] else '' }}">
                     </div>
                     <div>
-                        <label for="adm_img">Administrator Image </label>
-                        <div class="custom-file">
-                          <input type="file" class="custom-file-input" id="adm_img_url" name="adm_img_url" onchange="updateFileName(this)" value="{{ admin_data['adm_img_url'] if admin_data['adm_img_url'] else '' }}">
-                          <label class="custom-file-label" for="adm_img_url">Choose file</label>
-                        </div>
-                      </div>
-                      
-                      <script>
-                        function updateFileName(input) {
-                          // Get the selected file name from the input
-                          const fileName = input.files[0].name;
-                      
-                          // Update the label text with the selected file name
-                          const label = input.nextElementSibling; // Get the next sibling, which is the label
-                          label.innerText = fileName;
-                        }
-                      </script>
+    <label for="adm_img_url">Administrator Image URL</label>
+    <input type="text" class="form-control" id="adm_img_url" name="adm_img_url" value="{{ admin_data['adm_img_url'] if admin_data['adm_img_url'] else '' }}">
+</div>
+
+<div>
+    <label for="adm_img">Choose New Administrator Image</label>
+    <div class="custom-file">
+        <input type="file" class="custom-file-input" id="adm_img" name="adm_img" onchange="updateFileName(this)">
+        <label class="custom-file-label" for="adm_img">Choose file</label>
+    </div>
+</div>
+
+<script>
+    function updateFileName(input) {
+        // Get the selected file name from the input
+        const fileName = input.files[0].name;
+
+        // Update the label text with the selected file name
+        const label = input.nextElementSibling; // Get the next sibling, which is the label
+        label.innerText = fileName;
+    }
+</script>
+
 
 
 
