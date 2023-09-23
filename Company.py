@@ -241,7 +241,29 @@ def userpage():
 def admin():
     return render_template('admin.html')
 
+@app.route("/portfolio_single_ken", methods=['GET', 'POST'])
+def portfolio_single_ken():
+    return render_template('portfolio-single-ken.html')
 
+@app.route("/portfolio_single_duwee", methods=['GET'])
+def portfolio_single_duwee():
+    return render_template('portfolio-single-duwee.html')
+
+@app.route("/portfolio_single_janet", methods=['GET'])
+def portfolio_single_janet():
+    return render_template('portfolio-single-Janet.html')
+
+@app.route("/portfoliosinglebx", methods=['GET', 'POST'])
+def portfoliosinglebx():
+    return render_template('portfolio-single-bx.html')
+
+@app.route("/portfoliosinglejd", methods=['GET', 'POST'])
+def portfoliosinglejd():
+    return render_template('portfolio-single-jd.html')
+
+@app.route("/portfolio_single_yq", methods=['GET', 'POST'])
+def portfolio_single_yq():
+    return render_template('portfolio-single-yq.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
