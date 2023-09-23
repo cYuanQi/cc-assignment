@@ -333,8 +333,8 @@ def evaluatereport(user_email):
     finally:
         cursor.close()
 
-@app.route("/downloadreport/<user_email>", methods=['POST'])
-def downloadreport(user_email):
+@app.route("/downloadreport/<report_name>", methods=['POST'])
+def downloadreport(report_name):
     cursor = db_conn.cursor()
 
     try:
@@ -358,13 +358,10 @@ def downloadreport(user_email):
         )
 
         # Create a response with the pre-signed URL for the download
-        response = make_response(redirect(url))
-        return response
+        return redirect(url)
 
     except Exception as e:
-        print(f"Error: {e}")
-        flash("An error occurred while processing the request. Please try again later.", "error")
-        return redirect(url_for('evaluatereport', user_email=user_email))
+        return str(e)
 
     finally:
         cursor.close()
