@@ -19,10 +19,9 @@ db_conn = connections.Connection(
     db=customdb
 )
 output = {}
-table = 'job_table'
 
 
-ALLOWED_EXTENSIONS = {'pdf'}
+
 
 # Function to check if a filename has an allowed extension
 def allowed_file(filename):
@@ -56,46 +55,39 @@ def postjob():
         linkedin_username = request.form['linkedin_username']
 
         # Get the uploaded files
-        featured_image = request.files['featured_image']
         logo = request.files['logo']
 
         cursor = db_conn.cursor()
-        insert_sql = "INSERT INTO job_table (email, job_title, job_location, job_region, job_type, job_description, company_name, company_tagline, company_description, company_website, facebook_username, twitter_username, linkedin_username,featured_image, logo ) VALUES (%s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s,%s,%s )"
+        insert_sql = "INSERT INTO job_table (email, job_title, job_location, job_region, job_type, job_description, company_name, company_tagline, company_description, company_website, facebook_username, twitter_username, linkedin_username, logo ) VALUES (%s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s,%s)"
         
-       
+        if not logo:
+            return "Please select an image"
 
-        if featured_image.filename == "" or logo.filename == "":
-                cursor.close()  # Close the cursor before returning
-                return "Please select both featured image and logo files"
-
+        object_url = None  # Define object_url before the try block
         
         try:
             # Upload featured image file to S3
-            featured_image_file_name_in_s3 = str(company_name) + "_image_file"
-            s3 = boto3.resource('s3')
-            s3.Bucket(custombucket).put_object(Key=featured_image_file_name_in_s3, Body=featured_image)
-
-            # Upload logo file to S3
             logo_file_name_in_s3 = str(company_name) + "_logo"
+            s3 = boto3.resource('s3')
+            
+            print("Data inserted in MySQL RDS... uploading image to S3...")
             s3.Bucket(custombucket).put_object(Key=logo_file_name_in_s3, Body=logo)
-
             bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
             s3_location = (bucket_location['LocationConstraint'])
-
+           
+            # Upload logo file to S3
             if s3_location is None:
                 s3_location = ''
             else:
                 s3_location = '-' + s3_location
 
-            featured_image_object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
-                s3_location,
-                custombucket,
-                featured_image_file_name_in_s3)
-
-            logo_object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+            object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
                 s3_location,
                 custombucket,
                 logo_file_name_in_s3)
+
+            cursor.execute(insert_sql, (email, job_title, job_location, job_region, job_type,  job_description, company_name, company_tagline, company_description,  company_website, facebook_username, twitter_username, linkedin_username, object_url))
+            db_conn.commit()
 
         except Exception as e:
             cursor.close()  # Close the cursor before returning
@@ -104,23 +96,24 @@ def postjob():
         finally:
             cursor.close()  # Close the cursor in the finally block
 
-        cursor.execute(insert_sql, (email, job_title, job_location, job_region, job_type,  job_description, company_name, company_tagline, company_description,  company_website, facebook_username, twitter_username, linkedin_username,featured_image_file_name_in_s3,logo_file_name_in_s3,featured_image_file_name_in_s3,logo_file_name_in_s3  ))
-        db_conn.commit()
-  
-        return redirect(url_for('postjob1', message='Job have succesfully posted'))
+        return redirect(url_for('postjob1', message='Job have successfully posted'))
 
     # If it's not a POST request, render the form
     return render_template('post-job.html')
 
 
-@app.route("/postjob")
+
+
+
+
+
+@app.route("/post-job")
 def postjob1():
     # Retrieve the message query parameter from the URL
     message = request.args.get('message')
 
      #Render the job-single.html template with the message
     return render_template('post-job.html', message=message)
-
 
 
 
