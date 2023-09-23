@@ -63,7 +63,7 @@ def postjob():
 
         # Insert job data into the job table
         insert_sql = "INSERT INTO job_table (email, job_title, job_location, job_region, job_type, job_description, company_name, company_tagline, company_description, company_website, facebook_username, twitter_username, linkedin_username) VALUES (%s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, )"
-        
+        cursor.execute(insert_sql, (email, job_title, job_location, job_region, job_type,  job_description, company_name, company_tagline, company_description,  company_website, facebook_username, twitter_username, linkedin_username ))
         if featured_image.filename == "":
             cursor.close()  # Close the cursor before returning
             return "Please select a file"
