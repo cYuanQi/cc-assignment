@@ -298,38 +298,6 @@ def evaluatereport(user_email):
 
             return render_template('EvaluateReport.html', reports=reports)
 
-        elif request.method == 'POST':
-            report_name = request.form.get('report_name')  # Assuming you have an input field for report_name in your HTML form
-
-            if report_name:
-                # Specify the S3 bucket name
-                s3_bucket_name = custombucket
-
-                # Create a new S3 client
-                s3 = boto3.client('s3')
-
-                # Generate a pre-signed URL for the S3 object
-                url = s3.generate_presigned_url(
-                    'get_object',
-                    Params={'Bucket': s3_bucket_name, 'Key': report_name},
-                    ExpiresIn=3600  # URL expiration time in seconds (adjust as needed)
-                )
-
-                # Redirect the user to the pre-signed URL, which will trigger the file download
-                return redirect(url)
-            else:
-                # Handle the case where report_name is not provided
-                flash("Report name is missing.", "error")
-                return redirect(url_for('evaluatereport', user_email=user_email))
-
-    except Exception as e:
-        # Log the error for debugging
-        print(f"Error: {e}")
-
-        # You can also flash an error message to display to the user
-        flash("An error occurred while processing the request. Please try again later.", "error")
-        return render_template('EvaluateReport.html', reports=reports, user_email=user_email)
-
     finally:
         cursor.close()
 
