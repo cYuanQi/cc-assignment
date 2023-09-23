@@ -58,7 +58,7 @@ def evaluate_report(user_email):
     else:
         return "Report not found"  # Handle student not found error
 
-@app.route("/gradereport/<user_email>", methods=['GET'])
+@app.route("/gradereport/<user_email>", methods=['GET', 'POST'])
 def fetchreports(user_email):
     cursor = db_conn.cursor()
     try:
@@ -74,7 +74,7 @@ def fetchreports(user_email):
         return []  # Return an empty list in case of an error
 
 
-@app.route("/download_report/<report_name>", methods=['GET'])
+@app.route("/download_report/<report_name>", methods=['GET', 'POST'])
 def downloadreport(report_name):
     # Specify the S3 bucket name
     s3_bucket_name = custombucket
