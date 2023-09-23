@@ -264,6 +264,14 @@ def portfoliosingle():
 def portfoliosinglejd():
     return render_template('portfolio-single-jd.html')
 
+@app.route("/portfolio_single_janet", methods=['GET'])
+def portfolio_single_janet():
+    return render_template('portfolio-single-janet.html')
+
+@app.route("/portfolio_single_yq", methods=['GET', 'POST'])
+def portfolio_single_yq():
+    return render_template('portfolio-single-yq.html')
+
 @app.route("/testimonials", methods=['GET', 'POST'])
 def testimonials():
     return render_template('testimonials.html')
