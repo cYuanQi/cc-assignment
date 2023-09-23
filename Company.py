@@ -104,13 +104,9 @@ def postjob():
 
 
 
-#@app.route("/post-job")
-#def postjob1():
-    # Retrieve the message query parameter from the URL
-    #message = request.args.get('message')
 
-     #Render the job-single.html template with the message
-    #return render_template('post-job.html', message=message)
+
+
 
 
 
