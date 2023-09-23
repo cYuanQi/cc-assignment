@@ -152,10 +152,8 @@
     
                     <form action="{{url_for('postjob')}}" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
-                            
                             <label for="featured_image" class="d-block">Upload Featured Image</label> <br>
-                            <label class="btn btn-primary btn-md btn-file">
-                                Browse File<input type="file" name="featured_image" hidden>
+                            <input type="file" id="featured_image" name="featured_image" class="d-block" required>    
                             </label>
                         </div>
                         <div class="form-group">
