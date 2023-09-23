@@ -197,14 +197,6 @@ def lecturer():
 def lecturerdetails():
     return render_template('lecturer-details.html')
 
-@app.route("/evaluatereport")
-def evaluatereport():
-    return render_template('EvaluateReport.html')
-
-@app.route("/grade")
-def grade():
-    return render_template('Grade.html')
-
 @app.route("/company")
 def company():
     return render_template('company.html')
