@@ -30,9 +30,6 @@ def allowed_file(filename):
 def home():
     return render_template('admin.html')
 
-@app.route("/portfolio_single_janet", methods=['GET'])
-def portfolio_single_janet():
-    return render_template('portfolio-single-janet.html')
     
 @app.route("/admin", methods=['GET', 'POST'])
 def admin():
@@ -240,5 +237,13 @@ def assignsupervisorProcess():
 
     return render_template('assign-supervisor-Output.html', rows=rows)
 
+@app.route("/portfolio_single_janet", methods=['GET'])
+def portfolio_single_janet():
+    return render_template('portfolio-single-janet.html')
+    
+@app.route("/portfolio_single_yq", methods=['GET', 'POST'])
+def portfolio_single_yq():
+    return render_template('portfolio-single-yq.html')
+    
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
