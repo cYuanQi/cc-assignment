@@ -49,8 +49,8 @@
 
           <nav class="mx-auto site-navigation">
             <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
-              <li><a href="{{url_for('lecturer', user_email=data[1])}}" class="nav-link active">Home</a></li>
-              <li><a href ="{{url_for('lecturerdetails', user_email=data[1])}}">Lecturer Details</a></li>
+              <li><a href="{{url_for('lecturer', user_email=data[1])}}">Home</a></li>
+              <li><a href ="{{url_for('lecturerdetails', user_email=data[1])}}" class="nav-link active">Lecturer Details</a></li>
               <li><a href="{{url_for('evaluatereport', user_email=user_email)}}">Report Evaluation</a></li>
               <li><a href="{{url_for('grade', user_email=user_email)}}">Grading</a></li>
               <li class="d-lg-none"><a href="{{url_for('nologin')}}">Log Out</a></li>
