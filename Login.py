@@ -307,7 +307,7 @@ def evaluatereport(user_email):
             return str(e)  # Handle S3 retrieval error
 
         # You can now pass the resume_data to your template for download
-        return redirect(url_for('evaluatereport', user_email=user_email, report=report))
+        return redirect(url_for('evaluatereport', user_email=user_email, report=report_data))
     else:
         return "Report not found"  # Handle student not found error
 
@@ -348,7 +348,7 @@ def downloadreport(report_name):
         return str(e)
 
 @app.route("/gradereport/<user_email>", methods=['GET', 'POST'])
-def gradereport():
+def gradereport(user_email):
     if request.method == 'POST':
         reports = fetchreports()  # Implement this function to fetch reports
 
