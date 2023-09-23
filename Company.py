@@ -35,8 +35,13 @@ def home():
 def company():
     return render_template('company.html')
 
-@app.route("/postjob", methods=['GET', 'POST'])
+
+@app.route("/post-job", methods=['GET', 'POST'])
 def postjob():
+    return render_template('postjob.html')
+
+@app.route("/confirmjob", methods=['GET', 'POST'])
+def confirmjob():
     message = request.args.get('message')
     if request.method == 'POST': 
         # Get data from the form
