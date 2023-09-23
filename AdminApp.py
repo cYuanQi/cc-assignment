@@ -116,6 +116,17 @@ def admin_list():
 
 
 
+@app.route("/admin_history", methods=['GET'])
+def admin_history():
+    cursor = db_conn.cursor()
+    cursor.execute('SELECT * FROM admin_profile')
+    rows = cursor.fetchall()
+    cursor.close()
+
+    return render_template('company_list_adm.html', rows=rows)
+
+
+
 @app.route("/companylistadm", methods=['GET', 'POST'])
 def companylistadm():
     cursor = db_conn.cursor()
