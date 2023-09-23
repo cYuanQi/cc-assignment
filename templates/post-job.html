@@ -140,12 +140,7 @@
                   
     
                     <form action="{{url_for('postjob')}}" method="POST" enctype="multipart/form-data">
-                        <div class="form-group">
-                            
-                            <label for="featured_image" class="d-block">Upload Featured Image</label> <br>
-                                <input type="file" id="featured_image" name="featured_image" class="d-block" >
-                            </label>
-                        </div>
+                       
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input type="text" class="form-control" name="email" placeholder="you@yourdomain.com">
@@ -312,7 +307,7 @@
 
 <script>
   // Check if the message query parameter is present
-  var message = "{{ get_flashed_messages()[0] if get_flashed_messages() else '' }}";
+  var message = "{{ message }}";
   if (message) {
       // Display the message in a popup or alert box
       alert(message);
