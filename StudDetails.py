@@ -266,7 +266,7 @@ def portfoliosinglejd():
 
 @app.route("/portfolio_single_janet", methods=['GET'])
 def portfolio_single_janet():
-    return render_template('portfolio-single-janet.html')
+    return render_template('portfolio-single-Janet.html')
 
 @app.route("/portfolio_single_yq", methods=['GET', 'POST'])
 def portfolio_single_yq():
