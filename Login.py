@@ -294,7 +294,7 @@ def evaluatereport(user_email):
             # Execute a SELECT query to fetch the report
             select_sql = "SELECT * FROM report WHERE sup_email = %s"
             cursor.execute(select_sql, (user_email,))
-            report_data = cursor.fetchone()
+            report_data = cursor.fetchall()
 
             # Check if the report was found
             if not report_data:
@@ -319,7 +319,7 @@ def evaluatereport(user_email):
             # Execute a SELECT query to fetch the report
             select_sql = "SELECT * FROM report WHERE sup_email = %s"
             cursor.execute(select_sql, (user_email,))
-            report_data = cursor.fetchone()
+            report_data = cursor.cursor.fetchall()
 
             # Check if the report was found
             if not report_data:
