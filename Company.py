@@ -105,7 +105,9 @@ def  approve_student1():
 
 
 
-
+@app.route("/CompanyConfStudApp", methods=['GET', 'POST'])
+def CompanyConfStudApp():
+    return render_template('CompanyConfStudApp.html')
 
 @app.route("/nologin", methods=['GET', 'POST'])
 def nologin():
