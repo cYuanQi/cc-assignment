@@ -275,6 +275,22 @@ def userpage(user_email):
 def admin(user_email):
     return render_template('admin1.html', user_email=user_email)
 
+@app.route("/portfolio_single_yq", methods=['GET', 'POST'])
+def portfolio_single_yq():
+    return render_template('portfolio-single-yq.html')
+
+@app.route("/portfoliosinglejd", methods=['GET', 'POST'])
+def portfoliosinglejd():
+    return render_template('portfolio-single-jd.html')
+
+@app.route("/portfoliosinglebx", methods=['GET', 'POST'])
+def portfoliosinglebx():
+    return render_template('portfolio-single-bx.html')
+
+@app.route("/portfolio_single_janet", methods=['GET'])
+def portfolio_single_janet():
+    return render_template('portfolio-single-Janet.html')
+
 # -----------------------BO XIN------------------------------------
 
 table = 'lecturer'
