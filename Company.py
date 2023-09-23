@@ -58,7 +58,7 @@ def postjob():
             cursor.execute(insert_sql, (email, job_title, job_location, job_region, job_type,  job_description, company_name, company_tagline, company_description,  company_website, facebook_username, twitter_username, linkedin_username))
           
             db_conn.commit()
-            return redirect(url_for('postjob1', message='Student have successfully approve'))
+            return redirect(url_for('postjob1', message='Job Have Been Succesfully Posted'))
          
     # If it's not a POST request, render the form
     return render_template('post-job.html')
@@ -98,7 +98,7 @@ def postjob1():
 @app.route("/CompanyConfStudApp")
 def  approve_student1():
     # Retrieve the message query parameter from the URL
-    message = request.args.get('message')
+    
 
     #Render the job-single.html template with the message
     return render_template('CompanyConfStudApp.html', message=message)
