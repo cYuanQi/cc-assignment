@@ -346,29 +346,8 @@ def gradereport(user_email):
 def updatescore(report_name):
     cursor = db_conn.cursor()
 
-    try:
-        # Check if a grade is selected in the URL query parameters
-        student_score = request.args.get('grade')
-
-        if student_score is not None:
-            # Update the student_score for the specified report_name
-            update_sql = "UPDATE report SET student_score = %s WHERE report_name = %s"
-            cursor.execute(update_sql, (student_score, report_name))
-            db_conn.commit()
-
-            flash("Report graded and data updated in the database.", "success")
-        else:
-            flash("Please select a grade to update the score.", "error")
-
     except Exception as e:
-        # Log the error for debugging
-        print(f"Error: {e}")
-
-        # You can also flash an error message to display to the user
-        flash("An error occurred while processing the request. Please try again later.", "error")
-
-    finally:
-        cursor.close()
+        return str(e)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
