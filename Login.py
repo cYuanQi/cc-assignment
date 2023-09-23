@@ -307,23 +307,9 @@ def evaluatereport(user_email):
             return str(e)  # Handle S3 retrieval error
 
         # You can now pass the resume_data to your template for download
-        return redirect(url_for('evaluatereport', user_email=user_email, report=report_data))
+        return render_template('EvaluateReport.html', report=report_data)
     else:
         return "Report not found"  # Handle student not found error
-
-def fetchreports(user_email):
-    cursor = db_conn.cursor()
-    try:
-        # Execute a SELECT query to fetch the reports
-        select_sql = "SELECT * FROM report WHERE sup_email = %s"
-        cursor.execute(select_sql)
-        reports = cursor.fetchall()
-        cursor.close()
-        return reports
-    except Exception as e:
-        cursor.close()
-        print(f"Error fetching reports: {e}")
-        return []  # Return an empty list in case of an error
 
 
 @app.route("/download_report/<report_name>", methods=['GET', 'POST'])
@@ -349,35 +335,49 @@ def downloadreport(report_name):
 
 @app.route("/gradereport/<user_email>", methods=['GET', 'POST'])
 def gradereport(user_email):
-    if request.method == 'POST':
-        reports = fetchreports()  # Implement this function to fetch reports
+    cursor = db_conn.cursor()
 
-         # Check if any reports were found
-        if not reports:
-            return "No reports found to grade."
+    try:
+        if request.method == 'POST':
+            # Execute a SELECT query to fetch the reports
+            select_sql = "SELECT * FROM report WHERE sup_email = %s"
+            cursor.execute(select_sql, (user_email,))
+            reports = cursor.fetchall()
 
-        for report in reports:
-            report_name = report[0]  # Assuming the report_id is in the first column of your report table
-            student_score = request.form.get(f'student_score_{{ report.report_name }}')
+            # Check if any reports were found
+            if not reports:
+                return "No reports found to grade."
 
-            if student_score is not None:
-                cursor = db_conn.cursor()
-                try:
+            for report in reports:
+                report_name = report[0]  # Assuming the report_id is in the first column of your report table
+                student_score = request.form.get(f'student_score_{report_name}')
+
+                if student_score is not None:
                     # Update the student_score for the specified report_id
                     update_sql = "UPDATE report SET student_score = %s WHERE report_name = %s"
                     cursor.execute(update_sql, (student_score, report_name))
                     db_conn.commit()
-                    cursor.close()
-                except Exception as e:
-                    cursor.close()
-                    print(f"Error updating student_score: {e}")
-                    return "An error occurred while updating the student_score."
 
-        flash("Reports graded and data updated in the database.", "success")
-        return redirect(url_for('grade'))
+            flash("Reports graded and data updated in the database.", "success")
+            return redirect(url_for('grade'))
 
-    reports = fetch_reports()
-    return render_template('Grade.html', reports=reports)
+        else:
+            # Handle GET request to display the form
+            # Execute a SELECT query to fetch the reports
+            select_sql = "SELECT * FROM report WHERE sup_email = %s"
+            cursor.execute(select_sql, (user_email,))
+            reports = cursor.fetchall()
+
+            return render_template('Grade.html', reports=reports)
+
+    except Exception as e:
+        cursor.close()
+        print(f"Error: {e}")
+        return "An error occurred."
+
+    finally:
+        cursor.close()
+
 
 
 if __name__ == '__main__':
