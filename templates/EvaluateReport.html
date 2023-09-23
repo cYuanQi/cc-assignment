@@ -110,10 +110,8 @@
                     <td>{{ report[1] }}</td>
                     <td>{{ report[0] }}</td>
                     <td>
-                      <form method="post" action="{{ url_for('evaluatereport', user_email=user_email) }}">
                         <input type="hidden" name="report_name" value="{{ report[0] }}">
                         <button type="submit" class="btn btn-primary">Evaluate</button>
-                      </form>
                     </td>
                   </tr>
                   {% endfor %}
