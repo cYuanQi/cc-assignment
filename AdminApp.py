@@ -266,6 +266,10 @@ def contact():
 def login():
     return render_template('login.html')
 
+@app.route("/postjob", methods=['GET', 'POST'])
+def postjob():
+    return render_template('post-job.html')
+
 @app.route("/assignsupervisorProcess", methods=['GET','POST'])
 def assignsupervisorProcess():
     stud_name = request.form['stud_name']
