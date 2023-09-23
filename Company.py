@@ -64,6 +64,26 @@ def postjob():
             cursor.execute(insert_sql, (email, job_title, job_location, job_region, job_type,  job_description, company_name, company_tagline, company_description,  company_website, facebook_username, twitter_username, linkedin_username, logo_filename))
           
             db_conn.commit()
+
+            # Save the image file to S3
+            logo_file_name_in_s3 =  logo_filename + "_image_file"
+            s3 = boto3.resource('s3')
+
+            print("Data inserted in MySQL RDS... uploading image to S3...")
+            s3.Bucket(custombucket).put_object(Key=logo_file_name_in_s3, Body=logo)
+            bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
+            s3_location = (bucket_location['LocationConstraint'])
+
+            if s3_location is None:
+                s3_location = ''
+            else:
+                s3_location = '-' + s3_location
+
+            object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+                s3_location,
+                custombucket,
+                logo_file_name_in_s3)
+
             return redirect(url_for('postjob1', message='Job Have Been Succesfully Posted'))
          
     # If it's not a POST request, render the form
