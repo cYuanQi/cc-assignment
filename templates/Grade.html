@@ -96,7 +96,7 @@
                                 <tbody>
                                     {% for report in reports %}
                                     <tr>
-                                        <td>{{ report.student_name }}</td>
+                                        <td>{{ report[1] }}</td>
                                         <td>
                                             <select name="student_score_{{ report.report_name }}">
                                                 <option value="">Select Grade</option>
@@ -106,7 +106,7 @@
                                                 <option value="D">D</option>
                                             </select>
                                         </td>
-                                        <td>{{ report.report_name }}</td>
+                                        <td>{{ report[0] }}</td>
                                         <td>
                                             <button type="submit" class="btn btn-primary" name="report_name"
                                                 value="{{ report.report_name }}">Grade</button>
