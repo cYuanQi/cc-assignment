@@ -54,7 +54,7 @@ def evaluate_report(user_email):
             return str(e)  # Handle S3 retrieval error
 
         # You can now pass the resume_data to your template for download
-        return render_template('EvaluateReport.html', reports=reports, user_email=user_email)
+        return redirect(url_for('evaluatereport', user_email=user_email, report=report))
     else:
         return "Report not found"  # Handle student not found error
 
