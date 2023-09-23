@@ -61,12 +61,10 @@ def postjob():
           
             db_conn.commit()
             flash("Job posted successfully!", "success")
-            return redirect(url_for('postjob'))
-         
-    # If it's not a POST request, render the form
-    return render_template('post-job.html',message=message)
- 
+            return redirect(url_for('postjob', message='success'))
 
+    # If it's not a POST request, render the form
+    return render_template('post-job.html')
 
 
 @app.route("/approve_student", methods=["POST"])
