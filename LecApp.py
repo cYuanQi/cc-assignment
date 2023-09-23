@@ -58,7 +58,7 @@ def evaluate_report(user_email):
     else:
         return "Report not found"  # Handle student not found error
 
-def fetchreports():
+def fetchreports(user_email):
     cursor = db_conn.cursor()
     try:
         # Execute a SELECT query to fetch the reports
