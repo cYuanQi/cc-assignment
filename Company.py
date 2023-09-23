@@ -48,7 +48,6 @@ def postjob():
             linkedin_username = request.form['linkedin_username']
 
             # Get the uploaded files
-            featured_image = request.files['featured_image']
             logo = request.files['logo']
 
             cursor = db_conn.cursor()
