@@ -82,11 +82,17 @@ def postjob():
                 else:
                     s3_location = '-' + s3_location
 
-                object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+
+                featured_image_object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
                     s3_location,
                     custombucket,
-                    logo_file_name_in_s3,
-                    resume_file_name_in_s3)
+                    featured_image_file_name_in_s3)           
+
+                logo_object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+                    s3_location,
+                    custombucket,
+                    logo_file_name_in_s3)
+
             except Exception as e:
                 cursor.close()  # Close the cursor before returning
                 return str(e)
@@ -95,6 +101,8 @@ def postjob():
             db_conn.commit()
         finally:
             cursor.close()  # Close the cursor in the finally block
+
+            
 
         flash("Job posted successfully!", "success")
         return redirect(url_for('postjob', message='success'))
