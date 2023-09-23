@@ -29,7 +29,11 @@ def allowed_file(filename):
 @app.route("/")
 def home():
     return render_template('admin.html')
-
+    
+@app.route("/portfolio", methods=['GET'])
+def portfolio():
+    return render_template("portfolio-single-Janet.html")
+    
 @app.route("/admin", methods=['GET', 'POST'])
 def admin():
     return render_template('admin.html')
