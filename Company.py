@@ -79,7 +79,7 @@ def approve_student():
     cursor.execute(insert_sql, (student_id, student_name, field_of_study, level_of_study))
     db_conn.commit()
     cursor.close()
-
+    
  
     return redirect(url_for('approve_student1', message='Student have successfully approve'))
 
@@ -91,7 +91,7 @@ def postjob1():
     message = request.args.get('message')
 
     #Render the job-single.html template with the message
-    return render_template('CompanyConfStudApp.html', message=message)
+    return render_template('post-job.html', message=message)
 
 
 
@@ -105,9 +105,7 @@ def  approve_student1():
 
 
 
-@app.route("/CompanyConfStudApp", methods=['GET', 'POST'])
-def CompanyConfStudApp():
-    return render_template('CompanyConfStudApp.html')
+
 
 @app.route("/nologin", methods=['GET', 'POST'])
 def nologin():
