@@ -61,10 +61,8 @@ def postjob():
             return render_template('success.html')
          
     # If it's not a POST request, render the form
-    return render_template('post-job.html')
-
-
-
+    #return render_template('post-job.html')
+    return redirect(url_for('postjob1', message='Student have successfully approve'))
 
 @app.route("/approve_student", methods=["POST"])
 def approve_student():
@@ -86,7 +84,7 @@ def approve_student():
 
 
 @app.route("/CompanyConfStudApp")
-def  approve_student1():
+def  postjob1():
     # Retrieve the message query parameter from the URL
     message = request.args.get('message')
 
@@ -94,12 +92,14 @@ def  approve_student1():
     return render_template('CompanyConfStudApp.html', message=message)
 
 
+@app.route("/post-job")
+def  approve_student1():
+    # Retrieve the message query parameter from the URL
+    message = request.args.get('message')
 
+    #Render the job-single.html template with the message
+    return render_template('CompanyConfStudApp.html', message=message)
 
-# Define a route for the success page
-@app.route("/success")
-def success():
-    return "Job data submitted successfully!"
 
 
 @app.route("/CompanyConfStudApp", methods=['GET', 'POST'])
