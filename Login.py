@@ -347,10 +347,6 @@ def updatescore(report_name):
     cursor = db_conn.cursor()
 
     try:
-        select_sql = "SELECT * FROM report WHERE sup_email = %s"
-        cursor.execute(select_sql, (user_email,))
-        reports = cursor.fetchall()
-
         # Check if a grade is selected in the URL query parameters
         student_score = request.args.get('grade')
 
@@ -373,11 +369,6 @@ def updatescore(report_name):
 
     finally:
         cursor.close()
-
-    # Redirect back to the grading page
-    return render_template('Grade.html', reports=reports)
-
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
