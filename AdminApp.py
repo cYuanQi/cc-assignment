@@ -93,8 +93,15 @@ def addAdminProcess():
 
 
         # Redirect to the admin_list route with admin data as query parameters
-        return redirect(url_for('admin_list', adm_id=adm_id, adm_name=adm_name, adm_gender=adm_gender, adm_dob=adm_dob,
-                            adm_address=adm_address, adm_email=adm_email, adm_phone=adm_phone, adm_img_url=object_url))
+         return redirect(url_for('admin_list',
+                            adm_id=adm_id,
+                            adm_name=adm_name,
+                            adm_gender=adm_gender,
+                            adm_dob=adm_dob,
+                            adm_address=adm_address,
+                            adm_email=adm_email,
+                            adm_phone=adm_phone,
+                            adm_img_url=object_url))
 
     except Exception as e:
         return str(e)
@@ -113,19 +120,19 @@ def admin_list():
     adm_address = request.args.get('adm_address')
     adm_email = request.args.get('adm_email')
     adm_phone = request.args.get('adm_phone')
-    adm_img_url = request.args.get('adm_img_url')
-    
-    # Retrieve the admin data from query parameters
+    object_url = request.args.get('adm_img_url')  # Retrieve object_url from query parameters
+
     admin_data = {
-            'adm_id': adm_id,
-            'adm_name': adm_name,
-            'adm_gender': adm_gender,
-            'adm_dob': adm_dob,
-            'adm_address': adm_address,
-            'adm_email': adm_email,
-            'adm_phone': adm_phone,
-            'adm_img_url': object_url  # Store the URL of the uploaded image
-        }
+        'adm_id': adm_id,
+        'adm_name': adm_name,
+        'adm_gender': adm_gender,
+        'adm_dob': adm_dob,
+        'adm_address': adm_address,
+        'adm_email': adm_email,
+        'adm_phone': adm_phone,
+        'adm_img_url': object_url  # Use the retrieved object_url
+    }
+
     return render_template('admin_list.html', admin_data=admin_data)
  
 @app.route("/admin_history", methods=['GET'])
