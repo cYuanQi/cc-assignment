@@ -63,7 +63,6 @@ def postjob():
         insert_sql = "INSERT INTO job_table (email, job_title, job_location, job_region, job_type, job_description, company_name, company_tagline, company_description, company_website, facebook_username, twitter_username, linkedin_username,featured_image, logo ) VALUES (%s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s,%s,%s )"
         
        
-      
 
         if featured_image.filename == "" or logo.filename == "":
                 cursor.close()  # Close the cursor before returning
@@ -107,12 +106,20 @@ def postjob():
 
         cursor.execute(insert_sql, (email, job_title, job_location, job_region, job_type,  job_description, company_name, company_tagline, company_description,  company_website, facebook_username, twitter_username, linkedin_username,featured_image_file_name_in_s3,logo_file_name_in_s3,featured_image_file_name_in_s3,logo_file_name_in_s3  ))
         db_conn.commit()
-        db_conn.commit()
+  
         flash("Job posted successfully!", "success")
-        return redirect(url_for('postjob', message='success'))
+        return redirect(url_for('postjob1', message='success'))
 
     # If it's not a POST request, render the form
     return render_template('post-job.html')
+
+def postjob1():
+    # Retrieve the message query parameter from the URL
+    message = request.args.get('message')
+
+     #Render the job-single.html template with the message
+    return render_template('post-job.html', message=message)
+
 
 
 @app.route("/approve_student", methods=["POST"])
@@ -132,23 +139,18 @@ def approve_student():
 
  
     flash("Student approved successfully!", "success")
-
-    # Render the same template with the success message
-    return render_template('CompanyConfStudApp.html')
-
-@app.route("/display_approved_student/<student_id>")
-def display_approved_student(student_id):
-    # Query the database to get the approved student's information
-    cursor = db_conn.cursor()
-    select_sql = "SELECT * FROM approved_students WHERE student_id=%s"
-    cursor.execute(select_sql, student_id)
-    student_info = cursor.fetchone()
-    cursor.close()
-
-    # Render a template to display the approved student's details
-    return render_template("approved_student_template.html", student=student_info)
+    return redirect(url_for('approve_student1', message='success'))
 
 
+
+
+
+def  approve_student1():
+    # Retrieve the message query parameter from the URL
+    message = request.args.get('message')
+
+    #Render the job-single.html template with the message
+    return render_template('CompanyConfStudApp.html', message=message)
 
 
 
