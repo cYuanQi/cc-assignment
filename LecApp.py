@@ -105,7 +105,7 @@ def gradereport():
 
         for report in reports:
             report_name = report[0]  # Assuming the report_id is in the first column of your report table
-            student_score = request.form.get(f'student_score_{report_name}')
+            student_score = request.form.get(f'student_score_{{ report.report_name }}')
 
             if student_score is not None:
                 cursor = db_conn.cursor()
