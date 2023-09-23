@@ -276,6 +276,10 @@ def portfolio_single_yq():
 def portfoliosinglebx():
     return render_template('portfolio-single-bx.html')
 
+@app.route("/portfoliosingleken", methods=['GET', 'POST'])
+def portfoliosinglejd():
+    return render_template('portfolio-single-ken.html')
+
 @app.route("/testimonials", methods=['GET', 'POST'])
 def testimonials():
     return render_template('testimonials.html')
