@@ -302,13 +302,9 @@ def evaluatereport(user_email):
     finally:
         cursor.close()
 
-@app.route("/downloadreport/<report_name>", methods=['GET', 'POST'])
+@app.route("/downloadreport/<report_name>", methods=['GET'])
 def downloadreport(report_name):
-    cursor = db_conn.cursor()
-
     try:
-        report_name = request.form.get('report_name')
-
         # Specify the S3 bucket name
         s3_bucket_name = custombucket
 
@@ -327,9 +323,6 @@ def downloadreport(report_name):
 
     except Exception as e:
         return str(e)
-
-    finally:
-        cursor.close()
 
 @app.route("/gradereport/<user_email>", methods=['GET', 'POST'])
 def gradereport(user_email):
