@@ -326,7 +326,7 @@ def downloadreport(report_name):
 
 
 @app.route("/gradereportreport/<user_email>", methods=['GET', 'POST'])
-def gradereportreport(user_email):
+def gradereport(user_email):
     cursor = db_conn.cursor()
 
     try:
