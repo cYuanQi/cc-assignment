@@ -347,6 +347,10 @@ def updatescore(report_name):
     cursor = db_conn.cursor()
 
     try:
+        select_sql = "SELECT * FROM report WHERE sup_email = %s"
+        cursor.execute(select_sql, (user_email,))
+        reports = cursor.fetchall()
+
         # Check if a grade is selected in the URL query parameters
         student_score = request.args.get('grade')
 
