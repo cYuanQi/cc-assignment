@@ -51,35 +51,35 @@
           <nav class="mx-auto site-navigation">
             <ul class="site-menu static/static/js-clone-nav d-none d-xl-block ml-0 pl-0">
               <li><a href="{{url_for('nologin')}}'" class="nav-link">Home</a></li>
-              <li><a href="{{url_for(about)}}" class="active">About</a></li>
+              <li><a href="{{url_for('about')}}" class="active">About</a></li>
               <li class="has-children">
-                <a href="{{url_for(job-listings)}}">Job Listings</a>
+                <a href="{{url_for('job-listings')}}">Job Listings</a>
                 <ul class="dropdown">
-                  <li><a href="{{url_for(job-single)}}">Job Single</a></li>
+                  <li><a href="{{url_for('job-single')}}">Job Single</a></li>
                 </ul>
               </li>
               <li class="has-children">
-                <a href="{{url_for(services)}}">Pages</a>
+                <a href="{{url_for'(services')}}">Pages</a>
                 <ul class="dropdown">
-                  <li><a href="{{url_for(services)}}">Services</a></li>
-                  <li><a href="{{url_for(service-single)}}">Service Single</a></li>
-                  <li><a href="{{url_for(blog-single)}}">Blog Single</a></li>
+                  <li><a href="{{url_for('services')}}">Services</a></li>
+                  <li><a href="{{url_for('service-single')}}">Service Single</a></li>
+                  <li><a href="{{url_for('blog-single')}}">Blog Single</a></li>
                   <li><a href="{{ url_for('portfolio') }}">Portfolio</a></li>
-                  <li><a href="{{url_for(portfolio-single)}}">Portfolio Single</a></li>
-                  <li><a href="{{url_for(testimonials)}}">Testimonials</a></li>
+                  <li><a href="{{url_for('portfolio-single')}}">Portfolio Single</a></li>
+                  <li><a href="{{url_for('testimonials')}}">Testimonials</a></li>
                   <li><a href="{{ url_for('faq') }}">Frequently Ask Questions</a></li>
-                  <li><a href="{{url_for(gallery)}}">Gallery</a></li>
+                  <li><a href="{{url_for('gallery')}}">Gallery</a></li>
                 </ul>
               </li>
-              <li><a href="{{url_for(blog)}}">Blog</a></li>
-              <li><a href="{{url_for(contact)}}">Contact</a></li>
-              <li class="d-lg-none"><a href="{{url_for(login)}}">Log In</a></li>
+              <li><a href="{{url_for('blog')}}">Blog</a></li>
+              <li><a href="{{url_for('contact')}}">Contact</a></li>
+              <li class="d-lg-none"><a href="{{url_for('login')}}">Log In</a></li>
             </ul>
           </nav>
 
           <div class="right-cta-menu text-right d-flex aligin-items-center col-6">
             <div class="ml-auto">
-              <a href="{{url_for(login)}}" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
+              <a href="{{url_for('login')}}" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
                   class="mr-2 icon-lock_outline"></span>Log In</a>
             </div>
             <a href="#" class="site-menu-toggle static/static/js-menu-toggle d-inline-block d-xl-none mt-lg-2 ml-3"><span
