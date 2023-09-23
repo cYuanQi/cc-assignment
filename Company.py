@@ -60,59 +60,54 @@ def postjob():
         logo = request.files['logo']
 
         cursor = db_conn.cursor()
+        insert_sql = "INSERT INTO job_table (email, job_title, job_location, job_region, job_type, job_description, company_name, company_tagline, company_description, company_website, facebook_username, twitter_username, linkedin_username,featured_image, logo ) VALUES (%s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s,%s,%s )"
+        
+       
+      
 
-        # Insert job data into the job table
-        insert_sql = "INSERT INTO job_table (email, job_title, job_location, job_region, job_type, job_description, company_name, company_tagline, company_description, company_website, facebook_username, twitter_username, linkedin_username) VALUES (%s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s )"
-        cursor.execute(insert_sql, (email, job_title, job_location, job_region, job_type,  job_description, company_name, company_tagline, company_description,  company_website, facebook_username, twitter_username, linkedin_username ))
-        db_conn.commit()
-        if featured_image.filename == "":
-            cursor.close()  # Close the cursor before returning
-            return "Please select a file"
-
-        if logo.filename == "":
-            cursor.close()  # Close the cursor before returning
-            return "Please select a file"
-           
-        try:
-            # Upload resume file to S3
-            featured_image_file_name_in_s3 = str(company_name) + "_image_file"
-            logo_file_name_in_s3 = str(company_name) + "_logo"
-            s3 = boto3.resource('s3')
-            
-            try:
-                print("Data inserted in MySQL RDS... uploading image to S3...")
-                s3.Bucket(custombucket).put_object(Key=featured_image_file_name_in_s3, Body=featured_image)
-                s3.Bucket(custombucket).put_object(Key=logo_file_name_in_s3, Body=logo)
-                bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
-                s3_location = (bucket_location['LocationConstraint'])
-
-                if s3_location is None:
-                    s3_location = ''
-                else:
-                    s3_location = '-' + s3_location
-
-
-                object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
-                    s3_location,
-                    custombucket,
-                    featured_image_file_name_in_s3)           
-
-                object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
-                    s3_location,
-                    custombucket,
-                    logo_file_name_in_s3)
-
-            except Exception as e:
+        if featured_image.filename == "" or logo.filename == "":
                 cursor.close()  # Close the cursor before returning
-                return str(e)
-            
-            cursor.execute(insert_sql, (email, job_title, job_location, job_region, job_type,  job_description, company_name, company_tagline, company_description,  company_website, facebook_username, twitter_username, linkedin_username ))
-            db_conn.commit()
+                return "Please select both featured image and logo files"
+
+        
+        try:
+            # Upload featured image file to S3
+            featured_image_file_name_in_s3 = str(company_name) + "_image_file"
+            s3 = boto3.resource('s3')
+            s3.Bucket(custombucket).put_object(Key=featured_image_file_name_in_s3, Body=featured_image)
+
+            # Upload logo file to S3
+            logo_file_name_in_s3 = str(company_name) + "_logo"
+            s3.Bucket(custombucket).put_object(Key=logo_file_name_in_s3, Body=logo)
+
+            bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
+            s3_location = (bucket_location['LocationConstraint'])
+
+            if s3_location is None:
+                s3_location = ''
+            else:
+                s3_location = '-' + s3_location
+
+            featured_image_object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+                s3_location,
+                custombucket,
+                featured_image_file_name_in_s3)
+
+            logo_object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+                s3_location,
+                custombucket,
+                logo_file_name_in_s3)
+
+        except Exception as e:
+            cursor.close()  # Close the cursor before returning
+            return str(e)
+      
         finally:
             cursor.close()  # Close the cursor in the finally block
 
-            
-
+        cursor.execute(insert_sql, (email, job_title, job_location, job_region, job_type,  job_description, company_name, company_tagline, company_description,  company_website, facebook_username, twitter_username, linkedin_username,featured_image_file_name_in_s3,logo_file_name_in_s3,featured_image_file_name_in_s3,logo_file_name_in_s3  ))
+        db_conn.commit()
+        db_conn.commit()
         flash("Job posted successfully!", "success")
         return redirect(url_for('postjob', message='success'))
 
