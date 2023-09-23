@@ -18,7 +18,7 @@ db_conn = connections.Connection(
     password=custompass,
     db=customdb
 )
-output = {}
+
 
 
 
@@ -61,9 +61,7 @@ def postjob():
         insert_sql = "INSERT INTO job_table (email, job_title, job_location, job_region, job_type, job_description, company_name, company_tagline, company_description, company_website, facebook_username, twitter_username, linkedin_username ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s,%s)"
         cursor.execute(insert_sql, (email, job_title, job_location, job_region, job_type,  job_description, company_name, company_tagline, company_description,  company_website, facebook_username, twitter_username, linkedin_username))
         db_conn.commit()
-        if not logo:
-            return "Please select an image"
-
+     
         
         
         try:
