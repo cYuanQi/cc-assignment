@@ -104,9 +104,6 @@ def postjob():
 
 
 
-
-
-
 @app.route("/post-job")
 def postjob1():
     # Retrieve the message query parameter from the URL
