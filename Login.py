@@ -363,7 +363,7 @@ def updatescore(report_name):
         else:
             flash("Please select a grade to update the score.", "error")
 
-        return render_template('Grade.html', report_details=report_details)
+        return redirect(request.referrer)
 
     except Exception as e:
         return str(e)
