@@ -260,6 +260,10 @@ def portfolio():
 def portfoliosingle():
     return render_template('portfolio-single.html')
 
+@app.route("/portfoliosinglejd", methods=['GET', 'POST'])
+def portfoliosinglejd():
+    return render_template('portfolio-single-jd.html')
+
 @app.route("/testimonials", methods=['GET', 'POST'])
 def testimonials():
     return render_template('testimonials.html')
