@@ -333,6 +333,42 @@ def evaluatereport(user_email):
     finally:
         cursor.close()
 
+@app.route("/downloadreport/<user_email>", methods=['POST'])
+def downloadreport(user_email):
+    cursor = db_conn.cursor()
+
+    try:
+        report_name = request.form.get('report_name')
+
+        if not report_name:
+            flash("Report name is missing.", "error")
+            return redirect(url_for('evaluatereport', user_email=user_email))
+
+        # Specify the S3 bucket name
+        s3_bucket_name = custombucket
+
+        # Create a new S3 client
+        s3 = boto3.client('s3')
+
+        # Generate a pre-signed URL for the S3 object
+        url = s3.generate_presigned_url(
+            'get_object',
+            Params={'Bucket': s3_bucket_name, 'Key': report_name},
+            ExpiresIn=3600  # URL expiration time in seconds (adjust as needed)
+        )
+
+        # Create a response with the pre-signed URL for the download
+        response = make_response(redirect(url))
+        return response
+
+    except Exception as e:
+        print(f"Error: {e}")
+        flash("An error occurred while processing the request. Please try again later.", "error")
+        return redirect(url_for('evaluatereport', user_email=user_email))
+
+    finally:
+        cursor.close()
+
 @app.route("/gradereport/<user_email>", methods=['GET', 'POST'])
 def gradereport(user_email):
     cursor = db_conn.cursor()
