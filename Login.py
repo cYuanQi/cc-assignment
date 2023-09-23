@@ -324,8 +324,8 @@ def downloadreport(report_name):
     except Exception as e:
         return str(e)
 
-@app.route("/gradereport/<user_email>", methods=['GET', 'POST'])
-def gradereport(user_email):
+@app.route("/gradereport/<user_email>/<report_name>", methods=['GET', 'POST'])
+def gradereport(user_email, report_name):
     cursor = db_conn.cursor()
 
     try:
@@ -350,7 +350,7 @@ def gradereport(user_email):
                     db_conn.commit()
 
             flash("Reports graded and data updated in the database.", "success")
-            return redirect(url_for('grade'))
+            return redirect(url_for('gradereport', user_email=user_email))
 
         else:
             # Handle GET request to display the form
@@ -367,7 +367,7 @@ def gradereport(user_email):
 
         # You can also flash an error message to display to the user
         flash("An error occurred while processing the request. Please try again later.", "error")
-        return redirect(url_for('gradereport'))
+        return redirect(url_for('gradereport', user_email=user_email))
 
     finally:
         cursor.close()
