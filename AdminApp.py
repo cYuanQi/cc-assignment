@@ -309,7 +309,9 @@ def portfoliosinglebx():
 def portfoliosingleken():
     return render_template('portfolio-single-ken.html')
 
-
+@app.route("/portfolio_single_duwee", methods=['GET'])
+def portfolio_single_duwee():
+    return render_template('portfolio-single-duwee.html')
     
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
