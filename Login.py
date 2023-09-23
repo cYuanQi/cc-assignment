@@ -345,6 +345,19 @@ def gradereport(user_email):
 @app.route("/updatescore/<report_name>", methods=['POST', 'GET'])
 def updatescore(report_name):
     cursor = db_conn.cursor()
+    try:
+        # Check if a grade is selected in the URL query parameters
+        student_score = request.args.get('grade')
+
+        if student_score is not None:
+            # Update the student_score for the specified report_name
+            update_sql = "UPDATE report SET student_score = %s WHERE report_name = %s"
+            cursor.execute(update_sql, (student_score, report_name))
+            db_conn.commit()
+
+            flash("Report graded and data updated in the database.", "success")
+        else:
+            flash("Please select a grade to update the score.", "error")
 
     except Exception as e:
         return str(e)
