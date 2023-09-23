@@ -64,7 +64,7 @@ def postjob():
             return "Please select an image"
 
         try:
-            # Upload featured image file to S3
+            # Upload logo file to S3
             logo_file_name_in_s3 = str(company_name) + "_logo"
             s3 = boto3.resource('s3')
             
@@ -103,30 +103,18 @@ def postjob():
                 'linkedin_username': linkedin_username,
                 'logo_url' : object_url
             }
-            return redirect(url_for('company_data',
-                    email= email,
-                    job_title= job_title,
-                    job_location= job_location,
-                    job_region= job_region,
-                    job_type= job_type,
-                    job_description= job_description,
-                    company_name= company_name,
-                    company_tagline= company_tagline,
-                    company_description = company_description,
-                    company_website= company_website,
-                    facebook_username= facebook_username,
-                    twitter_username= twitter_username,
-                    linkedin_username= linkedin_username,
-                    logo_url =object_url))
+            return redirect(url_for('company_data', **company_data))
         
         except Exception as e:
-             return str(e)
+            return str(e)
       
         finally:
             cursor.close()  # Close the cursor in the finally block
 
     return redirect(url_for('postjob1', message='Job has been successfully posted'))
 
+    # If it's not a POST request, render the form
+    return render_template('post-job.html')
 
 
 
