@@ -108,7 +108,7 @@
                                         </td>
                                         <td>{{ report[0] }}</td>
                                         <td>
-                                            <a href="{{ url_for('updatescore', report_name=report[0]) }}" class="btn btn-primary btn-md">Grade</a>
+                                            <a href="{{ url_for('updatescore', report_name=report[0], user_name=user_name) }}" class="btn btn-primary btn-md">Grade</a>
                                         </td>
                                     </tr>
                                     {% endfor %}
