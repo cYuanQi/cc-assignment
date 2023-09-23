@@ -61,10 +61,7 @@ def postjob():
             return render_template('success.html')
          
     # If it's not a POST request, render the form
-    return render_template('postjob1')
-
-
-
+    return render_template('post-job.html')
 
 
 
