@@ -105,17 +105,18 @@ def addAdminProcess():
 @app.route("/admin_list", methods=['GET'])
 def admin_list():
     # Retrieve the admin data from query parameters
-    
+    admin_data = {
+            'adm_id': adm_id,
+            'adm_name': adm_name,
+            'adm_gender': adm_gender,
+            'adm_dob': adm_dob,
+            'adm_address': adm_address,
+            'adm_email': adm_email,
+            'adm_phone': adm_phone,
+            'adm_img_url': object_url  # Store the URL of the uploaded image
+        }
+    return render_template('admin_list.html', admin_data=admin_data)
  
-    cursor = db_conn.cursor()
-    cursor.execute('SELECT * FROM admin_profile')
-    rows = cursor.fetchall()
-    cursor.close()
-
-    return render_template('company_list_adm.html', rows=rows)
-
-
-
 @app.route("/admin_history", methods=['GET'])
 def admin_history():
     cursor = db_conn.cursor()
@@ -124,7 +125,6 @@ def admin_history():
     cursor.close()
 
     return render_template('company_list_adm.html', rows=rows)
-
 
 
 @app.route("/companylistadm", methods=['GET', 'POST'])
