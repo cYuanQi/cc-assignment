@@ -30,6 +30,7 @@ def company():
 
 @app.route("/postjob", methods=['GET', 'POST'])
 def postjob():
+    message = request.args.get('message')
     if request.method == 'POST': 
  
             # Get data from the form
@@ -63,8 +64,8 @@ def postjob():
             return redirect(url_for('postjob'))
          
     # If it's not a POST request, render the form
-    return render_template('post-job.html')
-
+    return render_template('post-job.html',message=message)
+ 
 
 
 
