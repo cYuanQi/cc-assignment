@@ -273,5 +273,9 @@ def userpage():
 def admin(user_email):
     return render_template('admin.html', user_email=user_email)
 
+@app.route("/AddAdmin", methods=['GET', 'POST'])
+def AddAdmin():
+    return render_template('addadmin.html')
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
