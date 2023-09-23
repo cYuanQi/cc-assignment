@@ -236,8 +236,8 @@ def joblistings():
 def jobsingle():
     return render_template('job-single.html')
 
-@app.route("/services", methods=['GET', 'POST'])
-def services():
+@app.route("/service", methods=['GET', 'POST'])
+def service():
     return render_template('services.html')
 
 @app.route("/servicesingle", methods=['GET', 'POST'])
