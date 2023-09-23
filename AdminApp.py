@@ -300,6 +300,10 @@ def portfolio_single_yq():
 @app.route("/portfoliosinglejd", methods=['GET', 'POST'])
 def portfoliosinglejd():
     return render_template('portfolio-single-jd.html')
+
+@app.route("/portfoliosinglebx", methods=['GET', 'POST'])
+def portfoliosinglebx():
+    return render_template('portfolio-single-bx.html')
     
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
