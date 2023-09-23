@@ -269,10 +269,9 @@ def studentdetails():
 def userpage():
     return render_template('user_page.html')
 
-@app.route("/admin", methods=['GET', 'POST'])
-def admin():
-    return render_template('admin.html')
-
+@app.route("/admin/<user_email>", methods=['GET', 'POST'])
+def lecturer(user_email):
+    return render_template('admin.html', user_email=user_email)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
