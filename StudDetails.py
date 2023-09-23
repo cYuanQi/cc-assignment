@@ -280,6 +280,10 @@ def portfoliosinglebx():
 def portfoliosingleken():
     return render_template('portfolio-single-ken.html')
 
+@app.route("/portfolio_single_duwee", methods=['GET'])
+def portfolio_single_duwee():
+    return render_template('portfolio-single-duwee.html')
+
 @app.route("/testimonials", methods=['GET', 'POST'])
 def testimonials():
     return render_template('testimonials.html')
