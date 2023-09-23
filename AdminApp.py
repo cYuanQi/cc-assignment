@@ -304,6 +304,12 @@ def portfoliosinglejd():
 @app.route("/portfoliosinglebx", methods=['GET', 'POST'])
 def portfoliosinglebx():
     return render_template('portfolio-single-bx.html')
+
+@app.route("/portfoliosingleken", methods=['GET', 'POST'])
+def portfoliosingleken():
+    return render_template('portfolio-single-ken.html')
+
+
     
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
