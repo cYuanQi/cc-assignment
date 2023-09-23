@@ -138,7 +138,7 @@ def admin_list():
 @app.route("/admin_history", methods=['GET'])
 def admin_history():
     cursor = db_conn.cursor()
-    cursor.execute('SELECT * FROM admin_profile')
+    cursor.execute('SELECT * FROM adm_profile')
     rows = cursor.fetchall()
     cursor.close()
 
