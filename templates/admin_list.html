@@ -130,8 +130,8 @@
                     <div>
                         <label for="adm_img">Administrator Image </label>
                         <div class="custom-file">
-                          <input type="file" class="custom-file-input" id="adm_img" name="adm_img" onchange="updateFileName(this)" value="{{ admin_data['adm_img'] if admin_data['adm_img'] else '' }}">
-                          <label class="custom-file-label" for="adm_img">Choose file</label>
+                          <input type="file" class="custom-file-input" id="adm_img" name="adm_img" onchange="updateFileName(this)">
+                          <label class="custom-file-label" for="adm_img" >{{ admin_data['adm_img'] if admin_data['adm_img'] else '' }}"</label>
                         </div>
                       </div>
                     <br>
