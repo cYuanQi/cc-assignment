@@ -286,7 +286,7 @@ table = 'lecturer'
 ALLOWED_EXTENSIONS = {'pdf'}
 
 @app.route("/evaluatereport/<user_email>", methods=['GET', 'POST'])
-def evaluate_report(user_email):
+def evaluatereport(user_email):
     cursor = db_conn.cursor()
     select_sql = "SELECT * FROM report WHERE sup_email = %s"
     cursor.execute(select_sql, (user_email,))
