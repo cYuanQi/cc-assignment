@@ -277,7 +277,7 @@ def portfoliosinglebx():
     return render_template('portfolio-single-bx.html')
 
 @app.route("/portfoliosingleken", methods=['GET', 'POST'])
-def portfoliosinglejd():
+def portfoliosingleken():
     return render_template('portfolio-single-ken.html')
 
 @app.route("/testimonials", methods=['GET', 'POST'])
