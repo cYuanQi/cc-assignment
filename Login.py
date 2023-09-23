@@ -301,7 +301,7 @@ def evaluatereport(user_email):
     finally:
         cursor.close()
 
-@app.route("/downloadreport/<report_name>", methods=['POST'])
+@app.route("/downloadreport/<report_name>", methods=['GET', 'POST'])
 def downloadreport(report_name):
     cursor = db_conn.cursor()
 
