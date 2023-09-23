@@ -58,6 +58,7 @@ def evaluate_report(user_email):
     else:
         return "Report not found"  # Handle student not found error
 
+@app.route("/gradereport/<user_email>", methods=['GET'])
 def fetchreports(user_email):
     cursor = db_conn.cursor()
     try:
@@ -94,7 +95,7 @@ def downloadreport(report_name):
     except Exception as e:
         return str(e)
 
-
+@app.route("/gradereport/<user_email>", methods=['GET', 'POST'])
 def gradereport():
     if request.method == 'POST':
         reports = fetchreports()  # Implement this function to fetch reports
