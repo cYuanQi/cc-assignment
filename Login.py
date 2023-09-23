@@ -275,10 +275,6 @@ def userpage():
 def admin(user_email):
     return render_template('admin1.html', user_email=user_email)
 
-@app.route("/AddAdmin", methods=['GET', 'POST'])
-def AddAdmin():
-    return render_template('addadmin.html')
-
 # -----------------------BO XIN------------------------------------
 
 table = 'lecturer'
