@@ -206,13 +206,65 @@ def approve_or_reject_company():
 def assignsupervisor():
     return render_template('assign-supervisor.html')
 
-@app.route("/nologin", methods = ['GET', 'POST'])
+@app.route("/nologin")
 def nologin():
-    return render_template('no_login.html')
+    return render_template('nologin.html')
+    
+@app.route("/about")
+def about():
+    return render_template('about.html')
 
-@app.route("/jobsingle", methods = ['GET', 'POST'])
+@app.route("/joblistings")
+def joblistings():
+    return render_template('job-listings.html')
+
+@app.route("/jobsingle")
 def jobsingle():
     return render_template('job-single.html')
+
+@app.route("/services")
+def services():
+    return render_template('services.html')
+
+@app.route("/servicesingle")
+def servicesingle():
+    return render_template('service-single.html')
+
+@app.route("/blog")
+def blog():
+    return render_template('blog.html')
+
+@app.route("/blogsingle")
+def blogsingle():
+    return render_template('blog-single.html')
+
+@app.route("/portfolio")
+def portfolio():
+    return render_template('portfolio.html')
+
+@app.route("/portfoliosingle")
+def portfoliosingle():
+    return render_template('portfolio-single.html')
+
+@app.route("/testimonials")
+def testimonials():
+    return render_template('testimonials.html')
+
+@app.route("/faq")
+def faq():
+    return render_template('faq.html')
+
+@app.route("/gallery")
+def gallery():
+    return render_template('gallery.html')
+
+@app.route("/contact")
+def contact():
+    return render_template('contact.html')
+
+@app.route("/login")
+def login():
+    return render_template('login.html')
 
 @app.route("/assignsupervisorProcess", methods=['GET','POST'])
 def assignsupervisorProcess():
