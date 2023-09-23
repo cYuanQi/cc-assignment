@@ -88,13 +88,13 @@ def UserLogin():
     if user_email:
         # Check the email domain to determine the role and redirect accordingly
         if user_email.endswith('@student.com'):
-            return render_template('user_page.html', user_email=user_email)
+            return redirect(url_for('user_page', user_email=user_email))
         elif user_email.endswith('@admin.com'):
             return redirect(url_for('admin', user_email=user_email))
         elif user_email.endswith('@lecturer.com'):
             return redirect(url_for('lecturer', user_email=user_email))
         elif user_email.endswith('@company.com'):
-            return render_template('company.html', user_email=user_email)
+            return redirect(url_for('company', user_email=user_email))
     else:
         # return render_template('login.html', show_msg="User does not exist")
         return render_template('login.html', show_msg="Email format invalid!")
@@ -239,9 +239,9 @@ def lecturerdetails(user_email):
 # def gradereport():
 #     return render_template('Grade.html')
 
-@app.route("/company", methods=['GET', 'POST'])
-def company():
-    return render_template('company.html')
+@app.route("/company/<user_email>", methods=['GET', 'POST'])
+def company(user_email):
+    return render_template('company1.html', user_email=user_email)
 
 @app.route("/postjob", methods=['GET', 'POST'])
 def postjob():
@@ -266,11 +266,11 @@ def studentreport():
 @app.route("/studentdetails", methods=['GET', 'POST'])
 def studentdetails():
     return render_template('student-details.html')
-
-@app.route("/userpage", methods=['GET', 'POST'])
-def userpage():
-    return render_template('user_page.html')
-
+    
+@app.route("/userpage/<user_email>", methods=['GET', 'POST'])
+def userpage(user_email):
+    return render_template('user_page1.html', user_email=user_email)
+    
 @app.route("/admin/<user_email>", methods=['GET', 'POST'])
 def admin(user_email):
     return render_template('admin1.html', user_email=user_email)
