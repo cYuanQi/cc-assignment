@@ -346,6 +346,10 @@ def gradereport(user_email):
 def updatescore(report_name):
     cursor = db_conn.cursor()
     try:
+        select_sql = "SELECT * FROM report WHERE sup_email = %s"
+        cursor.execute(select_sql, (user_email,))
+        report_details = cursor.fetchall()
+
         # Check if a grade is selected in the URL query parameters
         student_score = request.args.get('grade')
 
@@ -358,6 +362,8 @@ def updatescore(report_name):
             flash("Report graded and data updated in the database.", "success")
         else:
             flash("Please select a grade to update the score.", "error")
+
+        return render_template('Grade.html', report_details=report_details)
 
     except Exception as e:
         return str(e)
