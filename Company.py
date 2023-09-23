@@ -18,7 +18,15 @@ db_conn = connections.Connection(
     password=custompass,
     db=customdb
 )
+output = {}
+table = 'job_table'
 
+
+ALLOWED_EXTENSIONS = {'pdf'}
+
+# Function to check if a filename has an allowed extension
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
@@ -36,7 +44,7 @@ def postjob():
         email = request.form['email']
         job_title = request.form['job_title']
         job_location = request.form['job_location']
-        job_region = request.form['job_region']
+        job_region = request.form['job_region']  
         job_type = request.form['job_type']
         job_description = request.form['job_description']
         company_name = request.form['company_name']
@@ -83,12 +91,12 @@ def postjob():
                     s3_location = '-' + s3_location
 
 
-                featured_image_object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+                object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
                     s3_location,
                     custombucket,
                     featured_image_file_name_in_s3)           
 
-                logo_object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+                object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
                     s3_location,
                     custombucket,
                     logo_file_name_in_s3)
