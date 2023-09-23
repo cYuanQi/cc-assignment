@@ -208,7 +208,7 @@ def assignsupervisor():
 
 @app.route("/nologin")
 def nologin():
-    return render_template('nologin.html')
+    return render_template('no_login.html')
     
 @app.route("/about")
 def about():
@@ -296,6 +296,10 @@ def portfolio_single_janet():
 @app.route("/portfolio_single_yq", methods=['GET', 'POST'])
 def portfolio_single_yq():
     return render_template('portfolio-single-yq.html')
+
+@app.route("/portfoliosinglejd", methods=['GET', 'POST'])
+def portfoliosinglejd():
+    return render_template('portfolio-single-jd.html')
     
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
