@@ -309,10 +309,6 @@ def downloadreport(report_name):
     try:
         report_name = request.form.get('report_name')
 
-        if not report_name:
-            flash("Report name is missing.", "error")
-            return redirect(url_for('evaluatereport', user_email=user_email))
-
         # Specify the S3 bucket name
         s3_bucket_name = custombucket
 
