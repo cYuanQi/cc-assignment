@@ -91,7 +91,7 @@ def UserLogin():
     if user_email:
         # Check the email domain to determine the role and redirect accordingly
         if user_email.endswith('@student.com'):
-            return redirect(url_for('user_page', user_email=user_email))
+            return redirect(url_for('userpage', user_email=user_email))
         elif user_email.endswith('@admin.com'):
             return redirect(url_for('admin', user_email=user_email))
         elif user_email.endswith('@lecturer.com'):
