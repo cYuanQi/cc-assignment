@@ -278,6 +278,10 @@ def userpage(user_email):
 def admin(user_email):
     return render_template('admin1.html', user_email=user_email)
 
+@app.route("/AddAdmin", methods=['GET', 'POST'])
+def AddAdmin():
+    return render_template('addadmin.html')
+
 @app.route("/portfolio_single_yq", methods=['GET', 'POST'])
 def portfolio_single_yq():
     return render_template('portfolio-single-yq.html')
