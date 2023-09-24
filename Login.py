@@ -51,6 +51,7 @@ def AddUser():
         user_role = "admin"
     elif user_email.endswith('@lecturer.com'):
         user_role = "lecturer"
+        insert_lec_sql = "INSERT INTO lecturer_details VALUE (%s, %s, '', '', '')"
     else:
         # return render_template('login.html', show_msg="User does not exist")
         return render_template('login.html', show_msg="Email format invalid!")
@@ -63,6 +64,8 @@ def AddUser():
 
     try:
         cursor.execute(insert_sql, (user_name, user_email, user_password, user_role))
+        if user_role == "lecturer":
+            cursor.execute(insert_lec_sql, (user_name, user_email))
         db_conn.commit()
 
     except Exception as e:
