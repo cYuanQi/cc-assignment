@@ -282,6 +282,10 @@ def admin(user_email):
 def AddAdmin():
     return render_template('addadmin.html')
 
+@app.route("/CompanyConfStudApp", methods=['GET', 'POST'])
+def CompanyConfStudApp():
+    return render_template('CompanyConfStudApp.html')
+
 @app.route("/portfolio_single_yq", methods=['GET', 'POST'])
 def portfolio_single_yq():
     return render_template('portfolio-single-yq.html')
